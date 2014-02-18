@@ -17,7 +17,7 @@ get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.crit
 	#---- <remove NA if appropriate> ----
 	if (na.rm){
 		na.idx	<-	is.na(data.in)
-		outlier.na.rm	<-	vector(length=length(data.in))
+		outlier.na.rm	<-	as.logical(data.in*FALSE)
 		outlier.na.rm[na.idx]	<-	TRUE
 		data.in	<-	data.in[!na.idx] # need to handle zero length
 	}
