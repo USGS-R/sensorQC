@@ -21,12 +21,7 @@ get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.crit
 	#---- </remove NA if appropriate> ----
 	
 	#---- <call outlier detection> ----
-	if (method=='median.absolute.deviation'){
-		outlier.indices	<-	outliersMAD(data.in,reject.criteria=reject.criteria)
-		
-	} else {
-		stop(paste('method',method,'not supported by this function',sep=' '))
-	}
+	outlier.indices	<-	do.call(method,list(data.in=data.in,reject.criteria=reject.criteria))
 	#---- </call outlier detection> ----
 	
 	if (na.rm){
@@ -37,7 +32,7 @@ get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.crit
 	return(outlier.indices)
 }
 
-outliersMAD	<-	function(data.in,reject.criteria){
+median.absolute.deviation	<-	function(data.in,reject.criteria){
 	b = 1.4826		# assuming a normal distribution
 	# from Huber 1981:
 	med.val	<-	median(data.in)					# median of the input data
