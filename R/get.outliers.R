@@ -9,6 +9,11 @@ get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.crit
 	}
 	#---- </test input data> ----
 	
+	#currently does not support multi-dimensional arrays
+	if (!is.null(dim(data.in))){
+		stop('function only currently supports 1D vectors')
+	}
+	
 	#---- <remove NA if appropriate> ----
 	if (na.rm){
 		na.idx	<-	is.na(data.in)
