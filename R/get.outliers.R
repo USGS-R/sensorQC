@@ -1,6 +1,6 @@
-get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.criteria=3){
+get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.criteria=3,na.rm=FALSE){
 	# returns boolean array, equal in size to data.in, with outlier=T or F
-	# NAs are treated as outliers
+	# NAs are treated as outliers ONLY if na.rm=TRUE
 	
 	
 	# what is the underlying distribution? (important for assigning "b")
@@ -11,6 +11,14 @@ get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.crit
 	}
 	#---- </test input data> ----
 	
+	#---- <remove NA if appropriate> ----
+	if (na.rm){
+		na.idx	<-	is.na(data.in)
+		outlier.na.rm	<-	vector(length=length(data.in))
+		outlier.na.rm[na.idx]	<-	TRUE
+		data.in	<-	data.in[!na.idx] # need to handle zero length
+	}
+	#---- </remove NA if appropriate> ----
 	
 	#---- <call outlier detection> ----
 	if (method=='median.absolute.deviation'){
@@ -21,6 +29,10 @@ get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.crit
 	}
 	#---- </call outlier detection> ----
 	
+	if (na.rm){
+		outlier.na.rm[!na.idx] <- outlier.indices	# assumes same order. The rest should be TRUE
+		outlier.indices	<-	outlier.na.rm
+	}
 	
 	return(outlier.indices)
 }
