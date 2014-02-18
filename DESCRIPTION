@@ -1,0 +1,20 @@
+Package: sensorQC
+Type: Package
+Title: sensorQC
+Version: 0.1.0
+Date: 2013-07-23
+Author: Jordan S Read, Brad Garner, Brian Pellerin
+Maintainer: Jordan S Read <jread@usgs.gov>
+Description: tools for QAQCing water quality sensor data.
+License: file LICENSE
+Copyright: This software is in the public domain because it contains materials
+    that originally came from the United States Geological Survey, an agency of
+    the United States Department of Interior. For more information, see the
+    official USGS copyright policy at
+    http://www.usgs.gov/visual-id/credit_usgs.html#copyright
+Collate:
+    'get.outliers.R'
+Depends:
+    R (>= 2.15.0)
+LazyLoad: yes
+LazyData: yes
