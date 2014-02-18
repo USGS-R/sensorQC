@@ -21,7 +21,10 @@ get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.crit
 	#---- </remove NA if appropriate> ----
 	
 	#---- <call outlier detection> ----
-	outlier.indices	<-	do.call(method,list(data.in=data.in,reject.criteria=reject.criteria))
+	# has error handling if method is not supported
+	outlier.indices	<-	do.call(match.fun(method),list(data.in=data.in,reject.criteria=reject.criteria))
+
+	
 	#---- </call outlier detection> ----
 	
 	if (na.rm){
