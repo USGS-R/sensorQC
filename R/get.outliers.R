@@ -2,9 +2,7 @@ get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.crit
 	# returns boolean array, equal in size to data.in, with outlier=T or F
 	# NAs are treated as outliers ONLY if na.rm=TRUE
 	
-	
-	# what is the underlying distribution? (important for assigning "b")
-	
+
 	#---- <test input data> ----
 	if (!is.numeric(data.in)){
 		stop("input data must be of type 'numeric'")
@@ -23,9 +21,8 @@ get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.crit
 	#---- <call outlier detection> ----
 	# has error handling if method is not supported
 	outlier.indices	<-	do.call(match.fun(method),list(data.in=data.in,reject.criteria=reject.criteria))
-
-	
 	#---- </call outlier detection> ----
+
 	
 	if (na.rm){
 		outlier.na.rm[!na.idx] <- outlier.indices	# assumes same order. The rest should be TRUE
@@ -36,6 +33,9 @@ get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.crit
 }
 
 median.absolute.deviation	<-	function(data.in,reject.criteria){
+	
+	# what is the underlying distribution? (important for assigning "b")
+	
 	b = 1.4826		# assuming a normal distribution
 	# from Huber 1981:
 	med.val	<-	median(data.in)					# median of the input data
