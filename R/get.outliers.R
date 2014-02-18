@@ -4,7 +4,7 @@ get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.crit
 	
 
 	#---- <test input data> ----
-	if (!is.numeric(data.in)){
+	if (!is.numeric(data.in) & !all(is.na(data.in))){
 		stop("input data must be of type 'numeric'")
 	}
 	#---- </test input data> ----
