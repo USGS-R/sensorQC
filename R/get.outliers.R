@@ -1,8 +1,8 @@
-get.outliers	<- 	function(data.in,method='median.absolute.deviation'){
+get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.criteria=3){
 	# returns boolean array, equal in size to data.in, with outlier=T or F
 	# NAs are treated as outliers
 	
-	# what is the underlying distribution?
+	# what is the underlying distribution? (important for assigning "b")
 	
 	#---- <test input data> ----
 	if (!is.numeric(data.in)){
@@ -14,8 +14,18 @@ get.outliers	<- 	function(data.in,method='median.absolute.deviation'){
 	#---- <call outlier detection> ----
 	if (method=='median.absolute.deviation'){
 		# from Huber 1981:
-		b = 1.4826
-		MAD	<-	b*median(data.in)*()
+		med.val	<-	median(data.in)					# median of the input data
+		abs.med.diff	<-	abs(data.in-med.val)	# absolute values minus med
+		abs.med	<-	median(abs.med.diff)			# median of these values
+
+		b = 1.4826		# assuming a normal distribution
+		MAD	<-	b*abs.med
+		
+		reject.high	<-	med.val+reject.criteria*MAD
+		reject.low	<-	med.val-reject.criteria*MAD
+		outlier.indices	<-	(data.in>reject.high | data.in<reject.low)
+		
+		
 	} else {
 		stop(paste('method',method,'not supported by this function',sep=' '))
 	}
