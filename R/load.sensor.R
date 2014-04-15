@@ -1,4 +1,4 @@
-load.sensor <- function(filename='../data/test_data.txt',format='Pellerin'){
+load.sensor <- function(filename='../examples/test_data.txt',format='Pellerin'){
   
   if (format=='Pellerin'){
     data.out <- read.pellerin(filename)
