@@ -7,6 +7,7 @@ read.pellerin <- function(filename='../data/test_data.txt'){
   # tab delimited with 4 header lines
   
   num.head <- 4
+  t.step <- 1 #seconds, time between samples on the same row
   delim <- '\t'
   c <- file(filename,"r") #
   
@@ -23,7 +24,13 @@ read.pellerin <- function(filename='../data/test_data.txt'){
     # for each line, first val is dateTime, second is "record"
     line <- fileLines[i]
     line.vals <- strsplit(line,split=delim)
-    date.1 <- as.Date(line.vals[[1]][1],"%m/%d/%Y")
+    date.1 <- as.POSIXct(strptime(line.vals[[1]][1],"%m/%d/%Y %H:%M"))
+    dat.vals <- line.vals[[1]][c(-1,-2)] # only values (no dates or record number)
+    num.dat <- length(dat.vals)
+    data.out$sensor.obs[cnt:(cnt+num.dat-1)] <- dat.vals
+    data.out$DateTime[cnt:(cnt+num.dat-1)] <- seq(from=date.1,by="secs",length.out=num.dat)
+    
+    cnt=cnt+num.dat
   }
   
   # should we also return metadata?
