@@ -1,5 +1,6 @@
 get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.criteria=3,na.rm=FALSE){
-	# returns boolean array, equal in size to data.in, with outlier=T or F
+	
+  # returns boolean array, equal in size to data.in, with outlier=T or F
 	# NAs are treated as outliers ONLY if na.rm=TRUE
 	
 
