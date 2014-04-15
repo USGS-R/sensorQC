@@ -1,1 +1,1 @@
-export(get.outliers)
+export(get.outliers,load.sensor)
