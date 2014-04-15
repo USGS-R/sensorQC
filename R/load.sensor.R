@@ -1,4 +1,4 @@
-load.sensor <- function(filename,format='Pellerin'){
+load.sensor <- function(filename='../data/test_data.txt',format='Pellerin'){
   
   if (format=='Pellerin'){
     data.out <- read.pellerin(filename)
@@ -9,7 +9,7 @@ load.sensor <- function(filename,format='Pellerin'){
   return(data.out)
 }
 
-read.pellerin <- function(filename='../data/test_data.txt'){
+read.pellerin <- function(filename){
   # tab delimited with 4 header lines
   
   num.head <- 4
