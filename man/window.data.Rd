@@ -4,12 +4,12 @@
 \title{Breaks up time series data into window chunks}
 \description{Breaks up time series data into window chunks}
 \usage{
-data <- load.sensor(filename,format="Pellerin")
+data.out <- window.data(data.in,window=30)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{data.in}{a data.frame of time series data}
-  \item{window}{a Date object}
+  \item{window}{numeric, in seconds, specifying the window time width}
 }
 \value{
 a list of time series data and indices for breaks
