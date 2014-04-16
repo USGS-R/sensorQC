@@ -17,6 +17,7 @@ Collate:
     'load.sensor.R'
     'window.data.R'
     'exclude.outliers.R'
+    'build.flags.R'
 Depends:
     R (>= 2.15.0)
 LazyLoad: yes
