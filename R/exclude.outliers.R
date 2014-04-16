@@ -1,4 +1,4 @@
-exclude.outliers <- function(data.in,flags,write.log=TRUE){
+exclude.outliers <- function(data.in,flags,exclude.flags,write.log=TRUE){
   
   # takes in data and data flags, gets rid of outliers, writes log file if applicable
   
