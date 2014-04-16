@@ -13,5 +13,6 @@ exclude.outliers <- function(data.in,data.flags,exclude.flags,write.log=TRUE){
   if (write.log){
     # call write log here..
   }
+  
   return(data.out)
 }
