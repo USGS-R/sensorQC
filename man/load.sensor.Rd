@@ -4,7 +4,7 @@
 \title{loads sensor data into data.frame according to the file format specified.}
 \description{Loads sensor data into data.frame}
 \usage{
-outliers <- load.sensor(filename,format="Pellerin")
+data.out <- load.sensor(filename,format="Pellerin")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
