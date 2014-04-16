@@ -16,6 +16,18 @@ data.out <- exclude.outliers(data.in,data.flags,exclude.flags,write.log=TRUE)
 \value{
 A data.frame with DateTime and values
 }
+\examples{
+
+dates <- seq(as.POSIXct('1999-01-01'),by=1,length.out=12)
+values <- runif(12,2,4)
+data.in <- data.frame("DateTime"=dates,"sensor.obs"=values)
+
+data.flags <- c(0,0,0,0,4,0,3,0,3,0,0,0)
+exclude.flags <- c(1,4) # only exclude type 1 and type 4 flags
+
+exclude.outliers(data.in,data.flags,exclude.flags,write.log=F)
+
+}
 \author{
 Jordan S. Read
 }
