@@ -14,6 +14,15 @@ data.out <- load.sensor(filename,format="Pellerin")
 \value{
 A data.frame with DateTime and values
 }
+\examples{
+
+filename <- '../examples/test_data.txt'
+
+data.out <- load.sensor(filename,format="Pellerin")
+print(data.out)
+
+}
+
 \author{
 Jordan S. Read
 }
