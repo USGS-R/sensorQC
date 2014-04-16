@@ -16,6 +16,7 @@ Collate:
     'get.outliers.R'
     'load.sensor.R'
     'window.data.R'
+    'exclude.outliers.R'
 Depends:
     R (>= 2.15.0)
 LazyLoad: yes

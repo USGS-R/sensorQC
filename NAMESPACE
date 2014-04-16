@@ -1,1 +1,1 @@
-export(get.outliers,load.sensor,window.data)
+export(get.outliers,load.sensor,window.data,exclude.outliers)
