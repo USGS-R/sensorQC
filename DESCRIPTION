@@ -15,6 +15,7 @@ Copyright: This software is in the public domain because it contains materials
 Collate:
     'get.outliers.R'
     'load.sensor.R'
+    'window.data.R'
 Depends:
     R (>= 2.15.0)
 LazyLoad: yes
