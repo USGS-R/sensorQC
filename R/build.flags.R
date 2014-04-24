@@ -15,8 +15,19 @@ build.flags <- function(data.in,params){
   rplc.val = 2
   data.flags[data.in$sensor.obs==999999] <- rplc.val
   
+  # window data
+  windowed.data <- window.data(data.in=data.in,method="auto")
+  
   # MAD (if applicable) check
   rplc.val = 3
+  un.blcks <- unique(windowed.data$block.ID)
+  for (i in seq_len(length(un.blcks))){
+    use.i <- which(windowed.data$block.ID==un.blcks[i] & data.flags==0) # ignore values that are already flagged
+    check.dat <- windowed.data$sensor.obs[use.i]
+    mad.flag <- get.outliers(check.dat,method='median.absolute.deviation',reject.criteria=2.5,na.rm=FALSE)
+    data.flags[use.i[mad.flag]] <- rplc.val
+  }
+  
   # call window.data, then get.outliers, etc. *USE params*
   
   
