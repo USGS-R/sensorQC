@@ -22,7 +22,7 @@ read.pellerin <- function(filename){
   close(c)
   
   blank.vec <- vector(length=(length(fileLines)*60))*NA # will be too large, trim later
-  blank.date <- rep(as.Date('1900-01-01'),(length(fileLines)*60))
+  blank.date <- rep(as.POSIXct('1900-01-01'),(length(fileLines)*60))
   data.out <- data.frame("DateTime"=blank.date,"sensor.obs"=blank.vec)
   
   cnt = 1
