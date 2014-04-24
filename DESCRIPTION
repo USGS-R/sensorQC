@@ -20,6 +20,7 @@ Collate:
     'build.flags.R'
     'block.stats.R'
     'init.sensor.R'
+    'clean.data.R'
 Depends:
     R (>= 2.15.0)
 LazyLoad: yes
