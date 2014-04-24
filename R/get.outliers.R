@@ -5,7 +5,7 @@ get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.crit
 	
 
 	#---- <test input data> ----
-	if (!is.numeric(data.in) & !all(is.na(data.in))){
+	if (!is.numeric(data.in) & all(is.na(data.in))){
 		stop("input data must be of type 'numeric'")
 	}
 	#---- </test input data> ----
@@ -39,7 +39,7 @@ get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.crit
 }
 
 median.absolute.deviation	<-	function(data.in,reject.criteria){
-	
+  # does this method have to be public?	
 	# what is the underlying distribution? (important for assigning "b")
 	
 	b = 1.4826		# assuming a normal distribution
