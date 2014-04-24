@@ -1,5 +1,6 @@
-block.stats <- function(windowed.data,data.flags,params){
+block.stats <- function(windowed.data,data.flags,params,rmv.cv=TRUE){
   
+  #exclude flags should come from params..
   clean.data <- exclude.outliers(data.in=windowed.data,data.flags,exclude.flags=c(1,2,3),write.log=FALSE)
   
   un.blcks <- unique(clean.data$block.ID)
@@ -14,9 +15,13 @@ block.stats <- function(windowed.data,data.flags,params){
     block.out$CV[i] <- co.var(clean.data$sensor.obs[use.i])
   }
   
-  block.rmv <- get.outliers(block.out$CV,method="median.absolute.deviation",reject.criteria=2.5,na.rm=T)
+  if (rmv.cv){
+    block.rmv <- get.outliers(block.out$CV,method="median.absolute.deviation",reject.criteria=3,na.rm=T)
+    block.out = block.out[!block.rmv, ]
+  }
   
   
+  return(block.out)
 }
 
 co.var <- function(x) {
