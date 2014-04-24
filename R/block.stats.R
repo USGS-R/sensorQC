@@ -11,6 +11,14 @@ block.stats <- function(windowed.data,data.flags,params){
     use.i <- which(clean.data$block.ID==un.blcks[i])
     block.out$DateTime[i] <- mean(clean.data$DateTime[use.i])
     block.out$sensor.obs[i] <- mean(clean.data$sensor.obs[use.i])
-    
+    block.out$CV[i] <- co.var(clean.data$sensor.obs[use.i])
   }
+  
+  block.rmv <- get.outliers(block.out$CV,method="median.absolute.deviation",reject.criteria=2.5,na.rm=T)
+  
+  
+}
+
+co.var <- function(x) {
+  100*sd(x)/mean(x)
 }
