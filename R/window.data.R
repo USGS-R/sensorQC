@@ -1,4 +1,4 @@
-window.data <- function(data.in,method="auto",window=30){
+window.data <- function(data.in,method="auto",window=NULL){
   
   # breaks up data into time-windowed chunks
   # returns a list of breaks
