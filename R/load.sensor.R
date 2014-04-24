@@ -21,9 +21,7 @@ read.pellerin <- function(filename){
   fileLines <- readLines(c)
   close(c)
   
-  blank.vec <- vector(length=(length(fileLines)*60))*NA # will be too large, trim later
-  blank.date <- rep(as.POSIXct('1900-01-01'),(length(fileLines)*60))
-  data.out <- data.frame("DateTime"=blank.date,"sensor.obs"=blank.vec)
+  data.out <- init.sensor(length.out=length(fileLines)*60)
   
   cnt = 1
   for (i in (num.head+1):length(fileLines)){
