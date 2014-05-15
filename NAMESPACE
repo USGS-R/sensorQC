@@ -1,1 +1,1 @@
-export(get.outliers,load.sensor,window.data,exclude.outliers,build.flags,block.stats,init.sensor,clean.data)
+export(load.sqc)

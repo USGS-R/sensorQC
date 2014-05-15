@@ -21,6 +21,7 @@ Collate:
     'block.stats.R'
     'init.sensor.R'
     'clean.data.R'
+    'load.sqc.R'
 Depends:
     R (>= 2.15.0)
 LazyLoad: yes
