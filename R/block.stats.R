@@ -1,7 +1,7 @@
-block.stats <- function(windowed.data,data.flags,params,rmv.cv=TRUE){
+block.stats <- function(windowed.data,data.flags,params,rmv.cv=TRUE,exclude.flags=c(1,2,3)){
   
   #exclude flags should come from params..
-  clean.data <- exclude.outliers(data.in=windowed.data,data.flags,exclude.flags=c(1,2,3),write.log=FALSE)
+  clean.data <- exclude.outliers(data.in=windowed.data,data.flags,exclude.flags,write.log=FALSE)
   
   un.blcks <- unique(clean.data$block.ID)
 
