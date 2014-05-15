@@ -1,2 +1,4 @@
+export(build.flags)
+export(exclude.outliers)
 export(load.sensor)
 export(load.sqc)

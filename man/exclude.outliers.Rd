@@ -1,35 +1,39 @@
 \name{exclude.outliers}
 \alias{exclude.outliers}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{removes outliers according to flags.}
-\description{removes outliers according to flags}
+\title{removes outliers according to flags}
 \usage{
-data.out <- exclude.outliers(data.in,data.flags,exclude.flags,write.log=TRUE)
+  data.out <-
+    exclude.outliers(data.in,data.flags,exclude.flags,write.log=TRUE)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{data.in}{a time series data.frame}
-  \item{data.flags}{a numeric vector (same length as ncols in data.in) containing data flags}
-  \item{exclude.flags}{filter for the type of flags to remove vs ignore}
-  \item{write.log}{boolean to determine whether log file is written}
+  \item{\code{data.in}}{a time series data.frame}
+
+  \item{\code{data.flags}}{a numeric vector (same length as
+  ncols in data.in) containing data flags}
+
+  \item{\code{exclude.flags}}{filter for the type of flags
+  to remove vs ignore}
+
+  \item{\code{write.log}}{boolean to determine whether log
+  file is written}
 }
 \value{
-A data.frame with DateTime and values
+  A data.frame with DateTime and values
+}
+\description{
+  removes outliers according to flags.  \cr
 }
 \examples{
-
 dates <- seq(as.POSIXct('1999-01-01'),by=1,length.out=12)
 values <- runif(12,2,4)
 data.in <- data.frame("DateTime"=dates,"sensor.obs"=values)
-
 data.flags <- c(0,0,0,0,4,0,3,0,3,0,0,0)
 exclude.flags <- c(1,4) # only exclude type 1 and type 4 flags
 
 exclude.outliers(data.in,data.flags,exclude.flags,write.log=F)
-
 }
 \author{
-Jordan S. Read
+  Jordan S. Read
 }
+\keyword{outliers}
 
-\keyword{filter}
