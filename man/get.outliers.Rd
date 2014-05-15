@@ -1,23 +1,43 @@
 \name{get.outliers}
 \alias{get.outliers}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{gets outlier values according to the method chosen}
-\description{gets outlier values according to the method chosen}
+\title{gets outlier values}
 \usage{
-outliers <- get.outliers(data.in,method='median.absolute.deviation',reject.criteria=3,na.rm=FALSE)
+  outliers <-
+    get.outliers(data.in,method='median.absolute.deviation',reject.criteria=3,na.rm=FALSE)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{data.in}{a numeric or vector array}
-  \item{method}{a string which matches a valid outlier detection method}
-  \item{reject.criteria}{a numeric value to determine the stringency of the outlier detection criteria. Miller (1991) proposes the values of 3 (very conservative), 2.5 (moderately conserva- tive) or even 2 (poorly conservative)}
-  \item{na.rm}{boolean to determine if NAs should be removed before analysis. If TRUE, NAs will be outlier=TRUE.}
+  \item{\code{data.in}}{a time series data.frame}
+
+  \item{\code{method}}{a string which matches a valid
+  outlier detection method}
+
+  \item{\code{reject.criteria}}{a numeric value to
+  determine the stringency of the outlier detection
+  criteria. Miller (1991) proposes the values of 3 (very
+  conservative), 2.5 (moderately conserva- tive) or even 2
+  (poorly conservative)}
+
+  \item{\code{na.rm}}{boolean to determine if NAs should be
+  removed before analysis. If TRUE, NAs will be
+  outlier=TRUE.}
 }
 \value{
-boolean array, equal in size to data.in, with outlier=T or F
+  A data.frame with DateTime and values
+}
+\description{
+  gets outlier values according to the method chosen.  \cr
+}
+\examples{
+dates <- seq(as.POSIXct('1999-01-01'),by=1,length.out=12)
+values <- runif(12,2,4)
+data.in <- data.frame("DateTime"=dates,"sensor.obs"=values)
+data.flags <- c(0,0,0,0,4,0,3,0,3,0,0,0)
+exclude.flags <- c(1,4) # only exclude type 1 and type 4 flags
+
+exclude.outliers(data.in,data.flags,exclude.flags,write.log=F)
 }
 \author{
-Jordan S. Read
+  Jordan S. Read
 }
-
 \keyword{outliers}
+

@@ -1,3 +1,28 @@
+#'@title gets outlier values
+#'@description 
+#'gets outlier values according to the method chosen.  \cr
+#'
+#'@usage
+#'outliers <- get.outliers(data.in,method='median.absolute.deviation',reject.criteria=3,na.rm=FALSE)
+#'
+#'@param \code{data.in} a time series data.frame
+#'@param \code{method} a string which matches a valid outlier detection method
+#'@param \code{reject.criteria} a numeric value to determine the stringency of the outlier detection criteria. Miller (1991) proposes the values of 3 (very conservative), 2.5 (moderately conserva- tive) or even 2 (poorly conservative)
+#'@param \code{na.rm} boolean to determine if NAs should be removed before analysis. If TRUE, NAs will be outlier=TRUE.
+#'@return A data.frame with DateTime and values
+#'@keywords outliers
+#'@author
+#'Jordan S. Read
+#'@examples 
+#'dates <- seq(as.POSIXct('1999-01-01'),by=1,length.out=12)
+#'values <- runif(12,2,4)
+#'data.in <- data.frame("DateTime"=dates,"sensor.obs"=values)
+#'data.flags <- c(0,0,0,0,4,0,3,0,3,0,0,0)
+#'exclude.flags <- c(1,4) # only exclude type 1 and type 4 flags
+#'
+#'exclude.outliers(data.in,data.flags,exclude.flags,write.log=F)
+#'@export
+
 get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.criteria=3,na.rm=FALSE){
 	
   # returns boolean array, equal in size to data.in, with outlier=T or F
