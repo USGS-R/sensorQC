@@ -1,3 +1,16 @@
+#'@title window sensorQC data
+#'@description 
+#'Breaks up time series data into window chunks.  \cr
+#'@usage
+#'data.out <- window.data(data.in,method="auto",window=NULL)
+#'@param \code{data.in} a data.frame of time series data
+#'@param \code{method} A string. "auto" or "manual" supported.
+#'@param \code{window} numeric, in seconds, specifying the window time width
+#'@return a list of time series data and indices for breaks
+#'@keywords window
+#'@author
+#'Jordan S. Read
+#'@export
 window.data <- function(data.in,method="auto",window=NULL){
   
   # breaks up data into time-windowed chunks

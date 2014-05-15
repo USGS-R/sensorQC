@@ -1,21 +1,27 @@
 \name{window.data}
 \alias{window.data}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{Breaks up time series data into window chunks}
-\description{Breaks up time series data into window chunks}
+\title{window sensorQC data}
 \usage{
-data.out <- window.data(data.in,window=30)
+  data.out <-
+    window.data(data.in,method="auto",window=NULL)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{data.in}{a data.frame of time series data}
-  \item{window}{numeric, in seconds, specifying the window time width}
+  \item{\code{data.in}}{a data.frame of time series data}
+
+  \item{\code{method}}{A string. "auto" or "manual"
+  supported.}
+
+  \item{\code{window}}{numeric, in seconds, specifying the
+  window time width}
 }
 \value{
-a list of time series data and indices for breaks
+  a list of time series data and indices for breaks
+}
+\description{
+  Breaks up time series data into window chunks.  \cr
 }
 \author{
-Jordan S. Read
+  Jordan S. Read
 }
-
 \keyword{window}
+
