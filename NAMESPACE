@@ -1,1 +1,2 @@
+export(load.sensor)
 export(load.sqc)
