@@ -8,6 +8,8 @@
 #'@param \code{folder} folder path for config file
 #'@return a sqc object
 #'@keywords sqc
+#'@author
+#'Jordan S. Read
 #'@examples 
 #'sqc <- load.sqc(deploy.name='pellerin',folder='../examples/')
 #'@export
