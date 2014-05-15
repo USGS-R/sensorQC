@@ -5,7 +5,7 @@
   data.out <- load.sensor(filename,format="Pellerin")
 }
 \arguments{
-  \item{\code{filename}{} a string}
+  \item{\code{filename}}{a string}
 
   \item{\code{format}}{a string which matches a valid
   sensor data format}
@@ -21,6 +21,9 @@
 filename <- '../examples/test_data.txt'
 data.out <- load.sensor(filename,format="Pellerin")
 print(data.out)
+}
+\author{
+  Jordan S. Read
 }
 \keyword{sqc}
 

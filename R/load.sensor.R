@@ -6,10 +6,12 @@
 #'@usage
 #'data.out <- load.sensor(filename,format="Pellerin")
 #'
-#'@param \code{filename } a string
+#'@param \code{filename} a string
 #'@param \code{format} a string which matches a valid sensor data format
 #'@return A data.frame with DateTime and values
 #'@keywords sqc
+#'@author
+#'Jordan S. Read
 #'@examples 
 #'filename <- '../examples/test_data.txt'
 #'data.out <- load.sensor(filename,format="Pellerin")
