@@ -1,0 +1,27 @@
+\name{persistent}
+\alias{persistent}
+\title{tests for sequentially repeated values}
+\usage{
+  persistent(data.in, expr = "n > 10")
+}
+\arguments{
+  \item{\code{data.in}}{a \code{sensorQC} data.frame.}
+
+  \item{\code{expr}}{a valid expression as a string (e.g.,
+  n>10)}
+}
+\value{
+  a vector of booleans for flags for this test
+}
+\description{
+  tests for sequentially repeated values
+}
+\details{
+  a \code{sensorQC} function for creating flags based on
+  repeated sequential values.\cr
+}
+\author{
+  Jordan S. Read
+}
+\keyword{persistent}
+

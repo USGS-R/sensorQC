@@ -22,6 +22,7 @@ Collate:
     'init.sensor.R'
     'clean.data.R'
     'load.sqc.R'
+    'flag.functions.R'
 Depends:
     R (>= 2.15.0)
 LazyLoad: yes
