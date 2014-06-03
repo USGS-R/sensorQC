@@ -1,7 +1,7 @@
 #'@title threshold tests according to expected format
 #'@details a \code{sensorQC} function for creating flags based on threshold exceedence.\cr 
 #'
-#'@param \code{data.in} name of config file (proceeding *.sqc extension).
+#'@param \code{data.in} a \code{sensorQC} data.frame.
 #'@param \code{expr} a valid expression as a string
 #'@return a vector of booleans for flags for this test
 #'@keywords threshold
@@ -23,8 +23,8 @@ generic.sqc <- function(vals,expr){
 #'@title tests for value equal to a known error code
 #'@details a \code{sensorQC} function for creating flags based on error code matches.\cr 
 #'
-#'@param \code{data.in} name of config file (proceeding *.sqc extension).
-#'@param \code{expr} a valid expression as a string (e.g., n==10)
+#'@param \code{data.in} a \code{sensorQC} data.frame.
+#'@param \code{expr} a valid expression as a string (e.g., x==-999)
 #'@return a vector of booleans for flags for this test
 #'@keywords error_code
 #'@author
@@ -34,20 +34,18 @@ error_code <- function(data.in,expr='x == -999'){
   return(flags)
 }
 
-persistent <- function(data.in,expr='n == 10'){
-  
-  vals <- data.in$sensor.obs
-  test <- parse(text = expr)
-  n.vals <- length(vals)
-  vec.persist <- vector(length=n.vals)
-  # will fail if n.vals < 2...
-  for (j in 2:n.vals){
-    
-  }
-  
-  
-  data.list <- list(x=data.in$sensor.obs)
-  names(data.list) <- substr(expr,1,1)
-  flags <- eval(test, envir=data.list)
+#'@title tests for sequentially repeated values
+#'@details a \code{sensorQC} function for creating flags based on repeated sequential values.\cr 
+#'
+#'@param \code{data.in} a \code{sensorQC} data.frame.
+#'@param \code{expr} a valid expression as a string (e.g., n>10)
+#'@return a vector of booleans for flags for this test
+#'@keywords persistent
+#'@author
+#'Jordan S. Read
+persistent <- function(data.in,expr='n > 10'){  
+  tmp <- rle(data.in$sensor.obs)
+  vals <- rep(tmp$lengths,times = tmp$lengths)
+  flags <- generic.sqc(vals=vals,expr=expr)
   return(flags)
 }
