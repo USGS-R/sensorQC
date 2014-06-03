@@ -12,14 +12,6 @@ threshold <- function(data.in,expr='x > 99'){
   return(flags)
 }
 
-generic.sqc <- function(vals,expr){
-  test <- parse(text = expr)
-  data.list <- list(x=vals)
-  names(data.list) <- substr(expr,1,1)
-  flags <- eval(test, envir=data.list)
-  return(flags)
-}
-
 #'@title tests for value equal to a known error code
 #'@details a \code{sensorQC} function for creating flags based on error code matches.\cr 
 #'
@@ -47,5 +39,21 @@ persistent <- function(data.in,expr='n > 10'){
   tmp <- rle(data.in$sensor.obs)
   vals <- rep(tmp$lengths,times = tmp$lengths)
   flags <- generic.sqc(vals=vals,expr=expr)
+  return(flags)
+}
+
+stat_window <- function(windowed.data,expr){
+  
+  return(flags)
+}
+
+#'@title generic function evaluator for sqc formats
+#'@author
+#'Jordan S. Read
+generic.sqc <- function(vals,expr){
+  test <- parse(text = expr)
+  data.list <- list(x=vals)
+  names(data.list) <- substr(expr,1,1)
+  flags <- eval(test, envir=data.list)
   return(flags)
 }
