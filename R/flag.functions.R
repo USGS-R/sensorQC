@@ -44,6 +44,11 @@ persistent <- function(data.in,expr='n > 10'){
 
 stat_window <- function(windowed.data,expr){
   
+  MAD <- median.absolute.deviation(windowed.data)
+  CV <- c(1,2,3,2,2,3)#coefficient.of.variation(windowed.data)
+  
+  vals <- list("MAD"=MAD,"CV"=CV)
+  flags <- generic.sqc(vals,expr)
   return(flags)
 }
 
@@ -54,10 +59,54 @@ generic.sqc <- function(vals,expr){
   test <- parse(text = expr)
   
   if (!is.list(vals)){
-    data.list <- list(x=vals)
-    names(data.list) <- substr(expr,1,1)
+    vals <- list(x=vals)
+    names(vals) <- substr(expr,1,1)
   }
 
-  flags <- eval(test, envir=data.list)
+  flags <- eval(test, envir=vals)
   return(flags)
+}
+
+#'@title median absolute deviation outlier test
+#'@param \code{data.in} a \code{sensorQC} data.frame.
+#'@return a vector of MAD normalized values relative to an undefined rejection criteria (usually 2.5 or 3).
+#'@keywords MAD
+#'@export
+#'@author
+#'Jordan S. Read
+median.absolute.deviation  <-	function(data.in){
+  # does this method have to be public?	
+  # what is the underlying distribution? (important for assigning "b")
+  
+  b = 1.4826		# assuming a normal distribution
+  # from Huber 1981:
+  
+  call.mad <- function(data.in){
+    med.val  <-	median(data.in)					# median of the input data
+    abs.med.diff	<-	abs(data.in-med.val)	# absolute values minus med
+    abs.med	<-	median(abs.med.diff)			# median of these values
+    
+    MAD  <-	b*abs.med
+    
+    MAD.normalized <- abs.med.diff/MAD # division by zero
+    
+    MAD.normalized[is.na(MAD.normalized)] = 0 # doesn't protect against NAs that enter in data.in
+    return(MAD.normalized)
+  }
+  
+  if (is.data.frame(data.in)){
+    if (!"block.ID" %in% names(data.in)){stop("MAD can only accept numeric data, or a data.frame with the block.ID column for windowed data")}
+    MAD.out <- vector(length=nrow(data.in))
+    un.win <- unique(data.in$block.ID)
+    
+    for (i in 1:length(un.win)){
+      win.i <- un.win[i]
+      val.i <- data.in$block.ID == win.i
+      MAD.out[val.i] = call.mad(data.in$sensor.obs[val.i])
+    }
+    return(MAD.out)
+  } else {
+    return(call.mad(data.in))
+  }
+  
 }
