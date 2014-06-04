@@ -63,7 +63,7 @@ get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.crit
 	return(outlier.indices)
 }
 
-median.absolute.deviation	<-	function(data.in,reject.criteria){
+median.absolute.deviation	<-	function(data.in){
   # does this method have to be public?	
 	# what is the underlying distribution? (important for assigning "b")
 	
@@ -76,8 +76,5 @@ median.absolute.deviation	<-	function(data.in,reject.criteria){
 	
 	MAD	<-	b*abs.med
 	return(MAD)
-	#reject.high	<-	med.val+reject.criteria*MAD
-	#reject.low	<-	med.val-reject.criteria*MAD
-	#outlier.indices	<-	(data.in>reject.high | data.in<reject.low)
-	#return(outlier.indices)
+
 }
