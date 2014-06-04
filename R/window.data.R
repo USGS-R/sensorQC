@@ -38,7 +38,7 @@ auto.chunk.time <- function(data.in){
   
   windowed.data <- cbind(data.in,block.df)
   blck.i <- 1
-  for (j in 1:(nrow(data.in))){
+  for (j in 1:(nrow(data.in)-1)){
     windowed.data$block.ID[j]=blck.i # this is slow, should bind at end of call
     if (break.i[j]){
       blck.i = blck.i+1
