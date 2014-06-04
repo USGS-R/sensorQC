@@ -50,15 +50,14 @@ stat_window <- function(windowed.data,expr){
 #'@title generic function evaluator for sqc formats
 #'@author
 #'Jordan S. Read
-generic.sqc <- function(vals,expr,v.name=NULL){
+generic.sqc <- function(vals,expr){
   test <- parse(text = expr)
-  data.list <- list(x=vals)
-  if (is.null(v.name)){
-    names(data.list) <- substr(expr,1,1)
-  } else {
-    names(data.list) <- v.name
-  }
   
+  if (!is.list(vals)){
+    data.list <- list(x=vals)
+    names(data.list) <- substr(expr,1,1)
+  }
+
   flags <- eval(test, envir=data.list)
   return(flags)
 }
