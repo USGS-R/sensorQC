@@ -75,9 +75,9 @@ median.absolute.deviation	<-	function(data.in,reject.criteria){
 
 	
 	MAD	<-	b*abs.med
-	
-	reject.high	<-	med.val+reject.criteria*MAD
-	reject.low	<-	med.val-reject.criteria*MAD
-	outlier.indices	<-	(data.in>reject.high | data.in<reject.low)
-	return(outlier.indices)
+	return(MAD)
+	#reject.high	<-	med.val+reject.criteria*MAD
+	#reject.low	<-	med.val-reject.criteria*MAD
+	#outlier.indices	<-	(data.in>reject.high | data.in<reject.low)
+	#return(outlier.indices)
 }
