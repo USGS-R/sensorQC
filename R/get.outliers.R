@@ -62,7 +62,8 @@ get.outliers	<- 	function(data.in,method='median.absolute.deviation',reject.crit
 	
 	return(outlier.indices)
 }
-
+#'@author
+#'Jordan S. Read
 median.absolute.deviation	<-	function(data.in){
   # does this method have to be public?	
 	# what is the underlying distribution? (important for assigning "b")
@@ -73,8 +74,10 @@ median.absolute.deviation	<-	function(data.in){
 	abs.med.diff	<-	abs(data.in-med.val)	# absolute values minus med
 	abs.med	<-	median(abs.med.diff)			# median of these values
 
+	MAD  <-	b*abs.med
 	
-	MAD	<-	b*abs.med
-	return(MAD)
+  MAD.normalized <- abs.med.diff/MAD
+	
+	return(MAD.normalized)
 
 }
