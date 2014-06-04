@@ -30,18 +30,22 @@ auto.chunk.time <- function(data.in){
   # finds natural breaks in time sequence of data
   
   t.steps <- as.numeric(diff(data.in$DateTime))
-  break.i <- get.outliers(data.in=t.steps,method='median.absolute.deviation',reject.criteria=2.5,na.rm=T)
+  ###### re-write this!!
+  MAD.norm <- median.absolute.deviation(data.in=t.steps) # deal with NAs?
+  break.i <- MAD.norm > 2.5
   
-  block.df <- data.frame("block.ID"=vector(length=nrow(data.in))*0)
+  block.df <- data.frame("block.ID"=vector(length=nrow(data.in))*0) 
   
   windowed.data <- cbind(data.in,block.df)
   blck.i <- 1
-  for (j in 1:(nrow(data.in)-1)){
-    windowed.data$block.ID[j]=blck.i
+  for (j in 1:(nrow(data.in))){
+    windowed.data$block.ID[j]=blck.i # this is slow, should bind at end of call
     if (break.i[j]){
       blck.i = blck.i+1
     }
   }
+  
+  windowed.data$block.ID[j+1]=blck.i
   
   return(windowed.data)
 }
