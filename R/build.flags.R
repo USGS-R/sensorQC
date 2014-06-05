@@ -19,15 +19,14 @@
 #'build.flags(data.in,params=NULL)
 #'@export
 
-build.flags <- function(data.in,sqc){
+build.flags <- function(data.in,sqc,verbose=TRUE){
   
   # creates flag array based in data.in and parameters
   data.flags <- vector(length=nrow(data.in)) # vector of zeros
   for (i in 1:nrow(sqc)){
     flag.type <- as.character(sqc$QAQC_type[i])
     expression <- as.character(sqc$expression[i])
-    cat(flag.type);cat('\n')
-    flags <- flag.wrap(flag.type,data.in,expr=expression)
+    flags <- flag.wrap(flag.type,data.in,expr=expression,verbose)
     data.flags <- data.flags | flags
   }
   

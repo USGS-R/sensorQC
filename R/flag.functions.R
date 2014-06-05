@@ -1,5 +1,10 @@
-flag.wrap <- function(flag.type,data.in,expr){
-  flags  <-  do.call(match.fun(flag.type),list(data.in=data.in,expr=expr))  
+flag.wrap <- function(flag.type,data.in,expr,verbose=T){
+  flags  <-  do.call(match.fun(flag.type),list(data.in=data.in,expr=expr)) 
+  if (verbose){
+    verb.o <- paste0(flag.type,' ',expr,' created ',sum(flags), ' flags (',(sum(flags)/length(flags))*100,'%)\n')
+    cat(verb.o)
+  }
+  
   return(flags)
 }
   
