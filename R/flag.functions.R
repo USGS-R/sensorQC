@@ -113,6 +113,7 @@ median.absolute.deviation  <-  function(data.in){
 }
 call.cv <- function(data.in){
   CV <- 100*sd(data.in)/mean(data.in)
+  CV <- rep(CV,length(data.in))
   return(CV)
 }  
 coefficient.of.variation <- function(data.in){
@@ -126,7 +127,7 @@ coefficient.of.variation <- function(data.in){
     for (i in 1:length(un.win)){
       win.i <- un.win[i]
       val.i <- data.in$block.ID == win.i
-      CV.out[val.i] = call.mad(data.in$sensor.obs[val.i])
+      CV.out[val.i] = call.cv(data.in$sensor.obs[val.i])
     }
     return(CV.out)
   } else {

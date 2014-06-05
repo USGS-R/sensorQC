@@ -1,7 +1,19 @@
-block.stats <- function(windowed.data,data.flags,params,rmv.cv=TRUE,exclude.flags=c(1,2,3)){
+#'@title load in configuration file for sensorQC
+#'#'@author
+#'Jordan S. Read
+#'@examples 
+#'NULL
+#'@export
+block.stats <- function(windowed.data,data.flags=NULL,rmv.cv=TRUE){
   
   #exclude flags should come from params..
-  clean.data <- exclude.outliers(data.in=windowed.data,data.flags,exclude.flags,write.log=FALSE)
+  #clean.data <- exclude.outliers(data.in=windowed.data,data.flags,exclude.flags,write.log=FALSE)
+  if (!is.null(data.flags)){
+    clean.data <- windowed.data[!data.flags, ]
+  } else {
+    clean.data <- windowed.data
+  }
+  
   
   un.blcks <- unique(clean.data$block.ID)
 
@@ -16,7 +28,8 @@ block.stats <- function(windowed.data,data.flags,params,rmv.cv=TRUE,exclude.flag
   }
   
   if (rmv.cv){
-    block.rmv <- get.outliers(block.out$CV,method="median.absolute.deviation",reject.criteria=3,na.rm=T)
+
+    block.rmv <- call.mad(block.out$CV) > 3
     block.out = block.out[!block.rmv, ]
   }
   

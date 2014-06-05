@@ -1,7 +1,7 @@
+export(block.stats)
 export(build.flags)
 export(exclude.outliers)
 export(get.outliers)
 export(load.sensor)
 export(load.sqc)
-export(median.absolute.deviation)
 export(window.data)
