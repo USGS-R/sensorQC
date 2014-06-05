@@ -17,5 +17,12 @@
 load.sqc <- function(deploy.name,folder='../examples/'){
   # need error handling
   sqc <- read.table(paste0(folder,deploy.name,'.sqc'),sep='\t',header=T,colClasses=c("character","character","character"))
+  sqc$expression <- exp.replace(sqc$expression)
   return(sqc)
+}
+
+exp.replace <- function(expression.in){
+  
+  expression.out <- sub(pattern='=', replacement='==', x=expression.in)
+  return(expression.out)
 }
