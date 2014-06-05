@@ -18,6 +18,7 @@ load.sqc <- function(deploy.name,folder='../examples/'){
   # need error handling
   sqc <- read.table(paste0(folder,deploy.name,'.sqc'),sep='\t',header=T,colClasses=c("character","character","character"))
   sqc$expression <- exp.replace(sqc$expression)
+  sqc <- append.empty.check(sqc)
   return(sqc)
 }
 
@@ -25,4 +26,12 @@ exp.replace <- function(expression.in){
   
   expression.out <- sub(pattern='=', replacement='==', x=expression.in)
   return(expression.out)
+}
+
+append.empty.check <- function(sqc.in){
+  
+  sqc.out <- rbind(data.frame("QAQC_type"='error_code',
+                              "expression"='is.na(x)',
+                              "report_flag"='missing value'),sqc.in)
+  return(sqc.out)
 }
