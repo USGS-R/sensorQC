@@ -2,7 +2,7 @@ QAQC_type	expression	report_flag
 threshold	x < 0.01	obs below detection
 threshold	x > 99	obs above range
 persistent	n > 10	questionable persistent value
-error_code	x == 999999	logger error code
-error_code	x == -999	logger missing value code
+error_code	x = 999999	logger error code
+error_code	x = -999	logger missing value code
 stat_window	MAD > 3	median absolute deviation exceeded
 stat_window	CV > 20	coefficient of variation exceeded
