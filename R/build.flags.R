@@ -27,7 +27,7 @@ build.flags <- function(data.in,sqc){
     flag.type <- as.character(sqc$QAQC_type[i])
     expression <- as.character(sqc$expression[i])
     cat(flag.type);cat('\n')
-    flags <- flag.generic(flag.type,data.in,expr=expression)
+    flags <- flag.wrap(flag.type,data.in,expr=expression)
     data.flags <- data.flags | flags
   }
   
