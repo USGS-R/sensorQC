@@ -45,7 +45,7 @@ persistent <- function(data.in,expr='n > 10'){
 stat_window <- function(windowed.data,expr){
   
   MAD <- median.absolute.deviation(windowed.data)
-  CV <- c(1,2,3,2,2,3)#coefficient.of.variation(windowed.data)
+  CV <- coefficient.of.variation(windowed.data)
   
   vals <- list("MAD"=MAD,"CV"=CV)
   flags <- generic.sqc(vals,expr)
@@ -108,5 +108,29 @@ median.absolute.deviation  <-	function(data.in){
   } else {
     return(call.mad(data.in))
   }
+  
+}
+
+coefficient.of.variation <- function(data.in){
+  call.cv <- function(data.in){
+    CV <- 100*sd(data.in)/mean(data.in)
+    return(CV)
+  }
+  
+  if (is.data.frame(data.in)){
+    if (!"block.ID" %in% names(data.in)){stop("CV can only accept numeric data, or a data.frame with the block.ID column for windowed data")}
+    CV.out <- vector(length=nrow(data.in))
+    un.win <- unique(data.in$block.ID)
+    
+    for (i in 1:length(un.win)){
+      win.i <- un.win[i]
+      val.i <- data.in$block.ID == win.i
+      CV.out[val.i] = call.mad(data.in$sensor.obs[val.i])
+    }
+    return(CV.out)
+  } else {
+    return(call.cv(data.in))
+  }
+  
   
 }
