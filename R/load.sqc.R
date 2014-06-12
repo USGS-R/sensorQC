@@ -18,9 +18,11 @@
 load.sqc <- function(deploy.name,folder='../examples/'){
   # need error handling
   sqc <- yaml.load_file(paste0(folder,deploy.name,'.yml'))
-  for (i in 1:length(pel.sqc$outlier_removal)){
-    exp <- pel.sqc$outlier_removal[[i]]$expression
-    pel.sqc$outlier_removal[[i]]$expression <- exp.replace(exp)
+  num.outliers <- length(sqc$outlier_removal)
+  for (i in 1:num.outliers){
+    exp <- sqc$outlier_removal[[i]]$expression
+    print(exp)
+    sqc$outlier_removal[[i]]$expression <- exp.replace(exp)
   }
   return(sqc)
 }
@@ -28,6 +30,6 @@ load.sqc <- function(deploy.name,folder='../examples/'){
 exp.replace <- function(expression.in){
   
   expression.out <- sub(pattern='=', replacement='==', x=expression.in)
-  expression.out <- sub(pattern='missing(', replacement='is.na(', x=expression.in)
+  expression.out <- sub(pattern='missing', replacement='is.na', x=expression.in)
   return(expression.out)
 }
