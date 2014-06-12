@@ -67,13 +67,21 @@ stat_window <- function(data.in,expr){
 #'@author
 #'Jordan S. Read
 generic.sqc <- function(vals,expr){
-  test <- parse(text = expr)
+
+  test = tryCatch({
+    test <- parse(text = expr)
+  }, error = function(e) {
+    stop(paste0('error evaluation expression ',expr))
+  }, finally = {
+    test
+  })
   
   if (!is.list(vals)){
     vals <- list(x=vals)
     names(vals) <- substr(expr,1,1)
   }
-    flags <- eval(test, envir=vals)
+  flags <- eval(test, envir=vals)
+  
   return(flags)
 }
   
