@@ -23,7 +23,7 @@ Collate:
     'clean.data.R'
     'load.sqc.R'
     'flag.functions.R'
-Depends:
-    R (>= 2.15.0)
+Imports:
+    yaml
 LazyLoad: yes
 LazyData: yes

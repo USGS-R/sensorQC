@@ -1,0 +1,24 @@
+thresholds:
+    - expression:   x < 0.01
+      description:  obs below detection
+
+    - expression:   x > 99
+      description:  obs above range
+
+persistent:
+    - expression:   x > 10
+      description:  questionable persistent value
+
+error_code:
+    - expression:   x = 999999
+      description:  logger error code
+
+    - expression:   x = -999
+      description:  logger missing value code
+
+stat_window:
+    - expression:   CV > 5
+      description:  coefficient of variation exceeded
+
+    - expression:   MAD > 3
+      description:  median absolute deviation exceeded
