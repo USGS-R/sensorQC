@@ -29,6 +29,6 @@ load.sqc <- function(deploy.name,folder='../examples/'){
 exp.replace <- function(expression.in){
   
   expression.out <- sub(pattern='=', replacement='==', x=expression.in)
-  expression.out <- sub(pattern='missing', replacement='is.na', x=expression.in)
+  expression.out <- sub(pattern='missing', replacement='is.na', x=expression.out)
   return(expression.out)
 }

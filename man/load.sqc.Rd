@@ -6,7 +6,7 @@
 }
 \arguments{
   \item{\code{deploy.name}}{name of config file (proceeding
-  *.sqc extension).}
+  *.yml extension).}
 
   \item{\code{folder}}{folder path for config file}
 }
@@ -14,7 +14,7 @@
   a sqc object
 }
 \description{
-  Loads text file for sensorQC. Assumes *.sqc file
+  Loads text file for sensorQC. Assumes *.yml file
   extension for deployment.  \cr
 }
 \details{

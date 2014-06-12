@@ -1,24 +1,33 @@
-thresholds:
+outlier_removal:
     - expression:   x < 0.01
       description:  obs below detection
+      type:         threshold
 
     - expression:   x > 99
       description:  obs above range
-
-persistent:
+      type:         threshold
+      
     - expression:   x > 10
-      description:  questionable persistent value
-
-error_code:
+      description:  questionable persistent value  
+      type:         persistent
+      
     - expression:   x = 999999
       description:  logger error code
-
+      type:         error_code
+      
+    - expression:   missing(x)
+      description:  missing value
+      type:         error_code      
+      
     - expression:   x = -999
       description:  logger missing value code
-
-stat_window:
+      type:         error_code
+      
     - expression:   CV > 5
-      description:  coefficient of variation exceeded
+      description:  coefficient of variation exceeded   
+      type:         stat_window
 
     - expression:   MAD > 3
       description:  median absolute deviation exceeded
+      type: stat_window
+      

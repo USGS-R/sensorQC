@@ -23,9 +23,9 @@ build.flags <- function(data.in,sqc,verbose=TRUE){
   
   # creates flag array based in data.in and parameters
   data.flags <- vector(length=nrow(data.in)) # vector of zeros
-  for (i in 1:nrow(sqc)){
-    flag.type <- as.character(sqc$QAQC_type[i])
-    expression <- as.character(sqc$expression[i])
+  for (i in 1:length(sqc)){
+    flag.type <- as.character(sqc[[i]]$type)
+    expression <- as.character(sqc[[i]]$expression)
     flags <- flag.wrap(flag.type,data.in,expr=expression,verbose)
     data.flags <- data.flags | flags
   }

@@ -3,7 +3,8 @@
 \title{load in configuration file for sensorQC
 #'}
 \usage{
-  block.stats(windowed.data, data.flags, rmv.cv = TRUE)
+  block.stats(windowed.data, data.flags = NULL,
+    rmv.cv = TRUE)
 }
 \description{
   load in configuration file for sensorQC #'
