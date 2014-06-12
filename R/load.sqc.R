@@ -27,8 +27,12 @@ load.sqc <- function(deploy.name,folder='../examples/'){
 }
 
 exp.replace <- function(expression.in){
+  if (grepl(pattern='==',x=expression.in)){
+    return(expression.in)
+  } else {
+    expression.out <- sub(pattern='=', replacement='==', x=expression.in)
+    expression.out <- sub(pattern='missing', replacement='is.na', x=expression.out)
+    return(expression.out)
+  }
   
-  expression.out <- sub(pattern='=', replacement='==', x=expression.in)
-  expression.out <- sub(pattern='missing', replacement='is.na', x=expression.out)
-  return(expression.out)
 }
