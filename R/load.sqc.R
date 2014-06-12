@@ -21,7 +21,6 @@ load.sqc <- function(deploy.name,folder='../examples/'){
   num.outliers <- length(sqc$outlier_removal)
   for (i in 1:num.outliers){
     exp <- sqc$outlier_removal[[i]]$expression
-    print(exp)
     sqc$outlier_removal[[i]]$expression <- exp.replace(exp)
   }
   return(sqc)
