@@ -1,13 +1,14 @@
 #'@title load in configuration file for sensorQC
 #'@description 
-#'Loads text file for sensorQC. Assumes *.sqc file extension for deployment.  \cr
+#'Loads text file for sensorQC. Assumes *.yml file extension for deployment.  \cr
 #'
 #'@details a \code{sensorQC} function loading config.\cr 
 #'
-#'@param \code{deploy.name} name of config file (proceeding *.sqc extension).
+#'@param \code{deploy.name} name of config file (proceeding *.yml extension).
 #'@param \code{folder} folder path for config file
 #'@return a sqc object
 #'@keywords sqc
+#'@import yaml
 #'@author
 #'Jordan S. Read
 #'@examples 
@@ -16,22 +17,17 @@
 
 load.sqc <- function(deploy.name,folder='../examples/'){
   # need error handling
-  sqc <- read.table(paste0(folder,deploy.name,'.sqc'),sep='\t',header=T,colClasses=c("character","character","character"))
-  sqc$expression <- exp.replace(sqc$expression)
-  sqc <- append.empty.check(sqc)
+  sqc <- yaml.load_file(paste0(folder,deploy.name,'.yml'))
+  for (i in 1:length(pel.sqc$outlier_removal)){
+    exp <- pel.sqc$outlier_removal[[i]]$expression
+    pel.sqc$outlier_removal[[i]]$expression <- exp.replace(exp)
+  }
   return(sqc)
 }
 
 exp.replace <- function(expression.in){
   
   expression.out <- sub(pattern='=', replacement='==', x=expression.in)
+  expression.out <- sub(pattern='missing(', replacement='is.na(', x=expression.in)
   return(expression.out)
-}
-
-append.empty.check <- function(sqc.in){
-  
-  sqc.out <- rbind(data.frame("QAQC_type"='error_code',
-                              "expression"='is.na(x)',
-                              "report_flag"='missing value'),sqc.in)
-  return(sqc.out)
 }
