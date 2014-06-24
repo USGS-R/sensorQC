@@ -11,7 +11,7 @@ outlier_removal:
       description:  questionable persistent value  
       type:         persistent
       
-    - expression:   x = 999999
+    - expression:   x == 999999
       description:  logger error code
       type:         error_code
       
@@ -29,5 +29,14 @@ outlier_removal:
 
     - expression:   MAD > 3
       description:  median absolute deviation exceeded
-      type: stat_window
-      
+      type:         stat_window
+
+
+block_stats:
+    - expression:   MAD(CV) > 3
+      description:  median absolute deviation of the windowed CVs exceeded
+      type:         stat_window
+
+    - expression:   flags > 30%
+      description:  total number of values within block too low
+      type:         stat_window
