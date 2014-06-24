@@ -1,58 +1,33 @@
 flag.wrap <- function(flag.type,data.in,expr,verbose=T){
   flags  <-  do.call(match.fun(flag.type),list(data.in=data.in,expr=expr)) 
   if (verbose){
-    verb.o <- paste0(flag.type,' ',expr,' created ',sum(flags), ' flags (',(sum(flags)/length(flags))*100,'%)\n')
+    verb.o <- paste0(flag.type,' ',expr,' created ',sum(flags,na.rm = T), ' flags (',(sum(flags,na.rm = T)/length(flags))*100,'%)\n')
     cat(verb.o)
   }
   
   return(flags)
 }
-  
-#'@title threshold tests according to expected format
-#'@details a \code{sensorQC} function for creating flags based on threshold exceedence.\cr 
-#'
-#'@param data.in a \code{sensorQC} data.frame.
-#'@param expr a valid expression as a string
-#'@return a vector of booleans for flags for this test
-#'@keywords threshold
-#'@author
-#'Jordan S. Read
+#'@export
 threshold <- function(data.in,expr='x > 99'){
   flags <- generic.sqc(vals = data.in$sensor.obs,expr)
   return(flags)
 }
 
-#'@title tests for value equal to a known error code
-#'@details a \code{sensorQC} function for creating flags based on error code matches.\cr 
-#'
-#'@param data.in a \code{sensorQC} data.frame.
-#'@param expr a valid expression as a string (e.g., x==-999)
-#'@return a vector of booleans for flags for this test
-#'@keywords methods, math
-#'@author
-#'Jordan S. Read
+#'@export
 error_code <- function(data.in,expr='x == -999'){
   vals <- list('x'=as.numeric(data.in$sensor.obs))
   flags <- generic.sqc(vals = vals, expr)
   return(flags)
 }
 
-#'@title tests for sequentially repeated values
-#'@details a \code{sensorQC} function for creating flags based on repeated sequential values.\cr 
-#'
-#'@param data.in a \code{sensorQC} data.frame.
-#'@param expr a valid expression as a string (e.g., n>10)
-#'@return a vector of booleans for flags for this test
-#'@keywords methods, math
-#'@author
-#'Jordan S. Read
+#'@export
 persistent <- function(data.in,expr='n > 10'){  
   tmp <- rle(data.in$sensor.obs)
   vals <- rep(tmp$lengths,times = tmp$lengths)
   flags <- generic.sqc(vals=vals,expr=expr)
   return(flags)
 }
-
+#'@export
 stat_window <- function(data.in,expr){
   
   MAD <- median.absolute.deviation(data.in)

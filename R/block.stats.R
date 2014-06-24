@@ -1,3 +1,4 @@
+#'@export
 block.stats <- function(windowed.data,data.flags=NULL,rmv.cv=TRUE){
   
   if (!is.null(data.flags)){
