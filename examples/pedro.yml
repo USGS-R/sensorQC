@@ -1,0 +1,42 @@
+outlier_removal:
+    - expression:   x < 0.01
+      description:  obs below detection
+      type:         threshold
+
+    - expression:   x > 99
+      description:  obs above range
+      type:         threshold
+      
+    - expression:   x > 10
+      description:  questionable persistent value  
+      type:         persistent
+      
+    - expression:   x == 999999
+      description:  logger error code
+      type:         error_code
+      
+    - expression:   missing(x)
+      description:  missing value
+      type:         error_code      
+      
+    - expression:   x = -999
+      description:  logger missing value code
+      type:         error_code
+      
+    - expression:   CV > 15
+      description:  coefficient of variation exceeded   
+      type:         stat_window
+
+    - expression:   MAD > 3
+      description:  median absolute deviation exceeded
+      type:         stat_window
+
+
+block_stats:
+    - expression:   MAD(CV) > 3
+      description:  median absolute deviation of the windowed CVs exceeded
+      type:         stat_window
+
+    - expression:   flags > 30%
+      description:  total number of values within block too low
+      type:         stat_window
