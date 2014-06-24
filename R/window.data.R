@@ -2,8 +2,6 @@
 #'@name window_data
 #'@description 
 #'Breaks up time series data into window chunks.  \cr
-#'@usage
-#'data.out <- window_data(data.in,method="auto",window=NULL)
 #'@param data.in a data.frame of time series data
 #'@param method A string. "auto" or "manual" supported.
 #'@param window numeric, in seconds, specifying the window time width
