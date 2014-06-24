@@ -14,8 +14,9 @@
 #'dates <- seq(as.POSIXct('1999-01-01'),by=1,length.out=14)
 #'values <- c(runif(12,2,4),NA,NA)
 #'data.in <- data.frame("DateTime"=dates,"sensor.obs"=values)
+#'simple.sqc <- list(outlier_removal=list(expression="x == 999999",type="error_code",description="logger error code"))
 #'
-#'build.flags(data.in,params=NULL)
+#'build.flags(data.in,sqc=simple.sqc)
 #'@export
 
 build.flags <- function(data.in,sqc,verbose=TRUE){
