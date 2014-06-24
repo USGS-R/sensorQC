@@ -6,9 +6,9 @@
 load.sqc(deploy.name, folder = "../examples/")
 }
 \arguments{
-\item{\code{deploy.name}}{name of config file (proceeding *.yml extension).}
+\item{deploy.name}{name of config file (proceeding *.yml extension).}
 
-\item{\code{folder}}{folder path for config file}
+\item{folder}{folder path for config file}
 }
 \value{
 a sqc object

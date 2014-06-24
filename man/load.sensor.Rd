@@ -3,7 +3,7 @@
 \alias{load.sensor}
 \title{Loads sensor data into data.frame}
 \usage{
-data.out <- load.sensor(filename,format="Pellerin")
+load.sensor(filename = "../examples/test_data.txt", format = "Pellerin")
 }
 \arguments{
 \item{filename}{a string}
