@@ -3,7 +3,7 @@
 \alias{window_data}
 \title{window sensorQC data}
 \usage{
-data.out <- window_data(data.in,method="auto",window=NULL)
+window_data(data.in, method = "auto", window = NULL)
 }
 \arguments{
 \item{data.in}{a data.frame of time series data}
