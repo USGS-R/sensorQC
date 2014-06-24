@@ -2,13 +2,10 @@
 #'@description 
 #'removes outliers according to flags.  \cr
 #'
-#'@usage
-#'data.out <- exclude.outliers(data.in,data.flags,exclude.flags,write.log=TRUE)
-#'
-#'@param \code{data.in} a time series data.frame
-#'@param \code{data.flags} a numeric vector (same length as ncols in data.in) containing data flags
-#'@param \code{exclude.flags} filter for the type of flags to remove vs ignore
-#'@param \code{write.log} boolean to determine whether log file is written
+#'@param data.in a time series data.frame
+#'@param data.flags a numeric vector (same length as ncols in data.in) containing data flags
+#'@param exclude.flags filter for the type of flags to remove vs ignore
+#'@param write.log boolean to determine whether log file is written
 #'@return A data.frame with DateTime and values
 #'@keywords outliers
 #'@author

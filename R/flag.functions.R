@@ -11,8 +11,8 @@ flag.wrap <- function(flag.type,data.in,expr,verbose=T){
 #'@title threshold tests according to expected format
 #'@details a \code{sensorQC} function for creating flags based on threshold exceedence.\cr 
 #'
-#'@param \code{data.in} a \code{sensorQC} data.frame.
-#'@param \code{expr} a valid expression as a string
+#'@param data.in a \code{sensorQC} data.frame.
+#'@param expr a valid expression as a string
 #'@return a vector of booleans for flags for this test
 #'@keywords threshold
 #'@author
@@ -25,8 +25,8 @@ threshold <- function(data.in,expr='x > 99'){
 #'@title tests for value equal to a known error code
 #'@details a \code{sensorQC} function for creating flags based on error code matches.\cr 
 #'
-#'@param \code{data.in} a \code{sensorQC} data.frame.
-#'@param \code{expr} a valid expression as a string (e.g., x==-999)
+#'@param data.in a \code{sensorQC} data.frame.
+#'@param expr a valid expression as a string (e.g., x==-999)
 #'@return a vector of booleans for flags for this test
 #'@keywords error_code
 #'@author
@@ -40,8 +40,8 @@ error_code <- function(data.in,expr='x == -999'){
 #'@title tests for sequentially repeated values
 #'@details a \code{sensorQC} function for creating flags based on repeated sequential values.\cr 
 #'
-#'@param \code{data.in} a \code{sensorQC} data.frame.
-#'@param \code{expr} a valid expression as a string (e.g., n>10)
+#'@param data.in a \code{sensorQC} data.frame.
+#'@param expr a valid expression as a string (e.g., n>10)
 #'@return a vector of booleans for flags for this test
 #'@keywords persistent
 #'@author
@@ -63,9 +63,6 @@ stat_window <- function(data.in,expr){
   return(flags)
 }
 
-#'@title generic function evaluator for sqc formats
-#'@author
-#'Jordan S. Read
 generic.sqc <- function(vals,expr){
 
   test = tryCatch({
@@ -100,7 +97,7 @@ call.mad <- function(data.in){
   return(MAD.normalized)
 }
 #'@title median absolute deviation outlier test
-#'@param \code{data.in} a \code{sensorQC} data.frame.
+#'@param data.in a \code{sensorQC} data.frame.
 #'@return a vector of MAD normalized values relative to an undefined rejection criteria (usually 2.5 or 3).
 #'@keywords MAD
 #'@author

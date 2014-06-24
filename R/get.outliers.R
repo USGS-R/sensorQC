@@ -2,13 +2,10 @@
 #'@description 
 #'gets outlier values according to the method chosen.  \cr
 #'
-#'@usage
-#'outliers <- get.outliers(data.in,method='median.absolute.deviation',reject.criteria=3,na.rm=FALSE)
-#'
-#'@param \code{data.in} a time series data.frame
-#'@param \code{method} a string which matches a valid outlier detection method
-#'@param \code{reject.criteria} a numeric value to determine the stringency of the outlier detection criteria. Miller (1991) proposes the values of 3 (very conservative), 2.5 (moderately conserva- tive) or even 2 (poorly conservative)
-#'@param \code{na.rm} boolean to determine if NAs should be removed before analysis. If TRUE, NAs will be outlier=TRUE.
+#'@param data.in a time series data.frame
+#'@param method a string which matches a valid outlier detection method
+#'@param reject.criteria a numeric value to determine the stringency of the outlier detection criteria. Miller (1991) proposes the values of 3 (very conservative), 2.5 (moderately conserva- tive) or even 2 (poorly conservative)
+#'@param na.rm boolean to determine if NAs should be removed before analysis. If TRUE, NAs will be outlier=TRUE.
 #'@return A data.frame with DateTime and values
 #'@keywords outliers
 #'@author

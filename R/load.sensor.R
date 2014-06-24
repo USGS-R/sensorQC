@@ -3,11 +3,8 @@
 #'@description 
 #'loads sensor data into data.frame according to the file format specified.  \cr
 #'
-#'@usage
-#'data.out <- load.sensor(filename,format="Pellerin")
-#'
-#'@param \code{filename} a string
-#'@param \code{format} a string which matches a valid sensor data format
+#'@param filename a string
+#'@param format a string which matches a valid sensor data format
 #'@return A data.frame with DateTime and values
 #'@keywords sqc
 #'@author

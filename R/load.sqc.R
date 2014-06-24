@@ -4,8 +4,8 @@
 #'
 #'@details a \code{sensorQC} function loading config.\cr 
 #'
-#'@param \code{deploy.name} name of config file (proceeding *.yml extension).
-#'@param \code{folder} folder path for config file
+#'@param deploy.name name of config file (proceeding *.yml extension).
+#'@param folder folder path for config file
 #'@return a sqc object
 #'@keywords sqc
 #'@import yaml

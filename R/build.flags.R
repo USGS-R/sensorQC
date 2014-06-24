@@ -2,11 +2,10 @@
 #'@description 
 #'Creates flag vector with codes and methods according to params list.  \cr
 #'
-#'@usage
-#'data.flags <- build.flags(data.in,params)
 #'
-#'@param \code{data.in} a data.frame with columns for DateTime and sensor.obs
-#'@param \code{sqc} a sqc object with valid processing parameter names and associated values
+#'@param data.in a data.frame with columns for DateTime and sensor.obs
+#'@param sqc a sqc object with valid processing parameter names and associated values
+#'@param verbose a boolean for diagnostic prints to workspace
 #'@return a vector of flags of length equal to number of rows in data.in
 #'@keywords flags
 #'@author

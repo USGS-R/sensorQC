@@ -12,17 +12,6 @@ Copyright: This software is in the public domain because it contains materials
     the United States Department of Interior. For more information, see the
     official USGS copyright policy at
     http://www.usgs.gov/visual-id/credit_usgs.html#copyright
-Collate:
-    'get.outliers.R'
-    'load.sensor.R'
-    'window.data.R'
-    'exclude.outliers.R'
-    'build.flags.R'
-    'block.stats.R'
-    'init.sensor.R'
-    'clean.data.R'
-    'load.sqc.R'
-    'flag.functions.R'
 Imports:
     yaml
 LazyLoad: yes

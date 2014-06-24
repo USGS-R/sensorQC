@@ -4,11 +4,11 @@ clean.data <- function(sensor.file='../examples/test_data.txt'){
   sensor.data <- load.sensor(filename=sensor.file, format='Pellerin')
   cnfg <- load.sqc(deploy.name='pellerin',folder='../examples/')
   
-  windowed.data <- window.data(data.in=sensor.data)
+  windowed.data <- window_data(data.in=sensor.data)
   
   data.flags <- build.flags(data.in=windowed.data,sqc=cnfg$outlier_removal)
   
-  sensor.stats <- block.stats(windowed.data=windowed.data,data.flags=data.flags,rmv.cv=TRUE)
+  sensor.stats <- block.stats(windowed.data=windowed.data,data.flags=data.flags,rmv.cv=FALSE) # was true
   
   simple.sqc <- list(outlier_removal=list(expression="x == 999999",type="error_code",description="logger error code"))
   data.flags <- build.flags(data.in=windowed.data,sqc=simple.sqc
