@@ -7,7 +7,7 @@
 #'@param deploy.name name of config file (proceeding *.yml extension).
 #'@param folder folder path for config file
 #'@return a sqc object
-#'@keywords sqc
+#'@keywords methods
 #'@import yaml
 #'@author
 #'Jordan S. Read

@@ -25,5 +25,5 @@ sqc <- load.sqc(deploy.name='pellerin',folder='../examples/')
 \author{
 Jordan S. Read
 }
-\keyword{sqc}
+\keyword{methods}
 

@@ -22,5 +22,6 @@ a \code{sensorQC} function for creating flags based on error code matches.\cr
 \author{
 Jordan S. Read
 }
-\keyword{error_code}
+\keyword{math}
+\keyword{methods,}
 

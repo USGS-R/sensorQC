@@ -6,7 +6,7 @@
 #'@param filename a string
 #'@param format a string which matches a valid sensor data format
 #'@return A data.frame with DateTime and values
-#'@keywords sqc
+#'@keywords methods
 #'@author
 #'Jordan S. Read
 #'@examples 

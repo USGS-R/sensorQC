@@ -28,7 +28,7 @@ threshold <- function(data.in,expr='x > 99'){
 #'@param data.in a \code{sensorQC} data.frame.
 #'@param expr a valid expression as a string (e.g., x==-999)
 #'@return a vector of booleans for flags for this test
-#'@keywords error_code
+#'@keywords methods, math
 #'@author
 #'Jordan S. Read
 error_code <- function(data.in,expr='x == -999'){
@@ -43,7 +43,7 @@ error_code <- function(data.in,expr='x == -999'){
 #'@param data.in a \code{sensorQC} data.frame.
 #'@param expr a valid expression as a string (e.g., n>10)
 #'@return a vector of booleans for flags for this test
-#'@keywords persistent
+#'@keywords methods, math
 #'@author
 #'Jordan S. Read
 persistent <- function(data.in,expr='n > 10'){  

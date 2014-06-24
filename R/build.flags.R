@@ -7,7 +7,7 @@
 #'@param sqc a sqc object with valid processing parameter names and associated values
 #'@param verbose a boolean for diagnostic prints to workspace
 #'@return a vector of flags of length equal to number of rows in data.in
-#'@keywords flags
+#'@keywords methods
 #'@author
 #'Jordan S. Read
 #'@examples 

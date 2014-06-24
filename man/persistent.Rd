@@ -22,5 +22,6 @@ a \code{sensorQC} function for creating flags based on repeated sequential value
 \author{
 Jordan S. Read
 }
-\keyword{persistent}
+\keyword{math}
+\keyword{methods,}
 

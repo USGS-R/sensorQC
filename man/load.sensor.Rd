@@ -24,5 +24,5 @@ print(data.out)
 \author{
 Jordan S. Read
 }
-\keyword{sqc}
+\keyword{methods}
 
