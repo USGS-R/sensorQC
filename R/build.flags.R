@@ -14,7 +14,8 @@
 #'dates <- seq(as.POSIXct('1999-01-01'),by=1,length.out=14)
 #'values <- c(runif(12,2,4),NA,NA)
 #'data.in <- data.frame("DateTime"=dates,"sensor.obs"=values)
-#'simple.sqc <- list(outlier_removal=list(expression="x == 999999",type="error_code",description="logger error code"))
+#'simple.sqc <- list(outlier_removal=list(list(expression="x == 999999",type="error_code",description="logger error code"),
+#'              list(expression='is.na(x)',type='error_code',description='missing data')))
 #'
 #'build.flags(data.in,sqc=simple.sqc)
 #'@export
@@ -23,9 +24,9 @@ build.flags <- function(data.in,sqc,verbose=TRUE){
   
   # creates flag array based in data.in and parameters
   data.flags <- vector(length=nrow(data.in)) # vector of zeros
-  for (i in 1:length(sqc)){
-    flag.type <- as.character(sqc[[i]]$type)
-    expression <- as.character(sqc[[i]]$expression)
+  for (i in 1:length(sqc$outlier_removal)){
+    flag.type <- as.character(sqc$outlier_removal[[i]]$type)
+    expression <- as.character(sqc$outlier_removal[[i]]$expression)
     flags <- flag.wrap(flag.type,data.in,expr=expression,verbose)
     data.flags <- data.flags | flags
   }

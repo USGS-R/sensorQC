@@ -1,22 +1,23 @@
-clean.data <- function(sensor.file='../examples/test_data.txt'){
+clean.data <- function(sensor.file='../examples/test_data.txt',fl.format='Pellerin',deploy='pedro'){
   #is an example wrapper for sensorQC calls 
   
-  sensor.data <- load.sensor(filename=sensor.file, format='Pellerin')
-  cnfg <- load.sqc(deploy.name='pellerin',folder='../examples/')
+  sensor.data <- load.sensor(filename=sensor.file, format=fl.format)
+  cnfg <- load.sqc(deploy.name=deploy,folder='../examples/')
   
   windowed.data <- window_data(data.in=sensor.data)
   
-  data.flags <- build.flags(data.in=windowed.data,sqc=cnfg$outlier_removal)
+  data.flags <- build.flags(data.in=windowed.data,sqc=cnfg)
   
   sensor.stats <- block.stats(windowed.data=windowed.data,data.flags=data.flags,rmv.cv=FALSE) # was true
   
-  simple.sqc <- list(outlier_removal=list(expression="x == 999999",type="error_code",description="logger error code"))
+  simple.sqc <- list(outlier_removal=list(list(expression="x == 999999",type="error_code",description="logger error code"),
+                                                        list(expression='is.na(x)',type='error_code',description='missing data')))
   data.flags <- build.flags(data.in=windowed.data,sqc=simple.sqc
                             ,verbose=F)
   old.sensor <- block.stats(windowed.data=windowed.data,data.flags,rmv.cv=F)
   
   
-  plot(old.sensor[, 1],rep(NA,nrow(old.sensor)),ylim=c(30,85),
+  plot(old.sensor[, 1],rep(NA,nrow(old.sensor)),ylim=c(0,15),
        ylab="SUNA nitrate concentration (micromoles)",
        xlab="")
   
