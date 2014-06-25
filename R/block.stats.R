@@ -2,7 +2,8 @@
 block_stats <- function(windowed.data,data.flags=NULL,rmv.cv=TRUE){
   
   if (!is.null(data.flags)){
-    clean.data <- windowed.data[!data.flags, ]
+    un.flags <- unique_flags(data.flags)
+    clean.data <- windowed.data[!un.flags, ]
   } else {
     clean.data <- windowed.data
   }

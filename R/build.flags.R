@@ -53,3 +53,8 @@ compress_flags <- function(flag.bool){
   }
   return(data.flags)
 }
+
+unique_flags <- function(comp.flags){
+  un.flags <- unique(comp.flags[!is.na(comp.flags)])
+  return(un.flags)
+}
