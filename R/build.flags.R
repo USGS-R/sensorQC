@@ -30,7 +30,7 @@ build_flags <- function(data.in,sqc,verbose=TRUE){
     flag.type <- as.character(sqc$outlier_removal[[i]]$type)
     expression <- as.character(sqc$outlier_removal[[i]]$expression)
     flags <- flag_wrap(flag.type,data.in,expr=expression,verbose)
-    flags.bool[, i] <- data.flags
+    flags.bool[, i] <- flags
   }
   
   data.flags <- compress_flags(flags.bool)
