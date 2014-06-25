@@ -23,14 +23,33 @@
 build_flags <- function(data.in,sqc,verbose=TRUE){
   
   # creates flag array based in data.in and parameters
-  data.flags <- vector(length=nrow(data.in)) # vector of zeros
+  num.test <- length(sqc$outlier_removal)
+  num.time <- nrow(data.in)
+  flags.bool <- matrix(nrow = num.time, ncol = num.test)
   for (i in 1:length(sqc$outlier_removal)){
     flag.type <- as.character(sqc$outlier_removal[[i]]$type)
     expression <- as.character(sqc$outlier_removal[[i]]$expression)
     flags <- flag_wrap(flag.type,data.in,expr=expression,verbose)
-    data.flags <- data.flags | flags
+    flags.bool[, i] <- data.flags
   }
   
+  data.flags <- compress_flags(flags.bool)
   return(data.flags)
   
+}
+
+#'compresses boolean flags into int matrix padded with NAs
+#'flags are compressed because it is assumed that they don't happen incredibly frequently
+#'example: flag.bool <- matrix(nrow=3,ncol=4,data=c(F,F,F,F,F,F,T,T,F,F,F,F))
+compress_flags <- function(flag.bool){
+  # find longest j dimension of T
+  num.row <- max(colSums(flag.bool))
+  num.col <- ncol(flag.bool)
+  data.flags <- matrix(NA_integer_, nrow = num.row, ncol=num.col)
+  grab.idx <- seq_len(nrow(flag.bool))
+  for (i in 1:num.col){
+    num.use <- sum(flag.bool[, i])
+    data.flags[seq_len(num.use), i] <- grab.idx[flag.bool[, i]]
+  }
+  return(data.flags)
 }
