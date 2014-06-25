@@ -1,8 +1,8 @@
-flag_wrap <- function(flag.type,data.in,expr,verbose=T){
+flag_wrap <- function(flag.type,data.in,expr,verbose=T,alias){
   flags  <-  do.call(match.fun(flag.type),list(data.in=data.in,expr=expr)) 
   if (verbose){
     perc <- formatC(signif((sum(flags,na.rm = T)/length(flags))*100,digits=3), digits=3,format="fg", flag="#")
-    verb.o <- paste0(flag.type,' ',expr,' created ',sum(flags,na.rm = T), ' flags (',perc,'%)\n')
+    verb.o <- paste0(flag.type,' ',alias,' created ',sum(flags,na.rm = T), ' flags (',perc,'%)\n')
     cat(verb.o)
   }
   
@@ -10,14 +10,22 @@ flag_wrap <- function(flag.type,data.in,expr,verbose=T){
 }
 #'@export
 threshold <- function(data.in,expr='x > 99'){
-  flags <- generic_sqc(vals = data.in$sensor.obs,expr)
+  if ("sensor.obs" %in% names(data.in)){
+    flags <- generic_sqc(vals = data.in$sensor.obs,expr)
+  } else {
+    flags <- generic_sqc(vals = data.in,expr)
+  }
+  
   return(flags)
 }
 
 #'@export
 error_code <- function(data.in,expr='x == -999'){
-  vals <- list('x'=as.numeric(data.in$sensor.obs))
-  flags <- generic_sqc(vals = vals, expr)
+  if ("sensor.obs" %in% names(data.in)){
+    flags <- generic_sqc(vals = data.in$sensor.obs,expr)
+  } else {
+    flags <- generic_sqc(vals = data.in,expr)
+  }
   return(flags)
 }
 
@@ -49,7 +57,7 @@ generic_sqc <- function(vals,expr){
     test
   })
   
-  if (!is.list(vals)){
+  if (!is.list(vals) & !is.data.frame(vals)){
     vals <- list(x=vals)
     names(vals) <-get.expr.var(expr)
   }
