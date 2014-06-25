@@ -31,8 +31,6 @@ persistent <- function(data.in,expr='n > 10'){
 #'@export
 stat_window <- function(data.in,expr){
   
-  #var name?
-  print(paste(names(data.in),collapse=' '))
   vals <- list(x=data.in)
   if (any(grepl(pattern = paste(names(data.in),collapse=' '),expr))){
     names(vals) <- get.expr.var(expr)
