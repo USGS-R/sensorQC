@@ -31,11 +31,12 @@ persistent <- function(data.in,expr='n > 10'){
 #'@export
 stat_window <- function(data.in,expr){
   
-  #MAD <- MAD(data.in)
-  #CV <- coefficient.of.variation(data.in)
-  
-  #vals <- list("MAD"=MAD,"CV"=CV)
-  vals <- data.in
+  #var name?
+  print(paste(names(data.in),collapse=' '))
+  vals <- list(x=data.in)
+  if (any(grepl(pattern = paste(names(data.in),collapse=' '),expr))){
+    names(vals) <- get.expr.var(expr)
+  }
   flags <- generic_sqc(vals,expr)
   return(flags)
 }
@@ -52,11 +53,21 @@ generic_sqc <- function(vals,expr){
   
   if (!is.list(vals)){
     vals <- list(x=vals)
-    names(vals) <- substr(expr,1,1)
+    names(vals) <-get.expr.var(expr)
   }
   flags <- eval(test, envir=vals)
   
   return(flags)
+}
+
+get.expr.var <- function(expr){
+  expr <- gsub("\\s","",expr)
+  if (grepl(pattern = '[(]',expr)){
+    var.nm <- strsplit(expr,split = '[()]')[[1]][2]
+  } else {
+    var.nm <- strsplit(expr,split = '[><=]')[[1]][1]
+  }
+  return(var.nm)
 }
   
 call.mad <- function(data.in){
@@ -98,6 +109,9 @@ MAD  <-  function(data.in){
       MAD.out[val.i] = call.mad(data.in$sensor.obs[val.i])
     }
     return(MAD.out)
+  } else if (is.list(data.in)){
+    data.in <- unlist(data.in)
+    return(call.mad(data.in))
   } else {
     return(call.mad(data.in))
   }
