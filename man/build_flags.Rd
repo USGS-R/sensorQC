@@ -3,7 +3,8 @@
 \alias{build_flags}
 \title{Creates flag vector based on input data}
 \usage{
-build_flags(data.in, sqc, verbose = TRUE)
+build_flags(data.in, sqc, verbose = TRUE, compress = TRUE,
+  flatten = FALSE)
 }
 \arguments{
 \item{data.in}{a data.frame with columns for DateTime and sensor.obs}
@@ -11,6 +12,10 @@ build_flags(data.in, sqc, verbose = TRUE)
 \item{sqc}{a sqc object with valid processing parameter names and associated values}
 
 \item{verbose}{a boolean for diagnostic prints to workspace}
+
+\item{compressed}{a boolean for whether flags are compressed}
+
+\item{flatten}{a boolean for whether flags are flat (1D vector of 'any') or n by m matrix}
 }
 \value{
 a vector of flags of length equal to number of rows in data.in
@@ -22,8 +27,8 @@ Creates flag vector with codes and methods according to params list.  \cr
 dates <- seq(as.POSIXct('1999-01-01'),by=1,length.out=14)
 values <- c(runif(12,2,4),NA,NA)
 data.in <- data.frame("DateTime"=dates,"sensor.obs"=values)
-simple.sqc <- list(outlier_removal=list(list(expression="x == 999999",type="error_code",description="logger error code"),
-             list(expression='is.na(x)',type='error_code',description='missing data')))
+simple.sqc <- list(list(expression="x == 999999",type="error_code",description="logger error code"),
+             list(expression='is.na(x)',type='error_code',description='missing data'))
 
 build_flags(data.in,sqc=simple.sqc)
 }
