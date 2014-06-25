@@ -22,7 +22,10 @@ outlier_removal:
     - expression:   x = -999
       description:  logger missing value code
       type:         error_code
-
+      
+    - expression:   MAD(x) > 3
+      description:  median absolute deviation exceeded
+      type:         stat_window
 
 block_stats:
     - expression:   MAD(CV) > 3
