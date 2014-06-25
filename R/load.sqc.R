@@ -18,21 +18,32 @@
 load.sqc <- function(deploy.name,folder='../examples/'){
   # need error handling
   sqc <- yaml.load_file(paste0(folder,deploy.name,'.yml'))
-  num.outliers <- length(sqc$outlier_removal)
-  for (i in 1:num.outliers){
-    exp <- sqc$outlier_removal[[i]]$expression
-    sqc$outlier_removal[[i]]$expression <- exp.replace(exp)
+  num.types <- length(sqc)
+  for (k in 1:num.types){
+    num.subs <- length(sqc[[k]])
+    for (i in 1:num.subs){
+      exp <- sqc[[k]][[i]]$expression
+      repl.lst <- exp.replace(exp)
+      sqc[[k]][[i]]$expression <- repl.lst$expression
+      sqc[[k]][[i]]$alias <- repl.lst$alias
+    }
   }
   return(sqc)
 }
 
 exp.replace <- function(expression.in){
-  if (grepl(pattern='==',x=expression.in)){
-    return(expression.in)
+  alias <- expression.in
+  expression.out <- expression.in
+  
+  # test for percent-based text
+  expression.out <- sub(pattern='%', replacement='', x=expression.out)
+  expression.out <- sub(pattern='missing', replacement='is.na', x=expression.out)
+  
+  if (grepl(pattern='==',x=expression.out)){
+    return(list(expression=expression.out,alias=alias))
   } else {
-    expression.out <- sub(pattern='=', replacement='==', x=expression.in)
-    expression.out <- sub(pattern='missing', replacement='is.na', x=expression.out)
-    return(expression.out)
+    expression.out <- sub(pattern='=', replacement='==', x=expression.out)
+    return(list(expression=expression.out,alias=alias))
   }
   
 }
