@@ -1,4 +1,4 @@
-clean.data <- function(sensor.file='../examples/test_data.txt',fl.format='Pellerin',deploy='pedro'){
+clean.data <- function(sensor.file='../examples/test_data.txt',fl.format='Pellerin',deploy='pellerin'){
   #is an example wrapper for sensorQC calls 
   
   sensor.data <- load.sensor(filename=sensor.file, format=fl.format)
