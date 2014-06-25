@@ -7,11 +7,11 @@ outlier_removal:
       description:  obs above range
       type:         threshold
       
-    - expression:   x > 10
+    - expression:   n > 10
       description:  questionable persistent value  
       type:         persistent
       
-    - expression:   x == 999999
+    - expression:   x = 999999
       description:  logger error code
       type:         error_code
       
@@ -30,8 +30,8 @@ outlier_removal:
 block_stats:
     - expression:   MAD(CV) > 3
       description:  median absolute deviation of the windowed CVs exceeded
-      type:         stat_window
+      type:         threshold
 
     - expression:   flags > 30%
       description:  total number of values within block too low
-      type:         stat_window
+      type:         threshold
