@@ -1,7 +1,8 @@
 flag_wrap <- function(flag.type,data.in,expr,verbose=T){
   flags  <-  do.call(match.fun(flag.type),list(data.in=data.in,expr=expr)) 
   if (verbose){
-    verb.o <- paste0(flag.type,' ',expr,' created ',sum(flags,na.rm = T), ' flags (',(sum(flags,na.rm = T)/length(flags))*100,'%)\n')
+    perc <- formatC(signif((sum(flags,na.rm = T)/length(flags))*100,digits=3), digits=3,format="fg", flag="#")
+    verb.o <- paste0(flag.type,' ',expr,' created ',sum(flags,na.rm = T), ' flags (',perc,'%)\n')
     cat(verb.o)
   }
   
@@ -30,10 +31,11 @@ persistent <- function(data.in,expr='n > 10'){
 #'@export
 stat_window <- function(data.in,expr){
   
-  MAD <- median.absolute.deviation(data.in)
-  CV <- coefficient.of.variation(data.in)
+  #MAD <- MAD(data.in)
+  #CV <- coefficient.of.variation(data.in)
   
-  vals <- list("MAD"=MAD,"CV"=CV)
+  #vals <- list("MAD"=MAD,"CV"=CV)
+  vals <- data.in
   flags <- generic_sqc(vals,expr)
   return(flags)
 }
@@ -72,16 +74,21 @@ call.mad <- function(data.in){
   return(MAD.normalized)
 }
 #'@title median absolute deviation outlier test
+#'@name MAD
+#'@aliases MAD
+#'@aliases median.absolute.deviation
 #'@param data.in a \code{sensorQC} data.frame.
 #'@return a vector of MAD normalized values relative to an undefined rejection criteria (usually 2.5 or 3).
 #'@keywords MAD
 #'@author
 #'Jordan S. Read
-median.absolute.deviation  <-  function(data.in){
+#'@export
+MAD  <-  function(data.in){
   # does this method have to be public?	
   # what is the underlying distribution? (important for assigning "b")
   if (is.data.frame(data.in)){
-    if (!"block.ID" %in% names(data.in)){stop("MAD can only accept numeric data, or a data.frame with the block.ID column for windowed data")}
+    if (!"block.ID" %in% names(data.in)){stop("MAD can only accept numeric data, 
+                                              or a data.frame with the block.ID column for windowed data")}
     MAD.out <- vector(length=nrow(data.in))
     un.win <- unique(data.in$block.ID)
     

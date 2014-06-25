@@ -24,9 +24,9 @@ block_stats <- function(windowed.data,data.flags=NULL,rmv.cv=TRUE){
   }
   
   if (rmv.cv){
-
-    block.rmv <- call.mad(block.out$CV) > 3
-    block.out = block.out[!block.rmv, ]
+    print('checking flag for MAD(CV)>3 manually')
+    flags <- flag_wrap(flag.type='stat_window',data.in=list(CV=block.out$CV),expr='MAD(CV) > 3',verbose=T)
+    block.out = block.out[!flags, ]
   }
   
   

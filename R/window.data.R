@@ -30,7 +30,7 @@ auto.chunk.time <- function(data.in){
   
   t.steps <- as.numeric(diff(data.in$DateTime))
   ###### re-write this!!
-  MAD.norm <- median.absolute.deviation(data.in=t.steps) # deal with NAs?
+  MAD.norm <- MAD(data.in=t.steps) # deal with NAs?
   break.i <- MAD.norm > 2.5
   
   block.df <- data.frame("block.ID"=vector(length=nrow(data.in))*0) 
