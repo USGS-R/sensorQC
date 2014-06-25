@@ -1,5 +1,5 @@
 #'@export
-block.stats <- function(windowed.data,data.flags=NULL,rmv.cv=TRUE){
+block_stats <- function(windowed.data,data.flags=NULL,rmv.cv=TRUE){
   
   if (!is.null(data.flags)){
     clean.data <- windowed.data[!data.flags, ]

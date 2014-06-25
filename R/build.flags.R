@@ -17,17 +17,17 @@
 #'simple.sqc <- list(outlier_removal=list(list(expression="x == 999999",type="error_code",description="logger error code"),
 #'              list(expression='is.na(x)',type='error_code',description='missing data')))
 #'
-#'build.flags(data.in,sqc=simple.sqc)
+#'build_flags(data.in,sqc=simple.sqc)
 #'@export
 
-build.flags <- function(data.in,sqc,verbose=TRUE){
+build_flags <- function(data.in,sqc,verbose=TRUE){
   
   # creates flag array based in data.in and parameters
   data.flags <- vector(length=nrow(data.in)) # vector of zeros
   for (i in 1:length(sqc$outlier_removal)){
     flag.type <- as.character(sqc$outlier_removal[[i]]$type)
     expression <- as.character(sqc$outlier_removal[[i]]$expression)
-    flags <- flag.wrap(flag.type,data.in,expr=expression,verbose)
+    flags <- flag_wrap(flag.type,data.in,expr=expression,verbose)
     data.flags <- data.flags | flags
   }
   

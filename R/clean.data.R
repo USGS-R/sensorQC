@@ -6,15 +6,15 @@ clean.data <- function(sensor.file='../examples/test_data.txt',fl.format='Peller
   
   windowed.data <- window_data(data.in=sensor.data)
   
-  data.flags <- build.flags(data.in=windowed.data,sqc=cnfg)
+  data.flags <- build_flags(data.in=windowed.data,sqc=cnfg)
   
-  sensor.stats <- block.stats(windowed.data=windowed.data,data.flags=data.flags,rmv.cv=FALSE) # was true
+  sensor.stats <- block_stats(windowed.data=windowed.data,data.flags=data.flags,rmv.cv=FALSE) # was true
   
   simple.sqc <- list(outlier_removal=list(list(expression="x == 999999",type="error_code",description="logger error code"),
                                                         list(expression='is.na(x)',type='error_code',description='missing data')))
-  data.flags <- build.flags(data.in=windowed.data,sqc=simple.sqc
+  data.flags <- build_flags(data.in=windowed.data,sqc=simple.sqc
                             ,verbose=F)
-  old.sensor <- block.stats(windowed.data=windowed.data,data.flags,rmv.cv=F)
+  old.sensor <- block_stats(windowed.data=windowed.data,data.flags,rmv.cv=F)
   
   
   plot(old.sensor[, 1],rep(NA,nrow(old.sensor)),ylim=c(0,15),

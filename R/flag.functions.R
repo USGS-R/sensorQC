@@ -1,4 +1,4 @@
-flag.wrap <- function(flag.type,data.in,expr,verbose=T){
+flag_wrap <- function(flag.type,data.in,expr,verbose=T){
   flags  <-  do.call(match.fun(flag.type),list(data.in=data.in,expr=expr)) 
   if (verbose){
     verb.o <- paste0(flag.type,' ',expr,' created ',sum(flags,na.rm = T), ' flags (',(sum(flags,na.rm = T)/length(flags))*100,'%)\n')
@@ -9,14 +9,14 @@ flag.wrap <- function(flag.type,data.in,expr,verbose=T){
 }
 #'@export
 threshold <- function(data.in,expr='x > 99'){
-  flags <- generic.sqc(vals = data.in$sensor.obs,expr)
+  flags <- generic_sqc(vals = data.in$sensor.obs,expr)
   return(flags)
 }
 
 #'@export
 error_code <- function(data.in,expr='x == -999'){
   vals <- list('x'=as.numeric(data.in$sensor.obs))
-  flags <- generic.sqc(vals = vals, expr)
+  flags <- generic_sqc(vals = vals, expr)
   return(flags)
 }
 
@@ -24,7 +24,7 @@ error_code <- function(data.in,expr='x == -999'){
 persistent <- function(data.in,expr='n > 10'){  
   tmp <- rle(data.in$sensor.obs)
   vals <- rep(tmp$lengths,times = tmp$lengths)
-  flags <- generic.sqc(vals=vals,expr=expr)
+  flags <- generic_sqc(vals=vals,expr=expr)
   return(flags)
 }
 #'@export
@@ -34,11 +34,11 @@ stat_window <- function(data.in,expr){
   CV <- coefficient.of.variation(data.in)
   
   vals <- list("MAD"=MAD,"CV"=CV)
-  flags <- generic.sqc(vals,expr)
+  flags <- generic_sqc(vals,expr)
   return(flags)
 }
 
-generic.sqc <- function(vals,expr){
+generic_sqc <- function(vals,expr){
 
   test = tryCatch({
     test <- parse(text = expr)
