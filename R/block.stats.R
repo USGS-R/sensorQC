@@ -3,7 +3,10 @@ block_stats <- function(windowed.data,data.flags=NULL,rmv.cv=TRUE){
   
   if (!is.null(data.flags)){
     un.flags <- unique_flags(data.flags)
-    clean.data <- windowed.data[!un.flags, ]
+    print(un.flags)
+    grab.idx <- seq_len(nrow(windowed.data))
+    skp.i <- grab.idx %in% un.flags
+    clean.data <- windowed.data[!skp.i, ]
   } else {
     clean.data <- windowed.data
   }

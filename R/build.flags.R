@@ -55,6 +55,6 @@ compress_flags <- function(flag.bool){
 }
 
 unique_flags <- function(comp.flags){
-  un.flags <- unique(comp.flags[!is.na(comp.flags)])
+  un.flags <- sort(unique(comp.flags[!is.na(comp.flags)]))
   return(un.flags)
 }

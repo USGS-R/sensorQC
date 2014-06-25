@@ -17,7 +17,7 @@ clean.data <- function(sensor.file='../examples/test_data.txt',fl.format='Peller
   old.sensor <- block_stats(windowed.data=windowed.data,data.flags,rmv.cv=F)
   
   
-  plot(old.sensor[, 1],rep(NA,nrow(old.sensor)),ylim=c(0,15),
+  plot(old.sensor[, 1],rep(NA,nrow(old.sensor)),ylim=c(30,85),
        ylab="SUNA nitrate concentration (micromoles)",
        xlab="")
   
