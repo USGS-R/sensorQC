@@ -4,13 +4,13 @@ plot_summary <- function(inst.data,inst.flags,block.data,block.flags,compare.dat
   
   
   xlm = c(min(inst.data[, 1]), max(inst.data[, 1]))
-  plot(inst.data[, 1],rep(NA,nrow(inst.data)),ylim=c(30,85),
+  plot(inst.data[, 1],rep(NA,nrow(inst.data)),ylim=c(.8*min(block.data[, 2]),1.1*max(block.data[, 2])),
        ylab="SUNA nitrate concentration (micromoles)",
        xlab="",xlim=xlm)
   
   layout(panels)
   par(mai=c(0,.5,0, .1),omi=c(0,0,0,0))
-  plot(inst.data[, 1],rep(NA,nrow(inst.data)),ylim=c(30,85),
+  plot(inst.data[, 1],rep(NA,nrow(inst.data)),ylim=c(.8*min(block.data[, 2]),1.1*max(block.data[, 2])),
        ylab="SUNA nitrate concentration (micromoles)",
        xlab="")
   points(inst.data[, 1:2],col="green",pch=19,cex=0.4)
