@@ -31,8 +31,8 @@ outlier_removal:
 block_stats:
     - expression:   MAD(CV) > 3
       description:  median absolute deviation of the windowed CVs exceeded
-      type:         stat_window
+      type:         threshold
 
     - expression:   flags > 30%
       description:  total number of values within block too low
-      type:         stat_window
+      type:         threshold
