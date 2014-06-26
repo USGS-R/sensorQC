@@ -55,6 +55,12 @@ build_flags <- function(data.in,sqc,verbose=TRUE,compress=TRUE,flatten=FALSE){
   
 }
 
+flatten_flags <- function(flag.bool){
+  # HAS to be matrix...
+  data.flags <- as.logical(rowSums(flag.bool))
+  return(data.flags)
+}
+
 #'compresses boolean flags into int matrix padded with NAs
 #'flags are compressed because it is assumed that they don't happen incredibly frequently
 #'example: flag.bool <- matrix(nrow=3,ncol=4,data=c(F,F,F,F,F,F,T,T,F,F,F,F))

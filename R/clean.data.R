@@ -10,7 +10,7 @@ clean.data <- function(sensor.file='../examples/test_data.txt',fl.format='Peller
 
   sensor.stats <- block_stats(windowed.data=windowed.data,data.flags=inst.flags)
   
-  block.flags <- build_flags(data.in=sensor.stats,sqc=cnfg$block_stats,verbose=TRUE,flatten=TRUE,compress=FALSE)
+  block.flags <- build_flags(data.in=sensor.stats,sqc=cnfg$block_stats,verbose=TRUE,flatten=FALSE,compress=FALSE)
   
   simple.sqc <- list(outlier_removal=list(list(expression="x == 999999",type="error_code",description="logger error code"),
                                                         list(expression='is.na(x)',type='error_code',description='missing data')))
