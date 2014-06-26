@@ -7,11 +7,11 @@ outlier_removal:
       description:  obs above range
       type:         threshold
       
-    - expression:   x > 10
+    - expression:   n > 100
       description:  questionable persistent value  
       type:         persistent
       
-    - expression:   x == 999999
+    - expression:   x = 999999
       description:  logger error code
       type:         error_code
       
