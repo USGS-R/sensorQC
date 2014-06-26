@@ -14,7 +14,7 @@ plot_summary <- function(inst.data,inst.flags,block.data,block.flags,new.plot=TR
        ylab="SUNA nitrate concentration (micromoles)",
        xlab="")
   points(inst.data[, 1:2],col="green",pch=19,cex=0.4)
-  points(block.data[!blck.flags, 1:2],lty=1,lwd=4,pch=19,cex=0.8)
+  points(block.data[!block.flags, 1:2],lty=1,lwd=4,pch=19,cex=0.8)
   plot(c(1,NA),c(NA,0),ylim = c(0,ncol(inst.flags)),xlim = xlm,xlab=NA,axes=F)
   #axis(1,at=seq(0, 200, 10),las=1, cex.axis=cex.box, tck=tck,labels=NA,lwd=2)
   for (i in 1:ncol(inst.flags)){
