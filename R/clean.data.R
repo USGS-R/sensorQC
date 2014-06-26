@@ -18,7 +18,7 @@ clean.data <- function(sensor.file='../examples/test_data.txt',fl.format='Peller
   old.inst.flags <- build_flags(data.in=windowed.data,sqc=simple.sqc$outlier_removal,verbose=F)
   old.sensor <- block_stats(windowed.data=windowed.data,old.inst.flags)
   
-  plot_summary(inst.data=windowed.data,inst.flags,block.data=sensor.stats,block.flags,compare.data=old.sensor)
+  plot_summary(inst.data=windowed.data,inst.flags,block.data=sensor.stats,block.flags,compare.data=old.sensor,sqc=cnfg)
 
   
 
