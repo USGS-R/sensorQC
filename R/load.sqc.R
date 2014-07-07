@@ -23,9 +23,11 @@ load.sqc <- function(deploy.name,folder='../examples/'){
     num.subs <- length(sqc[[k]])
     for (i in 1:num.subs){
       exp <- sqc[[k]][[i]]$expression
-      repl.lst <- exp.replace(exp)
-      sqc[[k]][[i]]$expression <- repl.lst$expression
-      sqc[[k]][[i]]$alias <- repl.lst$alias
+      if (!is.null(exp)){
+        repl.lst <- exp.replace(exp)
+        sqc[[k]][[i]]$expression <- repl.lst$expression
+        sqc[[k]][[i]]$alias <- repl.lst$alias
+      }
     }
   }
   return(sqc)
