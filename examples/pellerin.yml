@@ -38,6 +38,6 @@ block_stats:
 
 data_source:
     - file_name:    test_data.txt
-      folder:       ../examples/
+      folder_name:  ../examples/
       format:       wide_burst
       date_type:    mm/dd/YYYY HH:MM
