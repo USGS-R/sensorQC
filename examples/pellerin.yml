@@ -35,3 +35,9 @@ block_stats:
     - expression:   flags > 30%
       description:  total number of values within block too low
       type:         threshold
+
+data_source:
+    - file_name:    test_data.txt
+      folder:       ../examples/
+      format:       wide_burst
+      date_type:    mm/dd/YYYY HH:MM
