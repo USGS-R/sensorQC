@@ -46,16 +46,17 @@ read.wide_burst <- function(filename,date.type){
     # for each line, first val is dateTime, second is "record"
     line <- fileLines[i]
     line.vals <- strsplit(line,split=delim)
-    date.1 <- as.POSIXct(strptime(line.vals[[1]][1],date.type))
     dat.vals <- line.vals[[1]][c(-1,-2)] # only values (no dates or record number)
     num.dat <- length(dat.vals)
     sens.vec[cnt:(cnt+num.dat-1)] <- as.numeric(dat.vals)
-    date.vec[cnt:(cnt+num.dat-1)] <- seq(from=date.1,by="secs",length.out=num.dat)
+    date.1 <- as.POSIXct(strptime(line.vals[[1]][1],date.type))
+    date.2 <- date.1+num.dat-1 # will be seconds
+    date.vec[cnt:(cnt+num.dat-1)] <- seq(from=date.1,to=date.2,length.out=num.dat)#by="secs"
     
     cnt=cnt+num.dat    
   }
-  date.vec <- head(date.vec,cnt)
-  sens.vec <- head(sens.vec,cnt)
+  date.vec <- head(date.vec,cnt-1)
+  sens.vec <- head(sens.vec,cnt-1)
   data.out <- data.frame('DateTime'=date.vec, 'sensor.obs'=sens.vec)
   
   # should we also return metadata?
