@@ -38,7 +38,8 @@ read.wide_burst <- function(filename,date.type){
   fileLines <- readLines(c)
   close(c)
   cat('num lines:');cat(length(fileLines));cat('\n')
-  data.out <- init.sensor(length.out=length(fileLines)*60)
+  sens.vec <- vector(mode="numeric",length=length(fileLines)*60)
+  date.vec <- rep(as.POSIXct('1900-01-01'),length(fileLines)*60)
   
   cnt = 1
   for (i in (num.head+1):length(fileLines)){
@@ -48,14 +49,14 @@ read.wide_burst <- function(filename,date.type){
     date.1 <- as.POSIXct(strptime(line.vals[[1]][1],date.type))
     dat.vals <- line.vals[[1]][c(-1,-2)] # only values (no dates or record number)
     num.dat <- length(dat.vals)
-    data.out$sensor.obs[cnt:(cnt+num.dat-1)] <- as.numeric(dat.vals)
-    data.out$DateTime[cnt:(cnt+num.dat-1)] <- seq(from=date.1,by="secs",length.out=num.dat)
+    sens.vec[cnt:(cnt+num.dat-1)] <- as.numeric(dat.vals)
+    date.vec[cnt:(cnt+num.dat-1)] <- seq(from=date.1,by="secs",length.out=num.dat)
     
     cnt=cnt+num.dat    
   }
-  
-  rmv.i <- is.na(data.out$sensor.obs)
-  data.out <- data.out[!rmv.i, ]
+  date.vec <- head(date.vec,cnt)
+  sens.vec <- head(sens.vec,cnt)
+  data.out <- data.frame('DateTime'=date.vec, 'sensor.obs'=sens.vec)
   
   # should we also return metadata?
   return(data.out)
