@@ -1,8 +1,12 @@
-clean.data <- function(sensor.file='../examples/test_data.txt',fl.format='Pellerin',deploy='pellerin'){
+clean.data <- function(deploy='pellerin'){
   #is an example wrapper for sensorQC calls 
   
-  sensor.data <- load.sensor(filename=sensor.file, format=fl.format)
+  #
   cnfg <- load.sqc(deploy.name=deploy,folder='../examples/')
+  
+  sensor.file <- paste(cnfg$data_source[[1]]$folder_name,cnfg$data_source[[1]]$file_name,sep='')
+  
+  sensor.data <- load.sensor(filename=sensor.file, format=cnfg$data_source[[1]]$format, date.type=cnfg$data_source[[1]]$date_type)
   
   windowed.data <- window_data(data.in=sensor.data)
   
@@ -24,4 +28,5 @@ clean.data <- function(sensor.file='../examples/test_data.txt',fl.format='Peller
 
 }
 
-#clean.data()
+
+#

@@ -33,16 +33,18 @@ auto.chunk.time <- function(data.in){
   MAD.norm <- MAD(data.in=t.steps) # deal with NAs?
   break.i <- MAD.norm > 2.5
   
-  block.df <- data.frame("block.ID"=vector(length=nrow(data.in))*0) 
+  block.int = vector(mode="integer",length=nrow(data.in))
   
-  windowed.data <- cbind(data.in,block.df)
   blck.i <- 1
   for (j in 1:(nrow(data.in)-1)){
-    windowed.data$block.ID[j]=blck.i # this is slow, should bind at end of call
+    block.int[j]=blck.i # this is slow, should bind at end of call
     if (break.i[j]){
       blck.i = blck.i+1
     }
   }
+  
+  block.df <- data.frame("block.ID"=block.int) 
+  windowed.data <- cbind(data.in,block.df)
   
   windowed.data$block.ID[j+1]=blck.i
   

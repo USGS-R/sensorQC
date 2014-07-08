@@ -36,3 +36,9 @@ block_stats:
     - expression:   flags > 30%
       description:  total number of values within block too low
       type:         threshold
+
+data_source:
+    - file_name:    DON_data_short.txt
+      folder_name:  ../examples/
+      format:       wide_burst
+      date_type:    YYYY-mm-dd HH:MM

@@ -3,12 +3,15 @@
 \alias{load.sensor}
 \title{Loads sensor data into data.frame}
 \usage{
-load.sensor(filename = "../examples/test_data.txt", format = "Pellerin")
+load.sensor(filename = "../examples/test_data.txt", format = "wide_burst",
+  date.type)
 }
 \arguments{
 \item{filename}{a string}
 
 \item{format}{a string which matches a valid sensor data format}
+
+\item{date.type}{a string which represents a valid date format type}
 }
 \value{
 A data.frame with DateTime and values
@@ -18,7 +21,7 @@ loads sensor data into data.frame according to the file format specified.  \cr
 }
 \examples{
 filename <- '../examples/test_data.txt'
-data.out <- load.sensor(filename,format="Pellerin")
+data.out <- load.sensor(filename,format="wide_burst", date.type="\%Y-\%m-\%d \%H:\%M")
 print(data.out)
 }
 \author{
