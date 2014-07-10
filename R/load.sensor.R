@@ -37,7 +37,7 @@ read.wide_burst <- function(filename,date.type){
   
   fileLines <- readLines(c)
   close(c)
-  cat('num lines:');cat(length(fileLines));cat('\n')
+  cat('number of observations:');cat(length(fileLines)*30);cat('\n')
   sens.vec <- vector(mode="numeric",length=length(fileLines)*60)
   date.vec <- rep(as.POSIXct('1900-01-01'),length(fileLines)*60)
   
