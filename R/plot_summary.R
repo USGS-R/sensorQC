@@ -9,9 +9,6 @@ plot_summary <- function(inst.data,inst.flags,block.data,block.flags,compare.dat
   
   xlm = c(min(inst.data[, 1]), max(inst.data[, 1]))
   ylm = c(0,1.1*max(block.data[, 2]))
-  plot(inst.data[, 1],rep(NA,nrow(inst.data)),ylim=ylm,
-       ylab="SUNA nitrate concentration (micromoles)",
-       xlab="",xlim=xlm)
   
   layout(panels)
   par(mai=c(0,1.5,.1, .5),omi=c(0,0,0,0))
@@ -32,7 +29,7 @@ plot_summary <- function(inst.data,inst.flags,block.data,block.flags,compare.dat
     points(inst.data[use.i,1],rep(i-.5,length(use.i)),pch=15,cex=2.5,
           col=rgb(0, 0, 0, .2, maxColorValue = 1))
     abline(h = i)
-    nme <- cnfg$outlier_removal[[i]]$alias
+    nme <- sqc$outlier_removal[[i]]$alias
     ynames <- c(ynames,nme)
   }
   ix = i
@@ -42,7 +39,7 @@ plot_summary <- function(inst.data,inst.flags,block.data,block.flags,compare.dat
     points(block.data[flags,1],rep(ix-.5,sum(flags)),pch=15,cex=2.5,
            col=rgb(1, 0, 0, .4, maxColorValue = 1))
     abline(h = ix)
-    nme <- cnfg$block_stats[[k]]$alias
+    nme <- sqc$block_stats[[k]]$alias
     ynames <- c(ynames,nme)
   }
   
