@@ -32,7 +32,7 @@ plot_summary <- function(inst.data,inst.flags,block.data,block.flags,compare.dat
     points(inst.data[use.i,1],rep(i-.5,length(use.i)),pch=15,cex=2.5,
           col=rgb(0, 0, 0, .2, maxColorValue = 1))
     abline(h = i)
-    nme <- cnfg$outlier_removal[[i]]$alias
+    nme <- sqc$outlier_removal[[i]]$alias
     ynames <- c(ynames,nme)
   }
   ix = i
@@ -42,7 +42,7 @@ plot_summary <- function(inst.data,inst.flags,block.data,block.flags,compare.dat
     points(block.data[flags,1],rep(ix-.5,sum(flags)),pch=15,cex=2.5,
            col=rgb(1, 0, 0, .4, maxColorValue = 1))
     abline(h = ix)
-    nme <- cnfg$block_stats[[k]]$alias
+    nme <- sqc$block_stats[[k]]$alias
     ynames <- c(ynames,nme)
   }
   
