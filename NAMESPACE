@@ -3,6 +3,7 @@
 export(MAD)
 export(block_stats)
 export(build_flags)
+export(clean.data)
 export(error_code)
 export(get.outliers)
 export(load.sensor)
