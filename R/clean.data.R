@@ -1,4 +1,5 @@
 clean.data <- function(deploy='pellerin'){
+  library(sensorQC)
   #is an example wrapper for sensorQC calls 
   
   #
@@ -22,11 +23,10 @@ clean.data <- function(deploy='pellerin'){
   old.inst.flags <- build_flags(data.in=windowed.data,sqc=simple.sqc$outlier_removal,verbose=F)
   old.sensor <- block_stats(windowed.data=windowed.data,old.inst.flags)
   
-  plot_summary(inst.data=windowed.data,inst.flags,block.data=sensor.stats,block.flags,compare.data=old.sensor,sqc=cnfg)
+  plot_summary(inst.data=windowed.data,inst.flags,block.data=sensor.stats,block.flags,
+               compare.data=old.sensor,sqc=cnfg)
 
   
 
 }
-
-
-#
+#clean.data()
