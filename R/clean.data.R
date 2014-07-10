@@ -1,9 +1,9 @@
-clean.data <- function(deploy='pellerin'){
-  library(sensorQC)
+#'@export
+clean.data <- function(deploy='pellerin',folder='../examples/'){
   #is an example wrapper for sensorQC calls 
   
   #
-  cnfg <- load.sqc(deploy.name=deploy,folder='../examples/')
+  cnfg <- load.sqc(deploy.name=deploy,folder=folder)
   
   sensor.file <- paste(cnfg$data_source[[1]]$folder_name,cnfg$data_source[[1]]$file_name,sep='')
   
@@ -29,4 +29,3 @@ clean.data <- function(deploy='pellerin'){
   
 
 }
-#clean.data()
