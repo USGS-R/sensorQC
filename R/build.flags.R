@@ -6,7 +6,7 @@
 #'@param data.in a data.frame with columns for DateTime and sensor.obs
 #'@param sqc a sqc object with valid processing parameter names and associated values
 #'@param verbose a boolean for diagnostic prints to workspace
-#'@param compressed a boolean for whether flags are compressed
+#'@param compress a boolean for whether flags are compressed
 #'@param flatten a boolean for whether flags are flat (1D vector of 'any') or n by m matrix
 #'@return a vector of flags of length equal to number of rows in data.in
 #'@keywords methods
