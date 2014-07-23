@@ -13,7 +13,7 @@ build_flags(data.in, sqc, verbose = TRUE, compress = TRUE,
 
 \item{verbose}{a boolean for diagnostic prints to workspace}
 
-\item{compressed}{a boolean for whether flags are compressed}
+\item{compress}{a boolean for whether flags are compressed}
 
 \item{flatten}{a boolean for whether flags are flat (1D vector of 'any') or n by m matrix}
 }
