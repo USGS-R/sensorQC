@@ -40,5 +40,5 @@ data_source:
     - file_name:    test_data.txt
       folder_name:  ./
       format:       wide_burst
-      window:       30
+      window:       auto
       date_type:    mm/dd/YYYY HH:MM
