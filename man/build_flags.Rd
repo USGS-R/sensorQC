@@ -30,7 +30,8 @@ data.in <- data.frame("DateTime"=dates,"sensor.obs"=values)
 simple.sqc <- list(list(expression="x == 999999",type="error_code",description="logger error code"),
              list(expression='is.na(x)',type='error_code',description='missing data'))
 
-build_flags(data.in,sqc=simple.sqc)
+build_flags(data.in,sqc=simple.sqc, compress = TRUE, flatten = FALSE)
+build_flags(data.in,sqc=simple.sqc, compress = FALSE, flatten = TRUE)
 }
 \author{
 Jordan S. Read

@@ -3,22 +3,22 @@
 #'@description 
 #'loads sensor data into data.frame according to the file format specified.  \cr
 #'
-#'@param filename a string
+#'@param file a string with path to the sensor data
 #'@param format a string which matches a valid sensor data format
-#'@param date.type a string which represents a valid date format type
+#'@param date_type a string which represents a valid date format type
 #'@return A data.frame with DateTime and values
 #'@keywords methods
 #'@author
 #'Jordan S. Read
 #'@examples 
-#'filename <- '../examples/test_data.txt'
-#'data.out <- load.sensor(filename,format="wide_burst", date.type="%Y-%m-%d %H:%M")
-#'print(data.out)
+#'file <- system.file('extdata', 'test_data.txt', package = 'sensorQC') 
+#'data_out <- load_sensor(file, format="wide_burst", date_type="%m/%d/%Y %H:%M")
+#'print(data_out)
 #'@export
-load.sensor <- function(filename='../examples/test_data.txt',format="wide_burst",date.type){
+load_sensor <- function(file, format = "wide_burst", date_type){
   
   if (format=="wide_burst"){
-    data.out <- read.wide_burst(filename,date.type)
+    data.out <- read.wide_burst(file, date_type)
   } else{
     stop(paste('Sensor data format "',format,'" not supported',sep=''))
   }
@@ -26,7 +26,7 @@ load.sensor <- function(filename='../examples/test_data.txt',format="wide_burst"
   return(data.out)
 }
 
-read.wide_burst <- function(filename,date.type){
+read.wide_burst <- function(filename,date_type){
   # tab delimited with 4 header lines
   
   num.head <- 4
@@ -49,7 +49,7 @@ read.wide_burst <- function(filename,date.type){
     dat.vals <- line.vals[[1]][c(-1,-2)] # only values (no dates or record number)
     num.dat <- length(dat.vals)
     sens.vec[cnt:(cnt+num.dat-1)] <- as.numeric(dat.vals)
-    date.1 <- as.POSIXct(strptime(line.vals[[1]][1],date.type))
+    date.1 <- as.POSIXct(strptime(line.vals[[1]][1],date_type))
     date.2 <- date.1+num.dat-1 # will be seconds
     date.vec[cnt:(cnt+num.dat-1)] <- seq(from=date.1,to=date.2,length.out=num.dat)#by="secs"
     

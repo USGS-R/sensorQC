@@ -19,11 +19,14 @@
 #'simple.sqc <- list(list(expression="x == 999999",type="error_code",description="logger error code"),
 #'              list(expression='is.na(x)',type='error_code',description='missing data'))
 #'
-#'build_flags(data.in,sqc=simple.sqc)
+#'build_flags(data.in,sqc=simple.sqc, compress = TRUE, flatten = FALSE)
+#'build_flags(data.in,sqc=simple.sqc, compress = FALSE, flatten = TRUE)
 #'@export
 
 build_flags <- function(data.in,sqc,verbose=TRUE,compress=TRUE,flatten=FALSE){
   
+  # can't currently flatten & compress**
+  if (compress & flatten){stop("both flatten and compress cannot be used together")}
   # creates flag array based in data.in and parameters
   num.test <- length(sqc)
   if (num.test == 0) return(NA)
@@ -46,7 +49,7 @@ build_flags <- function(data.in,sqc,verbose=TRUE,compress=TRUE,flatten=FALSE){
       flags.bool[, i] <- flags
     }
   }
-  
+  flags.bool[is.na(flags.bool)] = TRUE
   if (compress){
     flags.bool <- compress_flags(flags.bool)
   }
@@ -55,24 +58,24 @@ build_flags <- function(data.in,sqc,verbose=TRUE,compress=TRUE,flatten=FALSE){
   
 }
 
-flatten_flags <- function(flag.bool){
+flatten_flags <- function(flags.bool){
   # HAS to be matrix...
-  data.flags <- as.logical(rowSums(flag.bool))
+  data.flags <- as.logical(rowSums(flags.bool))
   return(data.flags)
 }
 
 # compresses boolean flags into int matrix padded with NAs
 # flags are compressed because it is assumed that they don't happen incredibly frequently
-# example: flag.bool <- matrix(nrow=3,ncol=4,data=c(F,F,F,F,F,F,T,T,F,F,F,F))
-compress_flags <- function(flag.bool){
+# example: flags.bool <- matrix(nrow=3,ncol=4,data=c(F,F,F,F,F,F,T,T,F,F,F,F))
+compress_flags <- function(flags.bool){
   # find longest j dimension of T
-  num.row <- max(colSums(flag.bool))
-  num.col <- ncol(flag.bool)
+  num.row <- max(colSums(flags.bool))
+  num.col <- ncol(flags.bool)
   data.flags <- matrix(NA_integer_, nrow = num.row, ncol=num.col)
-  grab.idx <- seq_len(nrow(flag.bool))
+  grab.idx <- seq_len(nrow(flags.bool))
   for (i in 1:num.col){
-    num.use <- sum(flag.bool[, i])
-    data.flags[seq_len(num.use), i] <- grab.idx[flag.bool[, i]]
+    num.use <- sum(flags.bool[, i])
+    data.flags[seq_len(num.use), i] <- grab.idx[flags.bool[, i]]
   }
   return(data.flags)
 }

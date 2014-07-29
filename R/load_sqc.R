@@ -12,13 +12,15 @@
 #'@author
 #'Jordan S. Read
 #'@examples 
-#'sqc <- load.sqc(deploy.name='pellerin',folder='../examples/')
+#'folder <- system.file('extdata', package = 'sensorQC') 
+#'sqc <- load_sqc(deploy.name='pellerin',folder = folder)
 #'@export
-
-load.sqc <- function(deploy.name,folder='../examples/'){
+load_sqc <- function(deploy.name, folder){
   # need error handling
   # yaml warns for "incomplete final line". Suppressing this.
-  sqc <- suppressWarnings(yaml.load_file(paste0(folder,deploy.name,'.yml')))
+  deploy <- paste(deploy.name,'.yml',sep='')
+  file_path <- file.path(folder,deploy)
+  sqc <- suppressWarnings(yaml.load_file(file_path))
   num.types <- length(sqc)
   for (k in 1:num.types){
     num.subs <- length(sqc[[k]])
