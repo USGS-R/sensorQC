@@ -3,7 +3,7 @@
 #'@description 
 #'loads sensor data into data.frame according to the file format specified.  \cr
 #'
-#'@param filename a string
+#'@param file a string with path to the sensor data
 #'@param format a string which matches a valid sensor data format
 #'@param date_type a string which represents a valid date format type
 #'@return A data.frame with DateTime and values

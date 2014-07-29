@@ -18,8 +18,9 @@ window_data <- function(data.in,method="auto",window=NULL){
   
   if (method=='auto'){
     windowed.data <- auto.chunk.time(data.in)
+  } else if (method=='manual'){
+    windowed.data <- manual.chunk.time(data.in, window = window)
   }
-  
   
   return(windowed.data)
 }
@@ -37,7 +38,7 @@ auto.chunk.time <- function(data.in){
   
   blck.i <- 1
   for (j in 1:(nrow(data.in)-1)){
-    block.int[j]=blck.i # this is slow, should bind at end of call
+    block.int[j]=blck.i
     if (break.i[j]){
       blck.i = blck.i+1
     }
@@ -48,5 +49,11 @@ auto.chunk.time <- function(data.in){
   
   windowed.data$block.ID[j+1]=blck.i
   
+  return(windowed.data)
+}
+
+manual.chunk.time <- function(data.in, window){
+  
+  stop('manual window not yet supported')
   return(windowed.data)
 }
