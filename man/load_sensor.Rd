@@ -6,7 +6,7 @@
 load_sensor(file, format = "wide_burst", date_type)
 }
 \arguments{
-\item{filename}{a string}
+\item{file}{a string with path to the sensor data}
 
 \item{format}{a string which matches a valid sensor data format}
 
