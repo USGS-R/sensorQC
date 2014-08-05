@@ -56,7 +56,8 @@ clean_data <- function(deploy='pellerin',folder, plot_diagnostic=TRUE, write_fil
   }
   
   if (write_file){
-    output = paste0(folder,deploy,"_sqc_out.tsv")
+    file_name <- paste0(deploy,"_sqc_out.tsv")
+    output = file.path(folder,file_name)
     flat.block <- flatten_flags(block.flags)
     write.out <- sensor.stats[!flat.block, ]
     write.table(write.out,file=output,col.names=TRUE, quote=FALSE, row.names=FALSE, sep="\t")
