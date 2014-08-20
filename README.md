@@ -6,9 +6,10 @@ High-frequency aquatic sensor QAQC procedures. `sensorQC` inports data, and runs
 ###Installing `sensorQC`
 install this package using
 
-  install.packages("sensorQC", 
+  ```install.packages("sensorQC", 
         repos = c("http://usgs-r.github.com", "http://cran.us.r-project.org"),
         dependencies = TRUE, type = "both")
+  ```
 
 ###`sensorQC` Functions (as of v0.2.0)
 | Function       | Title           |
