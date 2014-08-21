@@ -80,11 +80,11 @@ data_source:
 These are outlier tests that occur after the `outlier_removal` flags have been removed. For example, the *threshold* test for `flags > 30%` will remove any summary value (the average of the *window* measurements, after `outlier_removal` values have been removed) that has less that 30% of the original instantaneous data. 
 
 #####`data_source` specifies the location of the sensor data that is to be processed
-*file_name* is the name of the file to be imported.
-*folder_name* is the file path to the sensor data (this path is relative to the location of the yaml file)
-*format* is the data format for the sensor data
-*window* is the temporal data window (in seconds) or "auto" (for automatically calculated)
-*date_type* is the date format for the sensor data.
+*file_name* is the name of the file to be imported  
+*folder_name* is the file path to the sensor data (this path is relative to the location of the yaml file)  
+*format* is the data format for the sensor data  
+*window* is the temporal data window (in seconds) or "auto" (for automatically calculated)  
+*date_type* is the date format for the sensor data.  
 
 
 ##What libraries does `sensorQC` need?
