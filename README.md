@@ -74,7 +74,7 @@ data_source:
 ```
 #####`outlier_removal` specifies operations on instantaneous data
 *threshold* and *error_code* types are used to flag data according to their values alone.
-*persistent* and *stat_window* types use a little more information to determine outlines. *persistent* flags simply look for repitition in the reported values, therefore sequential information is used. An `n > 10` *persistent* check will look for any repeated values that appear more than 10 times in a row. *stat_window* flagging happens relative to a windowed number of observations. For example, `MAD(x) > 3` calculates the median absolute deviation (see function `MAD`) for a group of observations (the *window*), and flags all outliers that exceed the MAD > 3 criteria. 
+*persistent* and *stat_window* types use a little more information to determine outlines. *persistent* flags simply look for repetition in the reported values, therefore sequential information is used. An `n > 10` *persistent* check will look for any repeated values that appear more than 10 times in a row. *stat_window* flagging happens relative to a windowed number of observations. For example, `MAD(x) > 3` calculates the median absolute deviation (see function `MAD`) for a group of observations (the *window*), and flags all outliers that exceed the MAD > 3 criteria. 
 
 #####`block_stats` specifies operations on summary statistics
 These are outlier tests that occur after the `outlier_removal` flags have been removed. For example, the *threshold* test for `flags > 30%` will remove any summary value (the average of the *window* measurements, after `outlier_removal` values have been removed) that has less that 30% of the original instantaneous data. 
