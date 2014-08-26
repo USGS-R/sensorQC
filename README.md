@@ -1,6 +1,6 @@
 `sensorQC`
 ========
-[![Build status](https://ci.appveyor.com/api/projects/status/pho8872wbnvaw5nt/branch/master)](https://ci.appveyor.com/project/jread-usgs/sensorQC/branch/master)  
+[![Build status](https://ci.appveyor.com/api/projects/status/pho8872wbnvaw5nt)](https://ci.appveyor.com/project/jread-usgs/sensorqc)  
 High-frequency aquatic sensor QAQC procedures. `sensorQC` imports data, and runs various statistical outlier detection techniques as specified by the user. 
 
 ###Installing `sensorQC`
