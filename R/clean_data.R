@@ -17,7 +17,7 @@
 #'clean_data(deploy = 'pellerin', folder = folder, plot_diagnostic=TRUE, write_file=TRUE)
 #'}
 #'@export
-clean_data <- function(deploy='pellerin',folder, plot_diagnostic=TRUE, write_file = FALSE){
+clean_data <- function(deploy,folder, plot_diagnostic=TRUE, write_file = FALSE){
   #is an example wrapper for sensorQC calls 
   
   #

@@ -3,8 +3,7 @@
 \alias{clean_data}
 \title{cleans sensor data with user-specified routines}
 \usage{
-clean_data(deploy = "pellerin", folder, plot_diagnostic = TRUE,
-  write_file = FALSE)
+clean_data(deploy, folder, plot_diagnostic = TRUE, write_file = FALSE)
 }
 \arguments{
 \item{deploy}{a string for the *.yml file name}
