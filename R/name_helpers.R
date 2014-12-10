@@ -13,6 +13,21 @@ get_block_flag_names <- function(sqc){
   return(flag_names)
 }
 
+get_inst_flag_names <- function(sqc){
+  
+  prefix <- 'inst'
+  n_flags <- length(sqc$outlier_removal)
+  
+  flag_names <- vector('character', n_flags)
+  for (i in 1:n_flags){
+    expr <- sqc$outlier_removal[[i]]$alias # is expression human readable
+    type <- sqc$outlier_removal[[i]]$type
+    flag_names[i] <- squeeze_names(c(prefix, type, expr))
+    
+  }
+  return(flag_names)
+}
+
 squeeze_names <- function(strings){
   str_out <- paste(strings, collapse = '_')
   str_out <- gsub(" ","", str_out , fixed=TRUE)
