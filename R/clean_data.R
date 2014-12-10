@@ -17,7 +17,7 @@
 #'clean_data(deploy = 'pellerin', folder = folder, plot_diagnostic=TRUE, write_file=TRUE)
 #'}
 #'@export
-clean_data <- function(deploy='pellerin',folder, plot_diagnostic=TRUE, write_file = FALSE){
+clean_data <- function(deploy,folder, plot_diagnostic=TRUE, write_file = FALSE){
   #is an example wrapper for sensorQC calls 
   
   #
@@ -58,8 +58,10 @@ clean_data <- function(deploy='pellerin',folder, plot_diagnostic=TRUE, write_fil
   if (write_file){
     file_name <- paste0(deploy,"_sqc_out.tsv")
     output = file.path(folder,file_name)
-    flat.block <- flatten_flags(block.flags)
-    write.out <- sensor.stats[!flat.block, ]
+    block_names <- get_block_flag_names(sqc = cnfg)
+    flag_txt <- flag_out_squeeze(flag_names = block_names, flag_mat = block.flags)
+    write.out <- cbind(sensor.stats[, c(1,2)], data.frame('.flags' = flag_txt)) # need drop method for this...
+    
     write.table(write.out,file=output,col.names=TRUE, quote=FALSE, row.names=FALSE, sep="\t")
   }
   
