@@ -10,7 +10,7 @@
 #'@author
 #'Jordan S. Read
 #'@export
-window_data <- function(data.in,method="auto",window=NULL){
+window_data <- function(data.in, method="auto", window=NULL){
   
   # breaks up data into time-windowed chunks
   # returns a list of breaks
