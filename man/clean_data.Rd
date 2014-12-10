@@ -21,11 +21,10 @@ An optional plot and optional file output handle
 cleans sensor data according to details within the user-specified config (*yml) file  \cr
 }
 \examples{
-\dontrun{
 folder <- system.file('extdata', package = 'sensorQC')
 clean_data(deploy = 'pellerin', folder = folder, plot_diagnostic=FALSE)
 clean_data(deploy = 'pellerin', folder = folder, plot_diagnostic=TRUE, write_file=TRUE)
-}
+clean_data(deploy = 'no_window', folder = folder, plot_diagnostic=FALSE, write_file=FALSE)
 }
 \author{
 Jordan S. Read
