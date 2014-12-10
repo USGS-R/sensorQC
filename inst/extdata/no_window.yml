@@ -1,0 +1,31 @@
+outlier_removal:
+    - expression:   x < 0.01
+      description:  obs below detection
+      type:         threshold
+
+    - expression:   x > 99
+      description:  obs above range
+      type:         threshold
+      
+    - expression:   n > 10
+      description:  questionable persistent value  
+      type:         persistent
+      
+    - expression:   x = 999999
+      description:  logger error code
+      type:         error_code
+      
+    - expression:   missing(x)
+      description:  missing value
+      type:         error_code      
+      
+    - expression:   x = -999
+      description:  logger missing value code
+      type:         error_code
+
+
+data_source:
+    - file_name:    test_data.txt
+      folder_name:  ./
+      format:       wide_burst
+      date_type:    mm/dd/YYYY HH:MM
