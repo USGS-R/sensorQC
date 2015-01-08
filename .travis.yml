@@ -14,7 +14,12 @@ install:
   - ./travis-tool.sh install_deps
 script: ./travis-tool.sh run_tests
 
-after_success: coveralls
+install:
+  - ./travis-tool.sh github_package jimhester/covr
+ 
+ 
+after_success:
+  - Rscript -e 'covr::coveralls()'
 
 after_failure:
   - ./travis-tool.sh dump_logs
