@@ -2,10 +2,11 @@
 ========
 [![Build status](https://ci.appveyor.com/api/projects/status/pho8872wbnvaw5nt)](https://ci.appveyor.com/project/jread-usgs/sensorqc)  
 [![Build Status](https://travis-ci.org/USGS-R/sensorQC.svg?branch=master)](https://travis-ci.org/USGS-R/sensorQC)
+[![Coverage Status](https://img.shields.io/coveralls/USGS-R/sensorQC.svg)](https://coveralls.io/r/USGS-R/sensorQC)
 High-frequency aquatic sensor QAQC procedures. `sensorQC` imports data, and runs various statistical outlier detection techniques as specified by the user. 
 
 ###Installing `sensorQC`
-install this package using
+install this package using 
 
 ```
   install.packages("sensorQC", 
