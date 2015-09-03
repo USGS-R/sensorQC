@@ -23,7 +23,7 @@
 #'build_flags(data.in,sqc=simple.sqc, compress = FALSE, flatten = TRUE)
 #'@export
 
-build_flags <- function(data.in,sqc,verbose=TRUE,compress=TRUE,flatten=FALSE){
+flag.sensor <- function(sensor, flag.defs, ...){
   
   # can't currently flatten & compress**
   if (compress & flatten){stop("both flatten and compress cannot be used together")}
