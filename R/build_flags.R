@@ -1,3 +1,4 @@
+
 #'@title Creates flag vector based on input data
 #'@description 
 #'Creates flag vector with codes and methods according to params list.  \cr
@@ -19,35 +20,30 @@
 #'simple.sqc <- list(list(expression="x == 999999",type="error_code",description="logger error code"),
 #'              list(expression='is.na(x)',type='error_code',description='missing data'))
 #'
-#'build_flags(data.in,sqc=simple.sqc, compress = TRUE, flatten = FALSE)
+#'flag.sensor(data.in, "x == 999999")
 #'build_flags(data.in,sqc=simple.sqc, compress = FALSE, flatten = TRUE)
 #'@export
+flag <- function(x, flag.defs, ...){
+  UseMethod('flag')
+}
 
+#' @export
+flag.data.frame <- function(x, flag.defs, ...){
+  UseMethod('flag',sensor(x))
+}
+
+#' @export
 flag.sensor <- function(sensor, flag.defs, ...){
   
-  # can't currently flatten & compress**
-  if (compress & flatten){stop("both flatten and compress cannot be used together")}
-  # creates flag array based in data.in and parameters
-  num.test <- length(sqc)
-  if (num.test == 0) return(NA)
-  
-  num.time <- nrow(data.in)
-  if (flatten){
-    flags.bool <- vector(length=num.time)
-  } else {
-    flags.bool <- matrix(nrow = num.time, ncol = num.test)
-  }
-  
-  for (i in seq_len(length(sqc))){
-    flag.type <- as.character(sqc[[i]]$type)
-    expression <- as.character(sqc[[i]]$expression)
-    alias <- as.character(sqc[[i]]$alias)
-    flags <- flag_wrap(flag.type,data.in,expr=expression,verbose,alias=alias)
-    if (flatten){
-      flags.bool <- flags | flags.bool
-    } else {
-      flags.bool[, i] <- flags
-    }
+  flagged = flagged(sensor, flag.defs, ...)
+  flags = flags(flagged)
+  sensor = sensor(flagged)
+  for (i in seq_len(length(flags))){
+    flag.type <- as.character(flags[[i]]$type)
+    expression <- as.character(flags[[i]]$expression)
+    alias <- as.character(flags[[i]]$alias)
+    flags <- flag_wrap(data,expr=expression,alias=alias, ...)
+    
   }
   flags.bool[is.na(flags.bool)] = TRUE
   if (compress){
@@ -58,29 +54,46 @@ flag.sensor <- function(sensor, flag.defs, ...){
   
 }
 
-flatten_flags <- function(flags.bool){
-  # HAS to be matrix...
-  data.flags <- as.logical(rowSums(flags.bool))
-  return(data.flags)
+
+flagged <- function(x, ...){
+  UseMethod('flagged')
 }
 
-# compresses boolean flags into int matrix padded with NAs
-# flags are compressed because it is assumed that they don't happen incredibly frequently
-# example: flags.bool <- matrix(nrow=3,ncol=4,data=c(F,F,F,F,F,F,T,T,F,F,F,F))
-compress_flags <- function(flags.bool){
-  # find longest j dimension of T
-  num.row <- max(colSums(flags.bool))
-  num.col <- ncol(flags.bool)
-  data.flags <- matrix(NA_integer_, nrow = num.row, ncol=num.col)
-  grab.idx <- seq_len(nrow(flags.bool))
-  for (i in 1:num.col){
-    num.use <- sum(flags.bool[, i])
-    data.flags[seq_len(num.use), i] <- grab.idx[flags.bool[, i]]
+flagged.sensor <- function(sensor, flag.defs, ...){
+  
+  add_indices <- function(x) {
+    for (i in seq_len(length(x))){
+      x[[i]]=append(x[[i]],list('flag.i'=c()))
+    }
+    x
   }
-  return(data.flags)
+  flagged <- list('sensor'=sensor, 
+                  flags = lapply(flagged(flag.defs, ...), add_indices))
+  class(flagged) <- 'flagged'
+  return(flagged)
 }
 
-unique_flags <- function(comp.flags){
-  un.flags <- sort(unique(comp.flags[!is.na(comp.flags)]))
-  return(un.flags)
+flagged.data.frame <- function(x, ...){
+  UseMethod('flagged',sensor(x))
+}
+
+#' @export
+flagged.character <- function(x, ...){
+  flag.defs = append(list(x), list(...))
+  list('inst'=lapply(flag.defs, function(x) list('expression'=x)))
+}
+
+#' @export
+flagged.qconfig <- function(qconfig){
+  list('inst'=qconfig[['outlier_removal']],
+       'window'=qconfig[['block_stats']])
+}
+
+flags <-function(x){
+  UseMethod('flags')
+}
+
+#' @export
+flags.flagged <- function(flagged){
+  flagged$flags
 }
