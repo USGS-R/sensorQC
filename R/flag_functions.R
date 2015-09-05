@@ -18,26 +18,6 @@ calc_flags.sensor <- function(sensor, expr){
 
   return(flags)
 }
-#'@export
-threshold <- function(data.in,expr='x > 99'){
-  if ("sensor.obs" %in% names(data.in)){
-    flags <- generic_sqc(vals = data.in$sensor.obs,expr)
-  } else {
-    flags <- generic_sqc(vals = data.in,expr)
-  }
-  
-  return(flags)
-}
-
-#'@export
-error_code <- function(data.in,expr='x == -999'){
-  if ("sensor.obs" %in% names(data.in)){
-    flags <- generic_sqc(vals = data.in$sensor.obs,expr)
-  } else {
-    flags <- generic_sqc(vals = data.in,expr)
-  }
-  return(flags)
-}
 
 #'@export
 persistent <- function(data.in,expr='n > 10'){  
@@ -80,6 +60,7 @@ expr_fun <- function(expr){
   expr <- gsub("\\s","",expr)
   return(strsplit(expr,split = '[()]')[[1]][1])
 }
+
 expr_var <- function(expr){
   expr <- gsub("\\s","",expr)
   if (grepl(pattern = '[(]',expr)){

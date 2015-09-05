@@ -1,4 +1,4 @@
-
+#' @export
 sensor <- function(data){
   UseMethod('sensor')
 }
@@ -23,4 +23,9 @@ sensor.flagged <- function(x){
 #' @export
 sensor.sensor <- function(sensor){
   sensor
+}
+
+#' @export
+`[.sensor` <- function(x, i, j, drop){
+  x[i]
 }
