@@ -1,11 +1,21 @@
-flag_wrap <- function(flag.type,data.in,expr,verbose=T,alias){
-  flags  <-  do.call(match.fun(flag.type),list(data.in=data.in,expr=expr)) 
-  if (verbose){
-    perc <- formatC(signif((sum(flags,na.rm = T)/length(flags))*100,digits=3), digits=3,format="fg", flag="#")
-    verb.o <- paste0(flag.type,' ',alias,' created ',sum(flags,na.rm = T), ' flags (',perc,'%)\n')
-    cat(verb.o)
+calc_flags <- function(x, ...){
+  UseMethod('calc_flags')
+}
+
+match.sqc.fun <- function(expr){
+  if (expr_var(expr) == 'n')
+    return(persistent)
+  else {
+    fun = getAnywhere(expr_fun(expr))
+    if (length(fun$objs) == 0)
+      fun = generic_sqc
+    return(fun)
   }
-  
+}
+#' @export
+calc_flags.sensor <- function(sensor, expr){
+  flags  <-  do.call(match.sqc.fun(expr),list(sensor=sensor)) 
+
   return(flags)
 }
 #'@export
@@ -66,7 +76,11 @@ generic_sqc <- function(vals,expr){
   return(flags)
 }
 
-get.expr.var <- function(expr){
+expr_fun <- function(expr){
+  expr <- gsub("\\s","",expr)
+  return(strsplit(expr,split = '[()]')[[1]][1])
+}
+expr_var <- function(expr){
   expr <- gsub("\\s","",expr)
   if (grepl(pattern = '[(]',expr)){
     var.nm <- strsplit(expr,split = '[()]')[[1]][2]

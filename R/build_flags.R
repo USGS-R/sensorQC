@@ -20,7 +20,7 @@
 #'simple.sqc <- list(list(expression="x == 999999",type="error_code",description="logger error code"),
 #'              list(expression='is.na(x)',type='error_code',description='missing data'))
 #'
-#'flag.sensor(data.in, "x == 999999")
+#'flag(data.in, "x == 999999")
 #'build_flags(data.in,sqc=simple.sqc, compress = FALSE, flatten = TRUE)
 #'@export
 flag <- function(x, flag.defs, ...){
@@ -39,10 +39,7 @@ flag.sensor <- function(sensor, flag.defs, ...){
   flags = flags(flagged)
   sensor = sensor(flagged)
   for (i in seq_len(length(flags))){
-    flag.type <- as.character(flags[[i]]$type)
-    expression <- as.character(flags[[i]]$expression)
-    alias <- as.character(flags[[i]]$alias)
-    flags <- flag_wrap(data,expr=expression,alias=alias, ...)
+    flags <- calc_flags(sensor,expr=flags$inst[[i]]$expression, ...)
     
   }
   flags.bool[is.na(flags.bool)] = TRUE
