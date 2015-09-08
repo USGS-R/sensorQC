@@ -4,11 +4,9 @@
 #'Creates flag vector with codes and methods according to params list.  \cr
 #'
 #'
-#'@param data.in a data.frame with columns for DateTime and sensor.obs
-#'@param sqc a sqc object with valid processing parameter names and associated values
-#'@param verbose a boolean for diagnostic prints to workspace
-#'@param compress a boolean for whether flags are compressed
-#'@param flatten a boolean for whether flags are flat (1D vector of 'any') or n by m matrix
+#'@param x data
+#'@param flag.defs definitions for flagging
+#'@param \dots additional defs for flags
 #'@return a vector of flags of length equal to number of rows in data.in
 #'@keywords methods
 #'@author
@@ -33,9 +31,9 @@ flag.data.frame <- function(x, flag.defs, ...){
 }
 
 #' @export
-flag.sensor <- function(sensor, flag.defs, ...){
+flag.sensor <- function(x, flag.defs, ...){
   
-  sensor = sensor(sensor, flag.defs, ...)
+  sensor = sensor(x, flag.defs, ...)
   flags = flags(sensor)
   for (i in seq_len(length(flags))){
     sensor[[2]][[i]]$flag.i = calc_flags(sensor,expr=flags[[i]]$expression)

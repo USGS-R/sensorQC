@@ -7,7 +7,9 @@
 MAD(x, windows = parent.frame()$windows)
 }
 \arguments{
-\item{data.in}{a \code{sensorQC} data.frame.}
+\item{x}{values}
+
+\item{windows}{vector of equal length to x specifying windows}
 }
 \value{
 a vector of MAD normalized values relative to an undefined rejection criteria (usually 2.5 or 3).

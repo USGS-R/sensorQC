@@ -2,29 +2,30 @@
 #'@name window_data
 #'@description 
 #'Breaks up time series data into window chunks.  \cr
-#'@param data.in a data.frame of time series data
-#'@param window numeric, in seconds, specifying the window time width. or 
+#'@param x a data.frame of time series data
+#'@param type numeric, in seconds, specifying the window time width. or 
 #'"auto" to automatically window data
 #'@return a list of time series data and indices for breaks
 #'@keywords window
 #'@author
 #'Jordan S. Read
 #'@export
-window.sensor<- function(x,  window, ...){
+window.sensor<- function(x,  type, ...){
   
   # breaks up data into time-windowed chunks
   # returns a list of breaks
   # add optional method to slice and dice?
   
-  if (window=='auto'){
+  if (type=='auto'){
     windowed.data <- auto.chunk.time(x$sensor)
   } else {
-    windowed.data <- manual.chunk.time(x$sensor, window = window)
+    windowed.data <- manual.chunk.time(x$sensor, type = type)
   }
   
   return(sensor(windowed.data))
 }
 
+#' @importFrom stats window
 auto.chunk.time <- function(data.in){
   
   # finds natural breaks in time sequence of data
@@ -52,8 +53,8 @@ auto.chunk.time <- function(data.in){
   return(windowed.data)
 }
 
-manual.chunk.time <- function(data.in, window){
+manual.chunk.time <- function(data.in, type){
   
   stop('manual window not yet supported')
-  return(windowed.data)
+  return()
 }

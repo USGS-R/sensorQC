@@ -17,7 +17,8 @@ call.mad <- function(vals){
 #'@name MAD
 #'@aliases MAD
 #'@aliases median.absolute.deviation
-#'@param data.in a \code{sensorQC} data.frame.
+#'@param x values
+#'@param windows vector of equal length to x specifying windows
 #'@return a vector of MAD normalized values relative to an undefined rejection criteria (usually 2.5 or 3).
 #'@keywords MAD
 #'@author

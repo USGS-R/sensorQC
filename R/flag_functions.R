@@ -4,7 +4,7 @@ calc_flags <- function(x, ...){
 
 #' @export
 calc_flags.sensor <- function(sensor, expr, which.flagged=TRUE){
-  flags  <-  sqc(expr=expr, vals=values(sensor), window=windows(sensor))
+  flags  <-  sqc(expr=expr, vals=values(sensor), windows=windows(sensor))
   
   if (which.flagged)
     return(which(flags))
