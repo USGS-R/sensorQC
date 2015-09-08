@@ -6,7 +6,6 @@ as.data.frame.sensor <- function(sensor){
 
 #' @export
 `[.sensor` <- function(x, ...){
-  #NextMethod('[')
   `[.data.frame`(as.data.frame(x), ...)
 }
 
@@ -16,7 +15,7 @@ times <- function(x){
 
 #' @export
 times.sensor <- function(x){
-  x[,1]
+  x$sensor[,1]
 }
 
 values <- function(x){
@@ -25,11 +24,21 @@ values <- function(x){
 
 #' @export
 values.sensor <- function(x){
-  x[,2]
+  x$sensor[,2]
 }
 
 windows <- function(x) UseMethod('windows')
 
 windows.sensor <- function(x){
-  x[['windows']]
+  x$sensor[['windows']]
+}
+
+
+flags <-function(x){
+  UseMethod('flags')
+}
+
+#' @export
+flags.sensor <- function(sensor){
+  sensor$flags
 }

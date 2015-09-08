@@ -29,21 +29,18 @@ flag <- function(x, flag.defs, ...){
 
 #' @export
 flag.data.frame <- function(x, flag.defs, ...){
-  UseMethod('flag',sensor(x))
+  UseMethod('flag',sensor(x, flag.defs, ...))
 }
 
 #' @export
 flag.sensor <- function(sensor, flag.defs, ...){
   
-  flagged = flagged(sensor, flag.defs, ...)
-  flags = flags(flagged)
-  sensor = sensor(flagged)
-  for (i in seq_len(length(flags$inst))){
-    flags$inst[[i]]$flag.i <- calc_flags(sensor,expr=flags$inst[[i]]$expression)
+  sensor = sensor(sensor, flag.defs, ...)
+  flags = flags(sensor)
+  for (i in seq_len(length(flags))){
+    sensor[[2]][[i]]$flag.i = calc_flags(sensor,expr=flags[[i]]$expression)
   }
-  flags
-  stop('not finished')
-  # then set flagged, return flagged
-  return(flagged)
+
+  return(sensor)
   
 }
