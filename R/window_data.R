@@ -44,7 +44,7 @@ auto.chunk.time <- function(data.in){
     }
   }
   
-  block.df <- data.frame("block.ID"=block.int) 
+  block.df <- data.frame("windows"=block.int) 
   windowed.data <- cbind(data.in,block.df)
   
   windowed.data$block.ID[j+1]=blck.i
