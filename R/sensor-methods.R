@@ -42,3 +42,5 @@ flags <-function(x){
 flags.sensor <- function(sensor){
   sensor$flags
 }
+
+

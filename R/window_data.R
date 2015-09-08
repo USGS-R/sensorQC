@@ -17,9 +17,9 @@ window.sensor<- function(x,  window, ...){
   # add optional method to slice and dice?
   
   if (window=='auto'){
-    windowed.data <- auto.chunk.time(x)
+    windowed.data <- auto.chunk.time(x$sensor)
   } else {
-    windowed.data <- manual.chunk.time(x, window = window)
+    windowed.data <- manual.chunk.time(x$sensor, window = window)
   }
   
   return(sensor(windowed.data))
