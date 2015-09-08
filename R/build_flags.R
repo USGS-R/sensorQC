@@ -40,7 +40,6 @@ flag.sensor <- function(sensor, flag.defs, ...){
   sensor = sensor(flagged)
   for (i in seq_len(length(flags$inst))){
     flags$inst[[i]]$flag.i <- calc_flags(sensor,expr=flags$inst[[i]]$expression)
-    
   }
   flags
   stop('not finished')
