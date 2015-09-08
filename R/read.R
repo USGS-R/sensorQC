@@ -61,32 +61,6 @@ read.default <- function(file, format, date.format, ...){
   return(sensor(x))
 }
 
-sensor <- function(data){
-  UseMethod('sensor')
-}
-
-#' @export
-sensor.data.frame <- function(data){
-  class(data) <- 'sensor'
-  return(data)
-}
-
-#' @export
-sensor.list <- function(x){
-  sensor <- x$sensor
-  class(sensor) <- 'sensor'
-  return(sensor)
-}
-
-#' @export
-sensor.flagged <- function(x){
-  UseMethod('sensor', list())
-}
-
-#' @export
-sensor.sensor <- function(sensor){
-  sensor
-}
 read.wide_burst <- function(file,date.format){
   # tab delimited with 4 header lines
   
