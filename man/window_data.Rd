@@ -5,7 +5,7 @@
 \alias{window_data}
 \title{window sensorQC data}
 \usage{
-\method{window}{sensor}(sensor, window)
+\method{window}{sensor}(x, window, ...)
 }
 \arguments{
 \item{window}{numeric, in seconds, specifying the window time width. or

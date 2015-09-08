@@ -25,11 +25,11 @@ values <- function(x){
 
 #' @export
 values.sensor <- function(x){
-  x[,-1]
+  x[,2]
 }
 
 windows <- function(x) UseMethod('windows')
 
 windows.sensor <- function(x){
-  NULL # implement later
+  x[['windows']]
 }

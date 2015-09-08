@@ -13,12 +13,13 @@ calc_flags.sensor <- function(sensor, expr, which.flagged=TRUE){
 }
 
 
-
-
-
 sqc <- function(expr, vals, windows, ...){
 
-  
+  expr = tryCatch({
+    parse(text = expr)
+  }, error = function(e) {
+    stop(paste0('error evaluation expression ',expr))
+  })
   if ('windows' %in% names(formals(match.sqc.fun(expr))))
     flags <- window.sqc(expr, vals, windows)
   else
@@ -28,16 +29,12 @@ sqc <- function(expr, vals, windows, ...){
 }
 
 window.sqc <- function(expr, vals, windows){
-  args = list(vals = vals, windows=windows)
-  do.call(expr_fun(expr), args)
+  vals = append(set.vals(expr, vals), list(windows=windows))
+  eval(expr, envir=vals)
 }
 
 value.sqc <- function(expr, vals){
-  expr = tryCatch({
-    parse(text = expr)
-  }, error = function(e) {
-    stop(paste0('error evaluation expression ',expr))
-  })
+
   vals = set.vals(expr, vals)
   eval(expr, envir=vals)
 }
@@ -55,11 +52,11 @@ to.x <- function(vals){
   list('x'=vals)
 }
   
-call.mad <- function(data.in){
+call.mad <- function(vals){
   b = 1.4826    # assuming a normal distribution
   # from Huber 1981:
-  med.val  <-	median(data.in)					# median of the input data
-  abs.med.diff	<-	abs(data.in-med.val)	# absolute values minus med
+  med.val  <-	median(vals)					# median of the input data
+  abs.med.diff	<-	abs(vals-med.val)	# absolute values minus med
   abs.med	<-	median(abs.med.diff)			# median of these values
   
   MAD  <-	b*abs.med
@@ -79,18 +76,18 @@ call.mad <- function(data.in){
 #'@author
 #'Jordan S. Read
 #'@export
-MAD  <-  function(vals, windows){
-  stopifnot(length(vals) == length(windows))
-  # does this method have to be public?	
+MAD  <-  function(x, windows=parent.frame()$windows){
+
+  stopifnot(length(x) == length(windows))
   # what is the underlying distribution? (important for assigning "b")
   
-  MAD.out <- vector(length=nrow(vals))
+  MAD.out <- vector(length=length(x))
   un.win <- unique(windows)
   
   for (i in 1:length(un.win)){
     win.i <- un.win[i]
     val.i <- windows == win.i
-    MAD.out[val.i] = call.mad(vals[val.i])
+    MAD.out[val.i] = call.mad(x[val.i])
   }
   return(MAD.out)
   
