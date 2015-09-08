@@ -24,8 +24,3 @@ sensor.flagged <- function(x){
 sensor.sensor <- function(sensor){
   sensor
 }
-
-#' @export
-`[.sensor` <- function(x, i, j, drop){
-  x[i]
-}

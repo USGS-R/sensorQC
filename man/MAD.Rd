@@ -4,7 +4,7 @@
 \alias{MAD}
 \title{median absolute deviation outlier test}
 \usage{
-MAD(data.in)
+MAD(vals, windows)
 }
 \arguments{
 \item{data.in}{a \code{sensorQC} data.frame.}

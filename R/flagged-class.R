@@ -26,6 +26,10 @@ flagged.character <- function(x, ...){
   flag.defs = append(list(x), list(...))
   list('inst'=lapply(flag.defs, function(x) list('expression'=x)))
 }
+#' @export
+flagged.list <- function(x, ...){
+  x
+}
 
 #' @export
 flagged.qconfig <- function(qconfig){

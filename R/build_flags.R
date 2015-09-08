@@ -21,7 +21,7 @@
 #'              list(expression='is.na(x)',type='error_code',description='missing data'))
 #'
 #'flag(data.in, "x == 999999")
-#'build_flags(data.in,sqc=simple.sqc, compress = FALSE, flatten = TRUE)
+#'flag(data.in,simple.sqc)
 #'@export
 flag <- function(x, flag.defs, ...){
   UseMethod('flag')
@@ -38,10 +38,11 @@ flag.sensor <- function(sensor, flag.defs, ...){
   flagged = flagged(sensor, flag.defs, ...)
   flags = flags(flagged)
   sensor = sensor(flagged)
-  for (i in seq_len(length(flags))){
-    flags <- calc_flags(sensor,expr=flags$inst[[i]]$expression, ...)
+  for (i in seq_len(length(flags$inst))){
+    flags$inst[[i]]$flag.i <- calc_flags(sensor,expr=flags$inst[[i]]$expression)
     
   }
+  flags
   stop('not finished')
   # then set flagged, return flagged
   return(flagged)

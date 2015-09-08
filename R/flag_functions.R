@@ -2,73 +2,57 @@ calc_flags <- function(x, ...){
   UseMethod('calc_flags')
 }
 
-match.sqc.fun <- function(expr){
-  if (expr_var(expr) == 'n')
-    return(persistent)
-  else {
-    fun = getAnywhere(expr_fun(expr))
-    if (length(fun$objs) == 0)
-      fun = generic_sqc
-    return(fun)
-  }
-}
 #' @export
-calc_flags.sensor <- function(sensor, expr){
-  flags  <-  do.call(match.sqc.fun(expr),list(sensor=sensor)) 
-
-  return(flags)
-}
-
-#'@export
-persistent <- function(data.in,expr='n > 10'){  
-  tmp <- rle(data.in$sensor.obs)
-  vals <- rep(tmp$lengths,times = tmp$lengths)
-  flags <- generic_sqc(vals=vals,expr=expr)
-  return(flags)
-}
-#'@export
-stat_window <- function(data.in,expr){
+calc_flags.sensor <- function(sensor, expr, which.flagged=TRUE){
+  flags  <-  do.call(sqc, list(expr=expr, vals=values(sensor), window=windows(sensor)))
   
-  vals <- list(x=data.in)
-  if (any(grepl(pattern = paste(names(data.in),collapse=' '),expr))){
-    names(vals) <- get.expr.var(expr)
-  }
-  flags <- generic_sqc(vals,expr)
-  return(flags)
+  if (which.flagged)
+    return(which(flags))
+  else  
+    return(flags)
 }
 
-generic_sqc <- function(vals,expr){
 
-  test = tryCatch({
-    test <- parse(text = expr)
+
+
+
+sqc <- function(expr, vals, windows, ...){
+
+  
+  if ('windows' %in% names(formals(match.sqc.fun(expr))))
+    flags <- window.sqc(expr, vals, windows)
+  else
+    flags <- value.sqc(expr, vals)
+  
+  return(flags & is.finite(flags) & !is.na(flags))
+}
+
+window.sqc <- function(expr, vals, windows){
+  args = list(vals = vals, windows=windows)
+  do.call(expr_fun(expr), args)
+}
+
+value.sqc <- function(expr, vals){
+  expr = tryCatch({
+    parse(text = expr)
   }, error = function(e) {
     stop(paste0('error evaluation expression ',expr))
-  }, finally = {
-    test
   })
-  
-  if (!is.list(vals) & !is.data.frame(vals)){
-    vals <- list(x=vals)
-    names(vals) <-get.expr.var(expr)
-  }
-  flags <- eval(test, envir=vals)
-  
-  return(flags)
+  vals = set.vals(expr, vals)
+  eval(expr, envir=vals)
 }
 
-expr_fun <- function(expr){
-  expr <- gsub("\\s","",expr)
-  return(strsplit(expr,split = '[()]')[[1]][1])
+set.vals <- function(expr, vals){
+  vals <- do.call(paste0('to.',expr_var(expr)), list(vals=vals))
 }
 
-expr_var <- function(expr){
-  expr <- gsub("\\s","",expr)
-  if (grepl(pattern = '[(]',expr)){
-    var.nm <- strsplit(expr,split = '[()]')[[1]][2]
-  } else {
-    var.nm <- strsplit(expr,split = '[><=]')[[1]][1]
-  }
-  return(var.nm)
+to.n <- function(vals){  
+  tmp <- rle(vals)
+  list('n'=rep(tmp$lengths,times = tmp$lengths))
+}
+
+to.x <- function(vals){
+  list('x'=vals)
 }
   
 call.mad <- function(data.in){
@@ -95,29 +79,23 @@ call.mad <- function(data.in){
 #'@author
 #'Jordan S. Read
 #'@export
-MAD  <-  function(data.in){
+MAD  <-  function(vals, windows){
+  stopifnot(length(vals) == length(windows))
   # does this method have to be public?	
   # what is the underlying distribution? (important for assigning "b")
-  if (is.data.frame(data.in)){
-    if (!"block.ID" %in% names(data.in)){stop("MAD can only accept numeric data, 
-                                              or a data.frame with the block.ID column for windowed data")}
-    MAD.out <- vector(length=nrow(data.in))
-    un.win <- unique(data.in$block.ID)
-    
-    for (i in 1:length(un.win)){
-      win.i <- un.win[i]
-      val.i <- data.in$block.ID == win.i
-      MAD.out[val.i] = call.mad(data.in$sensor.obs[val.i])
-    }
-    return(MAD.out)
-  } else if (is.list(data.in)){
-    data.in <- unlist(data.in)
-    return(call.mad(data.in))
-  } else {
-    return(call.mad(data.in))
+  
+  MAD.out <- vector(length=nrow(vals))
+  un.win <- unique(windows)
+  
+  for (i in 1:length(un.win)){
+    win.i <- un.win[i]
+    val.i <- windows == win.i
+    MAD.out[val.i] = call.mad(vals[val.i])
   }
+  return(MAD.out)
   
 }
+
 call.cv <- function(data.in){
   CV <- 100*sd(data.in)/mean(data.in)
   CV <- rep(CV,length(data.in))
