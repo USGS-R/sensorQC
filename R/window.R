@@ -1,15 +1,18 @@
-#'@title window sensorQC data
-#'@name window_data
-#'@description 
-#'Breaks up time series data into window chunks.  \cr
-#'@param x a data.frame of time series data
-#'@param type numeric, in seconds, specifying the window time width. or 
-#'"auto" to automatically window data
-#'@return a list of time series data and indices for breaks
-#'@keywords window
-#'@author
-#'Jordan S. Read
-#'@export
+#' @title window sensorQC data
+#' @rdname window
+#' @description 
+#' Breaks up time series data into window chunks.  \cr
+#' @param x a data.frame of time series data
+#' @param type numeric, in seconds, specifying the window time width. or 
+#' "auto" to automatically window data
+#' @return a list of time series data and indices for breaks
+#' @aliases 
+#' window
+#' window.sensor
+#' @keywords methods
+#' @author
+#' Jordan S. Read
+#' @export
 window.sensor<- function(x,  type){
   
   # breaks up data into time-windowed chunks
@@ -32,7 +35,7 @@ auto.chunk.time <- function(data.in){
   data.in = as.data.frame(data.in[1:2])
   t.steps <- as.numeric(diff(data.in$DateTime))
   ###### re-write this!!
-  MAD.norm <- call.mad(t.steps) # deal with NAs?
+  MAD.norm <- MAD.values(t.steps) # deal with NAs?
   break.i <- MAD.norm > 2.5
   
   block.int = vector(mode="integer",length=nrow(data.in))

@@ -20,35 +20,32 @@ sqc <- function(expr, vals, windows, ...){
   }, error = function(e) {
     stop(paste0('error evaluation expression ',expr))
   })
-  if ('windows' %in% names(formals(match.sqc.fun(expr))))
-    flags <- window.sqc(expr, vals, windows)
-  else
-    flags <- value.sqc(expr, vals)
+
+  vals = set.args(expr, vals, windows)
+  
+  flags <- eval(expr, envir=vals)
   
   return(flags & is.finite(flags) & !is.na(flags))
 }
 
-window.sqc <- function(expr, vals, windows){
-  vals = append(set.vals(expr, vals), list(windows=windows))
-  eval(expr, envir=vals)
+set.args <- function(expr, vals, windows){
+  val.call <- function(x){
+    do.call(paste0('to.',x), list(vals=vals, windows=windows))
+  }
+  arg.names = expr_var(expr)
+  args = sapply(arg.names, val.call)
+  return(setNames(args, arg.names))
 }
 
-value.sqc <- function(expr, vals){
-
-  vals = set.vals(expr, vals)
-  eval(expr, envir=vals)
-}
-
-set.vals <- function(expr, vals){
-  vals <- do.call(paste0('to.',expr_var(expr)), list(vals=vals))
-}
-
-to.n <- function(vals){  
+to.n <- function(vals, ...){  
   tmp <- rle(vals)
   list('n'=rep(tmp$lengths,times = tmp$lengths))
 }
 
-to.x <- function(vals){
+to.x <- function(vals, ...){
   list('x'=vals)
 }
   
+to.w <- function(..., windows){
+  list('w'=windows)
+}

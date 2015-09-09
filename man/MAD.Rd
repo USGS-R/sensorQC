@@ -4,7 +4,7 @@
 \alias{MAD}
 \title{median absolute deviation outlier test}
 \usage{
-MAD(x, windows = parent.frame()$windows)
+MAD(x, w)
 }
 \arguments{
 \item{x}{values}
