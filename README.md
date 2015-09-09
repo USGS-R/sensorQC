@@ -13,11 +13,11 @@ This package is still very much in development, so the API may change at any tim
 
 [![Build Status](https://travis-ci.org/USGS-R/sensorQC.svg?branch=master)](https://travis-ci.org/USGS-R/sensorQC)
 
-[![Coverage Status](https://img.shields.io/coveralls/USGS-R/sensorQC.svg)](https://coveralls.io/r/USGS-R/sensorQC)
+[![Coverage Status](https://coveralls.io/repos/USGS-R/sensorQC/badge.svg?branch=master&service=github)](https://coveralls.io/github/USGS-R/sensorQC?branch=master)
 
 High-frequency aquatic sensor QAQC procedures. `sensorQC` imports data, and runs various statistical outlier detection techniques as specified by the user.
 
-### `sensorQC` Functions (as of v0.2.0)
+### `sensorQC` Functions (as of v0.3.0)
 
 | Function | Title                                                  |
 |----------|:-------------------------------------------------------|
