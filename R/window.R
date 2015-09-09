@@ -10,7 +10,7 @@
 #'@author
 #'Jordan S. Read
 #'@export
-window.sensor<- function(x,  type, ...){
+window.sensor<- function(x,  type){
   
   # breaks up data into time-windowed chunks
   # returns a list of breaks

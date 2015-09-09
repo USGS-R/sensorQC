@@ -5,7 +5,7 @@
 \alias{window_data}
 \title{window sensorQC data}
 \usage{
-\method{window}{sensor}(x, type, ...)
+\method{window}{sensor}(x, type)
 }
 \arguments{
 \item{x}{a data.frame of time series data}
