@@ -49,7 +49,11 @@ MAD <- function(x, w){
   
 }
 
-
+#' @export
+persist <- function(x){
+  tmp <- rle(x)
+  rep(tmp$lengths,times = tmp$lengths)
+}
 
 call.cv <- function(data.in){
   CV <- 100*sd(data.in)/mean(data.in)
