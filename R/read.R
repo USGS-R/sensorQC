@@ -10,6 +10,7 @@
 #' @examples 
 #' qconfig = read(system.file('extdata','pedro.yml', package = 'sensorQC'))
 #' @importFrom tools file_ext
+#' @importFrom yaml yaml.load_file
 #' @export
 read <- function(file, ...){
   
