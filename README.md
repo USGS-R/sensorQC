@@ -61,11 +61,11 @@ flag(sensor, 'x == 999999', 'n > 3', 'is.na(x)')
     ## n > 3 (4 flags)
     ## is.na(x) (0 flags)
 
-Add windowing to the data to use `MAD` (median absolute deviation) test
+Use the `MAD` (median absolute deviation) test, and add `w` to the function call to specify "windows" (note, sensor must be windowed w/ `window()` prior to using `w`)
 
 ``` r
 sensor = window(sensor, 'auto')
-flag(sensor, 'x == 999999', 'n > 3', 'MAD(x) > 3')
+flag(sensor, 'x == 999999', 'n > 3', 'MAD(x,w) > 3', 'MAD(x) > 3')
 ```
 
     ## object of class "sensor"
@@ -88,4 +88,5 @@ flag(sensor, 'x == 999999', 'n > 3', 'MAD(x) > 3')
     ##   ...
     ## x == 999999 (15 flags)
     ## n > 3 (4 flags)
-    ## MAD(x) > 3 (129 flags)
+    ## MAD(x,w) > 3 (129 flags)
+    ## MAD(x) > 3 (91 flags)

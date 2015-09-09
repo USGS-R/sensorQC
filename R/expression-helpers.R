@@ -7,11 +7,13 @@ expr_fun <- function(expr){
 expr_var <- function(expr){
   expr <- gsub("\\s","",expr)
   if (grepl(pattern = '[(]',expr)){
-    var.nm <- strsplit(expr,split = '[()]')[[1]][2]
+    return(split_vars(strsplit(expr,split = '[()]')[[1]][2]))
   } else {
-    var.nm <- strsplit(expr,split = '[><=]')[[1]][1]
+    return(strsplit(expr,split = '[><=]')[[1]][1])
   }
-  return(var.nm)
+}
+split_vars <- function(x){
+  strsplit(x, split = '[,]')[[1]]
 }
 
 match.sqc.fun <- function(expr){
