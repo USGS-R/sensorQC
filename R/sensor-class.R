@@ -46,7 +46,7 @@ print.sensor <- function(x, ..., max.row=15){
   cat('object of class "sensor"\n')
   
   print(head(x$sensor[,1:2], max.row))
-  cat('\n')
+  cat('  ...\n')
   for (i in 1:length(flags(x))){
     cat(flags(x)[[i]]$expression,paste0('(',length(flags(x)[[i]]$flag.i),' flags)\n'))
   }
