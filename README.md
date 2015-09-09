@@ -17,7 +17,7 @@ This package is still very much in development, so the API may change at any tim
 
 High-frequency aquatic sensor QAQC procedures. `sensorQC` imports data, and runs various statistical outlier detection techniques as specified by the user.
 
-### `sensorQC` Functions (as of v0.2.0)
+### `sensorQC` Functions (as of v0.3.0)
 
 | Function | Title                                                  |
 |----------|:-------------------------------------------------------|
