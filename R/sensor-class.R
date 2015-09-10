@@ -5,6 +5,7 @@ sensor <- function(x, flag.defs, ...){
 
 #' @export
 sensor.data.frame <- function(x, flag.defs = NULL, ...){
+  names(x) <- c('times','x','w')[seq_len(length(names(x)))]
   sensor = list(sensor=x)
   flags = define_flags(flag.defs,...)
   if (!is.null(flags))

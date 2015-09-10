@@ -93,7 +93,7 @@ read.wide_burst <- function(file,date.format){
   }
   date.vec <- head(date.vec,cnt-1)
   sens.vec <- head(sens.vec,cnt-1)
-  data.out <- data.frame('DateTime'=date.vec, 'sensor.obs'=sens.vec)
+  data.out <- data.frame('DateTime'=date.vec, 'x'=sens.vec)
   
   # should we also return metadata?
   return(data.out)

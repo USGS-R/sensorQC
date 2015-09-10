@@ -17,17 +17,8 @@ MAD.values <- function(vals, b = 1.4826){
 MAD.windowed <- function(vals, windows){
   stopifnot(length(vals) == length(windows))
   
-  # what is the underlying distribution? (important for assigning "b")
-  
-  MAD.out <- vector(length=length(vals))
-  un.win <- unique(windows)
-  
-  for (i in 1:length(un.win)){
-    win.i <- un.win[i]
-    val.i <- windows == win.i
-    MAD.out[val.i] = MAD.values(vals[val.i])
-  }
-  return(MAD.out)
+  mad <- group_by_(data.frame(x=vals,w=windows), 'w') %>% mutate_(mad='sensorQC:::MAD.values(x)') %>% .$mad
+  return(mad)
 }
 #'@title median absolute deviation outlier test
 #'@name MAD
@@ -37,6 +28,7 @@ MAD.windowed <- function(vals, windows){
 #'@param windows vector of equal length to x specifying windows
 #'@return a vector of MAD normalized values relative to an undefined rejection criteria (usually 2.5 or 3).
 #'@keywords MAD
+#'@importFrom dplyr group_by_ mutate_ %>%
 #'@author
 #'Jordan S. Read
 #'@export
@@ -49,7 +41,11 @@ MAD <- function(x, w){
   
 }
 
-
+#' @export
+persist <- function(x){
+  tmp <- rle(x)
+  rep(tmp$lengths,times = tmp$lengths)
+}
 
 call.cv <- function(data.in){
   CV <- 100*sd(data.in)/mean(data.in)

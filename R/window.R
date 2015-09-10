@@ -33,7 +33,7 @@ auto.chunk.time <- function(data.in){
   
   # finds natural breaks in time sequence of data
   data.in = as.data.frame(data.in[1:2])
-  t.steps <- as.numeric(diff(data.in$DateTime))
+  t.steps <- as.numeric(diff(data.in$times))
   ###### re-write this!!
   MAD.norm <- MAD.values(t.steps) # deal with NAs?
   break.i <- MAD.norm > 2.5
@@ -48,10 +48,10 @@ auto.chunk.time <- function(data.in){
     }
   }
   
-  block.df <- data.frame("windows"=block.int) 
+  block.df <- data.frame("w"=block.int) 
   windowed.data <- cbind(data.in,block.df)
   
-  windowed.data[['windows']][j+1]=blck.i
+  windowed.data[['w']][j+1]=blck.i
   
   return(windowed.data)
 }

@@ -38,11 +38,11 @@ High-frequency aquatic sensor QAQC procedures. `sensorQC` imports data, and runs
 library(sensorQC)
 file <- system.file('extdata', 'test_data.txt', package = 'sensorQC') 
 sensor <- read(file, format="wide_burst", date.format="%m/%d/%Y %H:%M")
-flag(sensor, 'x == 999999', 'n > 3', 'is.na(x)')
+flag(sensor, 'x == 999999', 'persist(x) > 3', 'is.na(x)')
 ```
 
 Use the `MAD` (median absolute deviation) test, and add `w` to the function call to specify "windows" (note, sensor must be windowed w/ `window()` prior to using `w`)
 ```{r}
 sensor = window(sensor, 'auto')
-flag(sensor, 'x == 999999', 'n > 3', 'MAD(x,w) > 3', 'MAD(x) > 3')
+flag(sensor, 'x == 999999', 'persist(x) > 3', 'MAD(x,w) > 3', 'MAD(x) > 3')
 ```
