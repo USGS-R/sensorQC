@@ -16,7 +16,7 @@ MAD.values <- function(vals, b = 1.4826){
 
 MAD.windowed <- function(vals, windows){
   stopifnot(length(vals) == length(windows))
-  
+  . <- '_dplyr_var'
   mad <- group_by_(data.frame(x=vals,w=windows), 'w') %>% mutate_(mad='sensorQC:::MAD.values(x)') %>% .$mad
   return(mad)
 }
@@ -25,7 +25,7 @@ MAD.windowed <- function(vals, windows){
 #'@aliases MAD
 #'@aliases median.absolute.deviation
 #'@param x values
-#'@param windows vector of equal length to x specifying windows
+#'@param w vector of equal length to x specifying windows
 #'@return a vector of MAD normalized values relative to an undefined rejection criteria (usually 2.5 or 3).
 #'@keywords MAD
 #'@importFrom dplyr group_by_ mutate_ %>%
@@ -41,6 +41,11 @@ MAD <- function(x, w){
   
 }
 
+#' function for checking persistent values
+#' 
+#' repeated values of a vector
+#' @param x a numeric vector
+#' @return a vector that provides a count of persistance
 #' @export
 persist <- function(x){
   tmp <- rle(x)

@@ -9,7 +9,7 @@ MAD(x, w)
 \arguments{
 \item{x}{values}
 
-\item{windows}{vector of equal length to x specifying windows}
+\item{w}{vector of equal length to x specifying windows}
 }
 \value{
 a vector of MAD normalized values relative to an undefined rejection criteria (usually 2.5 or 3).

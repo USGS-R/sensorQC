@@ -9,12 +9,21 @@ read(file, ...)
 
 read.default(file, format, date.format, ...)
 }
+\arguments{
+\item{file}{filename}
+
+\item{format}{format for file}
+
+\item{date.format}{data format of file}
+
+\item{\dots}{additional arguments passed to file read methods}
+}
 \description{
 read from file and create sensor or qconfig object
+
+read in sensor data
 }
 \examples{
 qconfig = read(system.file('extdata','pedro.yml', package = 'sensorQC'))
-file <- system.file('extdata', 'test_data.txt', package = 'sensorQC')
-data_out <- read(file, format="wide_burst", date.format="\%m/\%d/\%Y \%H:\%M")
 }
 
