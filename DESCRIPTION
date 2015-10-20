@@ -1,8 +1,8 @@
 Package: sensorQC
 Type: Package
 Title: sensorQC
-Version: 0.3.0
-Date: 2014-08-26
+Version: 0.3.1
+Date: 2015-10-20
 Author: Jordan S Read, Brad Garner, Brian Pellerin
 Maintainer: Jordan S Read <jread@usgs.gov>
 Description: tools for QAQCing water quality sensor data.
