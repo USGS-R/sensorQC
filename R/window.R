@@ -3,6 +3,7 @@
 #' @description 
 #' Breaks up time series data into window chunks.  \cr
 #' @param x a data.frame of time series data
+#' @param \dots not used
 #' @param type numeric, in seconds, specifying the window time width. or 
 #' "auto" to automatically window data
 #' @return a list of time series data and indices for breaks
@@ -13,7 +14,7 @@
 #' @author
 #' Jordan S. Read
 #' @export
-window.sensor<- function(x,  type){
+window.sensor<- function(x, ..., type){
   
   # breaks up data into time-windowed chunks
   # returns a list of breaks

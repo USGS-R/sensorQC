@@ -5,13 +5,15 @@
 \alias{window.sensor}
 \title{window sensorQC data}
 \usage{
-\method{window}{sensor}(x, type)
+\method{window}{sensor}(x, ..., type)
 }
 \arguments{
 \item{x}{a data.frame of time series data}
 
 \item{type}{numeric, in seconds, specifying the window time width. or
 "auto" to automatically window data}
+
+\item{\dots}{not used}
 }
 \value{
 a list of time series data and indices for breaks

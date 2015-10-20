@@ -2,10 +2,11 @@
 #' 
 #' read from file and create sensor or qconfig object
 #' 
+#' @param file filename
+#' @param \dots additional arguments passed to file read methods
+#' @param format format for file
+#' @param date.format data format of file
 #' @rdname read
-#' @aliases 
-#' read
-#' read.default
 #' 
 #' @examples 
 #' qconfig = read(system.file('extdata','pedro.yml', package = 'sensorQC'))
@@ -47,13 +48,13 @@ read.config <- function(file, ...){
   
   return(as.qconfig(sqc))
 }
-#' @aliases 
-#' read
-#' read.default
-#' @examples 
-#' file <- system.file('extdata', 'test_data.txt', package = 'sensorQC') 
-#' data_out <- read(file, format="wide_burst", date.format="%m/%d/%Y %H:%M")
+
+#' read default method 
+#' 
+#' read in sensor data
+#' 
 #' @rdname read
+#' 
 #' @export
 read.default <- function(file, format, date.format, ...){
   

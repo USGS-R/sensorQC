@@ -25,9 +25,11 @@ flag <- function(x, flag.defs, ...){
   UseMethod('flag')
 }
 
+
 #' @export
-flag.data.frame <- function(x, flag.defs, ...){
-  UseMethod('flag',sensor(x, flag.defs, ...))
+flag.data.frame = function(x, flag.defs, ...){
+  x = sensor(x)
+  UseMethod('flag', x)
 }
 
 #' @export

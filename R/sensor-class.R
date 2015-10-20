@@ -1,3 +1,10 @@
+#' create a sensor object
+#' 
+#' sensor data
+#' 
+#' @param x a data.frame or sensor object
+#' @param flag.defs definitions for flags. Functions that can be evaluated to T/F
+#' @param \dots additional flag.defs
 #' @export
 sensor <- function(x, flag.defs, ...){
   UseMethod('sensor')
