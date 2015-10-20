@@ -21,6 +21,14 @@ sensor.data.frame <- function(x, flag.defs = NULL, ...){
   return(sensor)
 }
 
+#' @export
+sensor.double <- function(x, flag.defs = NULL, ...){
+  x = data.frame(times = rep(NA,length(x)), x = x)
+  
+  sensor(x, flag.defs = NULL, ...)
+}
+
+
 define_flags <- function(x, ...){
   
   # x is null and there is nothing else
@@ -52,9 +60,13 @@ sensor.sensor <- function(x, flag.defs = NULL, ...){
 #' @export
 print.sensor <- function(x, ..., max.row=15){
   cat('object of class "sensor"\n')
-  
-  print(head(x$sensor[,1:2], max.row))
-  cat('  ...\n')
+  if (!all(is.na(x$sensor$times)))
+    print(head(x$sensor[,1:2], max.row))
+  else
+    print(head(x$sensor[2], max.row))
+  if (nrow(x$sensor) > max.row)
+    cat('  ...')
+  cat('\n')
   for (i in 1:length(flags(x))){
     cat(flags(x)[[i]]$expression,paste0('(',length(flags(x)[[i]]$flag.i),' flags)\n'))
   }

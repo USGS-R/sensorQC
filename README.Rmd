@@ -54,3 +54,19 @@ Use the `MAD` (median absolute deviation) test, and add `w` to the function call
 sensor = window(sensor, type='auto')
 flag(sensor, 'x == 999999', 'persist(x) > 3', 'MAD(x,w) > 3', 'MAD(x) > 3')
 ```
+
+Use sensorQC with a simple vector of numbers:  
+```{r}
+flag(c(3,2,4,3,3,4,2,4),'MAD(x) > 3')
+```
+
+plot dataset w/ outliers:  
+```{r}
+plot(sensor)
+```
+
+plot dataset w/o outliers:  
+```{r}
+flagged = flag(sensor, 'x == 999999', 'persist(x) > 3', 'MAD(x,w) > 3', 'MAD(x) > 3')
+plot(flagged)
+```

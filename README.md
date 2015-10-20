@@ -103,3 +103,39 @@ flag(sensor, 'x == 999999', 'persist(x) > 3', 'MAD(x,w) > 3', 'MAD(x) > 3')
     ## persist(x) > 3 (4 flags)
     ## MAD(x,w) > 3 (129 flags)
     ## MAD(x) > 3 (91 flags)
+
+Use sensorQC with a simple vector of numbers:
+
+``` r
+flag(c(3,2,4,3,3,4,2,4),'MAD(x) > 3')
+```
+
+    ## object of class "sensor"
+    ##   x
+    ## 1 3
+    ## 2 2
+    ## 3 4
+    ## 4 3
+    ## 5 3
+    ## 6 4
+    ## 7 2
+    ## 8 4
+    ## 
+    ## MAD(x) > 3 (0 flags)
+
+plot dataset w/ outliers:
+
+``` r
+plot(sensor)
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
+
+plot dataset w/o outliers:
+
+``` r
+flagged = flag(sensor, 'x == 999999', 'persist(x) > 3', 'MAD(x,w) > 3', 'MAD(x) > 3')
+plot(flagged)
+```
+
+![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)

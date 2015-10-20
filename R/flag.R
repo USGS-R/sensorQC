@@ -31,6 +31,11 @@ flag.data.frame = function(x, flag.defs, ...){
   x = sensor(x)
   UseMethod('flag', x)
 }
+#' @export
+flag.numeric = function(x, flag.defs, ...){
+  x = data.frame(times = rep(NA,length(x)), x = x)
+  flag(x, flag.defs, ...)
+}
 
 #' @export
 flag.sensor <- function(x, flag.defs, ...){

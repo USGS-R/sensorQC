@@ -2,11 +2,13 @@
 
 S3method("[",sensor)
 S3method(calc_flags,sensor)
+S3method(flag,numeric)
 S3method(flag,sensor)
 S3method(flags,sensor)
 S3method(plot,sensor)
 S3method(print,sensor)
 S3method(sensor,data.frame)
+S3method(sensor,double)
 S3method(sensor,sensor)
 S3method(times,sensor)
 S3method(values,sensor)
