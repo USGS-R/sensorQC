@@ -21,7 +21,8 @@ Or to install the current development version of the package (using the `devtool
 devtools::install_github("USGS-R/sensorQC")
 ```
 
-This package is still very much in development, so the API may change at any time.
+This package is still very much in development, so the API may change at any time.  
+
 | Name       | Status           |  
 | :------------ |:-------------|  
 | Linux Build: | [![Build Status](https://travis-ci.org/USGS-R/sensorQC.svg?branch=master)](https://travis-ci.org/USGS-R/sensorQC) |  

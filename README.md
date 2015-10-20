@@ -15,10 +15,12 @@ Or to install the current development version of the package (using the `devtool
 devtools::install_github("USGS-R/sensorQC")
 ```
 
-This package is still very much in development, so the API may change at any time. | Name | Status |
-| :------------ |:-------------|
-| Linux Build: | [![Build Status](https://travis-ci.org/USGS-R/sensorQC.svg?branch=master)](https://travis-ci.org/USGS-R/sensorQC) |
-| Windows Build: | [![Build status](https://ci.appveyor.com/api/projects/status/pho8872wbnvaw5nt)](https://ci.appveyor.com/project/jread-usgs/sensorqc) |
+This package is still very much in development, so the API may change at any time.
+
+| Name           | Status                                                                                                                                                             |
+|:---------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Linux Build:   | [![Build Status](https://travis-ci.org/USGS-R/sensorQC.svg?branch=master)](https://travis-ci.org/USGS-R/sensorQC)                                                  |
+| Windows Build: | [![Build status](https://ci.appveyor.com/api/projects/status/pho8872wbnvaw5nt)](https://ci.appveyor.com/project/jread-usgs/sensorqc)                               |
 | Package Tests: | [![Coverage Status](https://coveralls.io/repos/USGS-R/sensorQC/badge.svg?branch=master&service=github)](https://coveralls.io/github/USGS-R/sensorQC?branch=master) |
 
 High-frequency aquatic sensor QAQC procedures. `sensorQC` imports data, and runs various statistical outlier detection techniques as specified by the user.
