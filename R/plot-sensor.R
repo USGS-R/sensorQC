@@ -2,12 +2,14 @@
 plot.sensor <- function(x, y=NULL, ...){
   args = expand.grid(...)
   # check that ylab and xlab aren't in ...
-  if (is.null(flags(x))){
-    plot(x$sensor$times, x$sensor$x, ylab='sensor', xlab='xlab')
-  } else {
+  plot.x = x$sensor$times
+  plot.y = x$sensor$x
+  if (!is.null(flags(x))){
     flag.i <- sort(unique(unlist(sapply(flags(x), function(x) x$flag.i))))
-    plot(x$sensor$times[-flag.i], x$sensor$x[-flag.i], ylab='sensor', xlab='DateTime')
+    plot.x = plot.x[-flag.i]
+    plot.y = plot.y[-flag.i]
+    
   }
   
-  
+  plot(plot.x, plot.y, ylab='sensor', xlab='DateTime')
 }
