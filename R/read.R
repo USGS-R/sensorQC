@@ -56,13 +56,24 @@ read.config <- function(file, ...){
 #' @rdname read
 #' 
 #' @export
-read.default <- function(file, format, date.format, ...){
+read.default <- function(file, format, date.format=NULL, ...){
   
   x = do.call(paste0('read.',format), list(file=file, date.format=date.format, ...))
   
   return(sensor(x))
 }
 
+#' @importFrom readr read_csv
+read.ysi_exo <- function(file, date.format, col_num, ...){
+
+  
+  d = read_csv(file, skip = 25, col_types = cols('Date (MM/DD/YYYY)' = col_datetime(format = "%m/%d/%Y"),'Time (HH:MM:SS)'=col_time("%H:%M:%S")))
+  date.vec = d[1]+d[2]
+  sens.vec = d[, col_num]
+  data.out <- data.frame('DateTime'=date.vec, 'x'=sens.vec)
+  names(data.out) <- c('DateTime', 'x')
+  return(data.out)
+}
 read.wide_burst <- function(file,date.format){
   # tab delimited with 4 header lines
   

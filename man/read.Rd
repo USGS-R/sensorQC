@@ -7,7 +7,7 @@
 \usage{
 read(file, ...)
 
-read.default(file, format, date.format, ...)
+read.default(file, format, date.format = NULL, ...)
 }
 \arguments{
 \item{file}{filename}
