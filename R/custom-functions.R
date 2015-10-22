@@ -2,15 +2,15 @@
 MAD.values <- function(vals, b = 1.4826){
   # b: assuming a normal distribution
   # from Huber 1981:
-  med.val  <-	median(vals)					# median of the input data
+  u.i <- is.finite(vals)
+  med.val  <-	median(vals[u.i])					# median of the input data
   abs.med.diff	<-	abs(vals-med.val)	# absolute values minus med
-  abs.med	<-	median(abs.med.diff)			# median of these values
+  abs.med	<-	median(abs.med.diff[u.i])			# median of these values
   
   MAD  <-	b*abs.med
-  
-  MAD.normalized <- abs.med.diff/MAD # division by zero
-  
-  MAD.normalized[is.na(MAD.normalized)] = 0 # doesn't protect against NAs that enter in data.in
+  MAD.normalized = rep(NA,length(vals))
+  MAD.normalized[u.i] <- abs.med.diff[u.i]/MAD # division by zero
+  MAD.normalized[is.na(MAD.normalized)] <- 0
   return(MAD.normalized)
 }
 
