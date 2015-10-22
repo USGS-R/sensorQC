@@ -25,7 +25,7 @@ This package is still very much in development, so the API may change at any tim
 
 High-frequency aquatic sensor QAQC procedures. `sensorQC` imports data, and runs various statistical outlier detection techniques as specified by the user.
 
-### `sensorQC` Functions (as of v0.3.2)
+### `sensorQC` Functions (as of v0.3.3)
 
 | Function | Title                                                  |
 |----------|:-------------------------------------------------------|
@@ -123,6 +123,8 @@ flag(c(3,2,4,3,3,4,2,4),'MAD(x) > 3')
     ## 
     ## MAD(x) > 3 (0 flags)
 
+#### plotting data
+
 plot dataset w/ outliers:
 
 ``` r
@@ -139,3 +141,40 @@ plot(flagged)
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
+
+#### cleaning data
+
+The `clean` function can be used to strip flagged data points from the record or replace them with other values (such as `NA` or -9999)
+
+``` r
+data = c(999999, 1,2,3,4,2,3,4)
+sensor = flag(data, 'x > 9999')
+clean(sensor)
+```
+
+    ## object of class "sensor"
+    ##   x
+    ## 1 1
+    ## 2 2
+    ## 3 3
+    ## 4 4
+    ## 5 2
+    ## 6 3
+    ## 7 4
+
+or flag data and clean data all in one step:
+
+``` r
+clean(data, 'x > 9999', 'persist(x) > 10', 'MAD(x) > 3', replace=NA)
+```
+
+    ## object of class "sensor"
+    ##    x
+    ## 1 NA
+    ## 2  1
+    ## 3  2
+    ## 4  3
+    ## 5  4
+    ## 6  2
+    ## 7  3
+    ## 8  4

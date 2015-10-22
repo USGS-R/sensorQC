@@ -60,6 +60,7 @@ Use sensorQC with a simple vector of numbers:
 flag(c(3,2,4,3,3,4,2,4),'MAD(x) > 3')
 ```
 
+#### plotting data
 plot dataset w/ outliers:  
 ```{r}
 plot(sensor)
@@ -70,3 +71,17 @@ plot dataset w/o outliers:
 flagged = flag(sensor, 'x == 999999', 'persist(x) > 3', 'MAD(x,w) > 3', 'MAD(x) > 3')
 plot(flagged)
 ```
+
+#### cleaning data
+The `clean` function can be used to strip flagged data points from the record or replace them with other values (such as `NA` or -9999)  
+```{r}
+data = c(999999, 1,2,3,4,2,3,4)
+sensor = flag(data, 'x > 9999')
+clean(sensor)
+```
+or flag data and clean data all in one step:  
+```{r}
+clean(data, 'x > 9999', 'persist(x) > 10', 'MAD(x) > 3', replace=NA)
+```
+
+
