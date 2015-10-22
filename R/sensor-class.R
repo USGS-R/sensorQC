@@ -67,7 +67,7 @@ print.sensor <- function(x, ..., max.row=15){
   if (nrow(x$sensor) > max.row)
     cat('  ...')
   cat('\n')
-  for (i in 1:length(flags(x))){
+  for (i in seq_len(length(flags(x)))){
     cat(flags(x)[[i]]$expression,paste0('(',length(flags(x)[[i]]$flag.i),' flags)\n'))
   }
 }
