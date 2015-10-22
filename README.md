@@ -31,7 +31,9 @@ High-frequency aquatic sensor QAQC procedures. `sensorQC` imports data, and runs
 |----------|:-------------------------------------------------------|
 | `read`   | read in a file for sensor data or a config (.yml) file |
 | `window` | window sensor data for processing in chunks            |
+| `plot`   | plot sensor data                                       |
 | `flag`   | create data flags for a sensor                         |
+| `clean`  | remove or replace flagged data points                  |
 
 ### example usage
 
@@ -161,6 +163,52 @@ clean(sensor)
     ## 5 2
     ## 6 3
     ## 7 4
+
+``` r
+clean(sensor, replace=NA)
+```
+
+    ## object of class "sensor"
+    ##    x
+    ## 1 NA
+    ## 2  1
+    ## 3  2
+    ## 4  3
+    ## 5  4
+    ## 6  2
+    ## 7  3
+    ## 8  4
+
+if you have multiple flag rules, you can choose which ones to use by their index:
+
+``` r
+data = c(999999, 1,2,3,4,2,3,4)
+sensor = flag(data, 'x > 9999', 'x == 3')
+clean(sensor, which=1)
+```
+
+    ## object of class "sensor"
+    ##   x
+    ## 1 1
+    ## 2 2
+    ## 3 3
+    ## 4 4
+    ## 5 2
+    ## 6 3
+    ## 7 4
+
+``` r
+clean(sensor, which=2)
+```
+
+    ## object of class "sensor"
+    ##        x
+    ## 1 999999
+    ## 2      1
+    ## 3      2
+    ## 4      4
+    ## 5      2
+    ## 6      4
 
 or flag data and clean data all in one step:
 
