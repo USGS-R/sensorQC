@@ -26,6 +26,12 @@ clean.numeric <- function(x, which = 'all', ..., replace=NULL){
 }
 
 #' @export
+clean.data.frame <- function(x, which = 'all', ..., replace=NULL){
+  x = sensor(x)
+  clean(x, which = which, ..., replace=replace)
+}
+
+#' @export
 clean.sensor <- function(x, which = 'all', ..., replace=NULL){
   
   if (which[1] == 'all'){
