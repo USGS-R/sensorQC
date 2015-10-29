@@ -25,7 +25,7 @@ This package is still very much in development, so the API may change at any tim
 
 High-frequency aquatic sensor QAQC procedures. `sensorQC` imports data, and runs various statistical outlier detection techniques as specified by the user.
 
-### `sensorQC` Functions (as of v0.3.3)
+### `sensorQC` Functions (as of v0.4.0)
 
 | Function | Title                                                  |
 |----------|:-------------------------------------------------------|
@@ -226,3 +226,44 @@ clean(data, 'x > 9999', 'persist(x) > 10', 'MAD(x) > 3', replace=NA)
     ## 6  2
     ## 7  3
     ## 8  4
+
+#### flagging data with a moving window
+
+The `MAD(x,w)` function can use a rolling window by leveraging the `RcppRoll` R package.
+
+``` r
+sensor <- read(file, format="wide_burst", date.format="%m/%d/%Y %H:%M")
+```
+
+    ## number of observations:5100
+
+``` r
+sensor = window(sensor, n=300, type='rolling')
+flag(sensor, 'x == 999999', 'persist(x) > 3', 'MAD(x,w) > 3', 'MAD(x) > 3')
+```
+
+    ## Warning in MAD.roller(x, w): MAD.roller function has not been robustly
+    ## tested w/ NAs
+
+    ## object of class "sensor"
+    ##                  times     x
+    ## 1  2013-11-01 00:00:00 48.86
+    ## 2  2013-11-01 00:00:01 49.04
+    ## 3  2013-11-01 00:00:02 49.50
+    ## 4  2013-11-01 00:00:03 48.91
+    ## 5  2013-11-01 00:00:04 48.90
+    ## 6  2013-11-01 00:00:05 48.96
+    ## 7  2013-11-01 00:00:06 48.48
+    ## 8  2013-11-01 00:00:07 48.97
+    ## 9  2013-11-01 00:00:08 48.97
+    ## 10 2013-11-01 00:00:09 48.99
+    ## 11 2013-11-01 00:00:10 48.35
+    ## 12 2013-11-01 00:00:11 48.51
+    ## 13 2013-11-01 00:00:12 49.25
+    ## 14 2013-11-01 00:00:13 48.82
+    ## 15 2013-11-01 00:00:14 49.22
+    ##   ...
+    ## x == 999999 (15 flags)
+    ## persist(x) > 3 (4 flags)
+    ## MAD(x,w) > 3 (187 flags)
+    ## MAD(x) > 3 (91 flags)

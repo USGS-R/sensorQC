@@ -14,11 +14,39 @@ MAD.values <- function(vals, b = 1.4826){
   return(MAD.normalized)
 }
 
+
+MAD.roller <- function(vals, window){
+  b = 1.4826
+  warning('MAD.roller function has not been robustly tested w/ NAs')
+  u.i <- is.finite(vals)
+  left.fill <- median(head(vals[u.i], ceiling(window/2)))
+  right.fill <- median(tail(vals[u.i], ceiling(window/2)))
+  medians <- roll_median(vals[u.i], n=window, fill=c(left.fill, 0, right.fill))
+  abs.med.diff <- abs(vals[u.i]-medians)
+  left.fill <- median(head(abs.med.diff, ceiling(window/2)))
+  right.fill <- median(tail(abs.med.diff, ceiling(window/2)))
+  abs.med <- roll_median(abs.med.diff, n=window, fill=c(left.fill, 0, right.fill))
+  MAD <- abs.med*b
+  MAD.normalized = rep(NA,length(vals))
+  MAD.normalized[u.i] <- abs.med.diff/MAD # division by zero
+  MAD.normalized[is.na(MAD.normalized)] <- 0
+  return(MAD.normalized)
+}
+
 MAD.windowed <- function(vals, windows){
+
   stopifnot(length(vals) == length(windows))
-  . <- '_dplyr_var'
-  mad <- group_by_(data.frame(x=vals,w=windows), 'w') %>% mutate_(mad='sensorQC:::MAD.values(x)') %>% .$mad
-  return(mad)
+  if (length(unique(windows)) == 1){
+    w = unique(windows)
+    x = vals
+    return(MAD.roller(x, w))
+  } else {
+    . <- '_dplyr_var'
+    mad <- group_by_(data.frame(x=vals,w=windows), 'w') %>% mutate_(mad='sensorQC:::MAD.values(x)') %>% .$mad
+    return(mad)
+  }
+    
+  
 }
 #'@title median absolute deviation outlier test
 #'@name MAD
@@ -29,6 +57,7 @@ MAD.windowed <- function(vals, windows){
 #'@return a vector of MAD normalized values relative to an undefined rejection criteria (usually 2.5 or 3).
 #'@keywords MAD
 #'@importFrom dplyr group_by_ mutate_ %>%
+#' @importFrom RcppRoll roll_median
 #'@author
 #'Jordan S. Read
 #'@export

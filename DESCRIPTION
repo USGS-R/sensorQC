@@ -1,7 +1,7 @@
 Package: sensorQC
 Type: Package
 Title: sensorQC
-Version: 0.3.4
+Version: 0.4.0
 Date: 2015-10-23
 Author: Jordan S Read, Brad Garner, Brian Pellerin, Luke Loken
 Maintainer: Jordan S Read <jread@usgs.gov>
@@ -15,9 +15,11 @@ Copyright: This software is in the public domain because it contains materials
 Imports:
     yaml,
     dplyr,
+    RcppRoll,
     lazyeval,
     readr
 Suggests:
     testthat
 LazyLoad: yes
 LazyData: yes
+RoxygenNote: 5.0.0
