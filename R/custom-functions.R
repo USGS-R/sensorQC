@@ -49,6 +49,9 @@ MAD.windowed <- function(vals, windows){
   
 }
 #'@title median absolute deviation outlier test
+#'
+#' @description Median Absolute Deviation test
+#'
 #'@name MAD
 #'@aliases MAD
 #'@aliases median.absolute.deviation

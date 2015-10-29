@@ -14,6 +14,9 @@ MAD(x, w)
 \value{
 a vector of MAD normalized values relative to an undefined rejection criteria (usually 2.5 or 3).
 }
+\description{
+Median Absolute Deviation test
+}
 \author{
 Jordan S. Read
 }
