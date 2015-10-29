@@ -96,3 +96,14 @@ clean(data, 'x > 9999', 'persist(x) > 10', 'MAD(x) > 3', replace=NA)
 ```
 
 
+#### flagging data with a moving window
+The `MAD(x,w)` function can use a rolling window by leveraging the `RcppRoll` R package. 
+
+```{r}
+sensor <- read(file, format="wide_burst", date.format="%m/%d/%Y %H:%M")
+sensor = window(sensor, n=300, type='rolling')
+flag(sensor, 'x == 999999', 'persist(x) > 3', 'MAD(x,w) > 3', 'MAD(x) > 3')
+```
+
+
+

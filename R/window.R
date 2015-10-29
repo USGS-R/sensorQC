@@ -22,11 +22,18 @@ window.sensor<- function(x, ..., type){
   
   if (type=='auto'){
     windowed.data <- auto.chunk.time(x$sensor)
+  } else if (type=='rolling') {
+    windowed.data <- rolling.window(x$sensor, ...)
   } else {
     windowed.data <- manual.chunk.time(x$sensor, type = type)
   }
   
   return(sensor(windowed.data))
+}
+
+rolling.window <- function(data.in, n){
+  data.in$w <- rep(n, nrow(data.in))
+  return(data.in)
 }
 
 #' @importFrom stats window
