@@ -2,6 +2,7 @@
 
 S3method("[",sensor)
 S3method(calc_flags,sensor)
+S3method(clean,data.frame)
 S3method(clean,numeric)
 S3method(clean,sensor)
 S3method(flag,numeric)
